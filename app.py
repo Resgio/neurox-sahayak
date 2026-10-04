@@ -9,9 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 try:
-    from knowledge_base import SCHEMES_AND_LAWS, EMERGENCY_HELPLINES
+    from knowledge_base import COOPERATIVE_PROGRAMMES, SCHEMES_AND_LAWS, EMERGENCY_HELPLINES
 except ImportError:
-    from .knowledge_base import SCHEMES_AND_LAWS, EMERGENCY_HELPLINES
+    from .knowledge_base import COOPERATIVE_PROGRAMMES, SCHEMES_AND_LAWS, EMERGENCY_HELPLINES
 
 app = FastAPI(
     title="Neuro_X Sahayak - Legal & Scheme AI Voice Assistant for Farmers",
@@ -252,6 +252,59 @@ SCHEME_ABBREVIATIONS = {
     ]
 }
 
+COOPERATION_ABBREVIATIONS = [
+    {"abbreviation": "ARDB", "en": "Agriculture and Rural Development Bank", "hi": "कृषि और ग्रामीण विकास बैंक"},
+    {"abbreviation": "BBSSL", "en": "Bharatiya Beej Sahakari Samiti Limited", "hi": "भारतीय बीज सहकारी समिति लिमिटेड"},
+    {"abbreviation": "CEF", "en": "Cooperative Education Fund", "hi": "सहकारी शिक्षा कोष"},
+    {"abbreviation": "CRCS", "en": "Central Registrar of Cooperative Societies", "hi": "केंद्रीय सहकारी समिति रजिस्ट्रार"},
+    {"abbreviation": "DCCB", "en": "District Central Cooperative Bank", "hi": "जिला केंद्रीय सहकारी बैंक"},
+    {"abbreviation": "DEH", "en": "Districts as Export Hubs", "hi": "निर्यात केंद्र के रूप में जिले"},
+    {"abbreviation": "EBP", "en": "Ethanol Blending Programme", "hi": "एथेनॉल मिश्रण कार्यक्रम"},
+    {"abbreviation": "ERP", "en": "Enterprise Resource Planning", "hi": "उद्यम संसाधन योजना"},
+    {"abbreviation": "FPO", "en": "Farmer Producer Organization", "hi": "किसान उत्पादक संगठन"},
+    {"abbreviation": "FISHCOPFED", "en": "National Federation of Fishermen’s Cooperatives Limited", "hi": "राष्ट्रीय मत्स्यजीवी सहकारी समितियाँ महासंघ लिमिटेड"},
+    {"abbreviation": "FFPO", "en": "Fish Farmer Producer Organization", "hi": "मत्स्य किसान उत्पादक संगठन"},
+    {"abbreviation": "GDP", "en": "Gross Domestic Product", "hi": "सकल घरेलू उत्पाद"},
+    {"abbreviation": "GeM", "en": "Government e-Marketplace", "hi": "सरकारी ई-मार्केटप्लेस"},
+    {"abbreviation": "GI", "en": "Geographical Indication", "hi": "भौगोलिक संकेत"},
+    {"abbreviation": "GoI", "en": "Government of India", "hi": "भारत सरकार"},
+    {"abbreviation": "HEI", "en": "Higher Education Institution", "hi": "उच्च शिक्षा संस्थान"},
+    {"abbreviation": "IFFCO", "en": "Indian Farmers Fertilizer Cooperative Limited", "hi": "इफको (इंडियन फार्मर्स फर्टिलाइज़र कोऑपरेटिव लिमिटेड)"},
+    {"abbreviation": "IoT", "en": "Internet of Things", "hi": "इंटरनेट ऑफ थिंग्स"},
+    {"abbreviation": "IPR", "en": "Intellectual Property Rights", "hi": "बौद्धिक संपदा अधिकार"},
+    {"abbreviation": "KPI", "en": "Key Performance Indicators", "hi": "प्रमुख प्रदर्शन संकेतक"},
+    {"abbreviation": "KRIBHCO", "en": "Krishak Bharati Cooperative Limited", "hi": "कृभको (कृषक भारती कोऑपरेटिव लिमिटेड)"},
+    {"abbreviation": "MoC", "en": "Ministry of Cooperation", "hi": "सहकारिता मंत्रालय"},
+    {"abbreviation": "MSCS", "en": "Multi-State Cooperative Societies", "hi": "बहुराज्य सहकारी समितियाँ"},
+    {"abbreviation": "NABARD", "en": "National Bank for Agriculture and Rural Development", "hi": "राष्ट्रीय कृषि और ग्रामीण विकास बैंक"},
+    {"abbreviation": "NAFCUB", "en": "National Federation of Urban Cooperative Banks and Credit Societies Limited", "hi": "राष्ट्रीय शहरी सहकारी बैंक और ऋण समितियाँ महासंघ लिमिटेड"},
+    {"abbreviation": "NAFED", "en": "National Agricultural Cooperative Marketing Federation of India Limited", "hi": "भारतीय राष्ट्रीय कृषि सहकारी विपणन संघ लिमिटेड"},
+    {"abbreviation": "NAFSCOB", "en": "National Federation of State Cooperative Banks Limited", "hi": "राष्ट्रीय राज्य सहकारी बैंक महासंघ लिमिटेड"},
+    {"abbreviation": "NCCT", "en": "National Council for Cooperative Training", "hi": "राष्ट्रीय सहकारी प्रशिक्षण परिषद"},
+    {"abbreviation": "NCD", "en": "National Cooperative Database", "hi": "राष्ट्रीय सहकारी डेटाबेस"},
+    {"abbreviation": "NCDC", "en": "National Cooperative Development Corporation", "hi": "राष्ट्रीय सहकारी विकास निगम"},
+    {"abbreviation": "NCDFI", "en": "National Cooperative Dairy Federation of India", "hi": "भारतीय राष्ट्रीय सहकारी डेयरी महासंघ"},
+    {"abbreviation": "NCEL", "en": "National Cooperative Exports Limited", "hi": "राष्ट्रीय सहकारी निर्यात लिमिटेड"},
+    {"abbreviation": "NCOL", "en": "National Cooperative Organics Limited", "hi": "राष्ट्रीय सहकारी ऑर्गेनिक्स लिमिटेड"},
+    {"abbreviation": "NCP", "en": "National Cooperation Policy", "hi": "राष्ट्रीय सहकारिता नीति"},
+    {"abbreviation": "NCUI", "en": "National Cooperative Union of India", "hi": "भारतीय राष्ट्रीय सहकारी संघ"},
+    {"abbreviation": "NDDB", "en": "National Dairy Development Board", "hi": "राष्ट्रीय डेयरी विकास बोर्ड"},
+    {"abbreviation": "NFDB", "en": "National Fisheries Development Board", "hi": "राष्ट्रीय मत्स्य विकास बोर्ड"},
+    {"abbreviation": "NUCFDC", "en": "National Urban Cooperative Finance & Development Corporation", "hi": "राष्ट्रीय शहरी सहकारी वित्त एवं विकास निगम"},
+    {"abbreviation": "ODOP", "en": "One District One Product", "hi": "एक जिला एक उत्पाद"},
+    {"abbreviation": "ONDC", "en": "Open Network for Digital Commerce", "hi": "डिजिटल वाणिज्य के लिए खुला नेटवर्क"},
+    {"abbreviation": "PACS", "en": "Primary Agricultural Credit Societies", "hi": "प्राथमिक कृषि ऋण समितियाँ"},
+    {"abbreviation": "PMU", "en": "Project Management Unit", "hi": "परियोजना प्रबंधन इकाई"},
+    {"abbreviation": "RBI", "en": "Reserve Bank of India", "hi": "भारतीय रिज़र्व बैंक"},
+    {"abbreviation": "RCS", "en": "Registrar of Cooperative Societies", "hi": "सहकारी समितियों के रजिस्ट्रार"},
+    {"abbreviation": "SC/ST", "en": "Scheduled Castes and Scheduled Tribes", "hi": "अनुसूचित जातियाँ और अनुसूचित जनजातियाँ"},
+    {"abbreviation": "SEI", "en": "Social Enterprise Incubators", "hi": "सामाजिक उद्यम इनक्यूबेटर"},
+    {"abbreviation": "SRO", "en": "Self-Regulatory Organization", "hi": "स्व-नियामक संगठन"},
+    {"abbreviation": "StCB", "en": "State Cooperative Bank", "hi": "राज्य सहकारी बैंक"},
+    {"abbreviation": "UCB", "en": "Urban Cooperative Bank", "hi": "शहरी सहकारी बैंक"},
+    {"abbreviation": "VAMNICOM", "en": "Vaikunth Mehta National Institute of Cooperative Management", "hi": "वैकुंठ मेहता राष्ट्रीय सहकारी प्रबंधन संस्थान"},
+]
+
 
 def _normalize_query(text: str) -> str:
     """Normalize punctuation and spacing while preserving Devanagari characters."""
@@ -263,16 +316,140 @@ def _contains_phrase(text: str, phrase: str) -> bool:
     return f" {_normalize_query(phrase)} " in f" {text} "
 
 
+def _is_greeting_query(norm_query: str) -> bool:
+    """Recognize short greetings, optionally addressed to the assistant."""
+    greetings = (
+        "hello", "hi", "hey", "good morning", "good afternoon", "good evening",
+        "namaste", "namaskar", "नमस्ते", "नमस्कार", "सुप्रभात", "शुभ संध्या",
+    )
+    assistant_names = (
+        "sahayak", "neuro x", "neuro_x", "neuro x sahayak", "neuro_x sahayak", "सहायक",
+    )
+    greeting_queries = set()
+    for greeting in greetings:
+        greeting_queries.add(_normalize_query(greeting))
+        greeting_queries.add(_normalize_query(f"{greeting} there"))
+        for assistant in assistant_names:
+            greeting_queries.add(_normalize_query(f"{greeting} {assistant}"))
+            greeting_queries.add(_normalize_query(f"{assistant} {greeting}"))
+    return norm_query in greeting_queries
+
+
+def _find_cooperation_abbreviation(query: str) -> Optional[Dict[str, str]]:
+    norm_query = _normalize_query(query)
+    lookup_intents = (
+        "what is", "what does", "meaning of", "stands for", "full form",
+        "define", "abbreviation", "tell me about", "know about", "information about",
+        "details about", "explain", "किसका पूरा नाम", "का अर्थ", "का मतलब",
+        "का पूर्ण रूप", "पूरा नाम", "के बारे में", "जानकारी", "बताइए",
+    )
+    has_lookup_intent = any(_contains_phrase(norm_query, intent) for intent in lookup_intents)
+    for entry in COOPERATION_ABBREVIATIONS:
+        abbreviation = _normalize_query(entry["abbreviation"])
+        definition = _normalize_query(entry["en"])
+        if _contains_phrase(norm_query, abbreviation) and (
+            has_lookup_intent or norm_query == abbreviation
+        ):
+            return entry
+        if definition and _contains_phrase(norm_query, definition) and has_lookup_intent:
+            return entry
+    return None
+
+
+def _find_cooperative_programme(query: str, lang_key: str) -> Optional[Dict[str, Any]]:
+    content_language = "hi" if lang_key == "hi" else "en"
+    norm_query = _normalize_query(query)
+    matches = []
+    for programme in COOPERATIVE_PROGRAMMES:
+        score = sum(
+            len(_normalize_query(keyword).split())
+            for keyword in programme["keywords"]
+            if _contains_phrase(norm_query, keyword)
+        )
+        if score:
+            matches.append((score, programme))
+    if not matches:
+        return None
+
+    _, programme = max(matches, key=lambda match: match[0])
+    localized_abbreviations = [
+        {
+            "abbreviation": entry["abbreviation"],
+            "definition": entry[content_language],
+        }
+        for entry in programme["abbreviations"]
+    ]
+    return {
+        "found": True,
+        "spoken_response": programme["summary"][content_language],
+        "scheme": {
+            "id": programme["id"],
+            "title": programme["title"],
+            "category": programme["category"],
+            "summary": programme["summary"][content_language],
+            "eligibility": programme["eligibility"][content_language],
+            "documents": programme["documents"][content_language],
+            "application_process": programme["application_process"][content_language],
+            "official_portal": programme["official_portal"],
+            "abbreviations": localized_abbreviations,
+        },
+        "abbreviations": localized_abbreviations,
+    }
+
+
+def _is_cooperative_query(query: str) -> bool:
+    norm_query = _normalize_query(query)
+    return any(
+        _contains_phrase(norm_query, term)
+        for term in ("cooperative", "co-operative", "sahakar", "सहकारी", "सहकारिता", "सहकार")
+    )
+
+
+def _cooperative_overview(lang_key: str) -> Dict[str, Any]:
+    if lang_key == "hi":
+        details = {
+            "summary": "भारत में सहकारिता से जुड़े प्रमुख कार्यक्रमों में पैक्स कंप्यूटरीकरण, पैक्स के माध्यम से अनाज भंडारण, नई पैक्स/डेयरी/मत्स्य समितियों का गठन, सहकारी ऋण, NCDC परियोजना-वित्त और बहुराज्य सहकारी समिति पंजीकरण शामिल हैं। पात्रता और सहायता राज्य, संस्था तथा मौजूदा दिशानिर्देशों के अनुसार बदलती है।",
+            "eligibility": "कार्यक्रम के अनुसार पात्रता सहकारी समिति, PACS, डेयरी/मत्स्य समूह, सहकारी परियोजना या विद्यार्थी हो सकते हैं। कई कार्यक्रमों में किसान को सीधे आवेदन नहीं करना होता।",
+            "documents": "दस्तावेज़ चुने हुए कार्यक्रम पर निर्भर हैं। समिति-आधारित योजनाओं के लिए पंजीकरण, उपविधियाँ, लेखापरीक्षित खाते और परियोजना रिपोर्ट माँगी जा सकती है।",
+            "application_process": "अपने उद्देश्य के अनुसार पैक्स कंप्यूटरीकरण, अनाज भंडारण, सहकारी ऋण, NCDC वित्त या समिति पंजीकरण के बारे में पूछें। वर्तमान पात्रता और आवेदन की स्थिति राज्य सहकारिता विभाग, जिला सहकारी बैंक, केंद्रीय रजिस्ट्रार या NCDC से सत्यापित करें।",
+            "title": "सहकारी योजनाएँ और कार्यक्रम",
+            "spoken": "मैं सहकारी क्षेत्र के कार्यक्रमों की जानकारी दे सकती हूँ। इनमें पैक्स कंप्यूटरीकरण, अनाज भंडारण, नई सहकारी समितियाँ, सहकारी बैंक ऋण, NCDC वित्त और बहुराज्य सहकारी समिति पंजीकरण शामिल हैं। अपनी रुचि का कार्यक्रम बताइए। योजनाओं की पात्रता और उपलब्धता राज्य तथा मौजूदा नियमों के अनुसार बदलती है।",
+        }
+    else:
+        details = {
+            "summary": "Key cooperative-sector programmes include PACS computerization, cooperative grain storage, formation of new PACS/dairy/fisheries societies, cooperative credit, NCDC project finance, and multi-state cooperative registration. Eligibility and assistance vary by state, institution, and current guidelines.",
+            "eligibility": "Depending on the programme, eligible participants may include cooperatives, PACS, dairy or fisheries groups, cooperative project applicants, or students. Many programmes are not direct individual farmer benefits.",
+            "documents": "Requirements depend on the programme. Society-based support may require registration, bye-laws, audited accounts, and a project report.",
+            "application_process": "Ask about a specific programme such as PACS computerization, grain storage, cooperative credit, NCDC finance, or society registration. Verify current eligibility and application status with the state cooperative department, district cooperative bank, Central Registrar, or NCDC.",
+            "title": "Cooperative schemes and programmes",
+            "spoken": "I can help with cooperative-sector programmes, including PACS computerization, grain storage, new cooperative societies, cooperative bank credit, NCDC finance, and multi-state cooperative registration. Tell me which programme you want to know about. Eligibility and availability vary by state and current rules.",
+        }
+    return {
+        "found": True,
+        "spoken_response": details["spoken"],
+        "scheme": {
+            "id": "cooperative_programme_overview",
+            "title": details["title"],
+            "category": "cooperative",
+            "summary": details["summary"],
+            "eligibility": details["eligibility"],
+            "documents": details["documents"],
+            "application_process": details["application_process"],
+            "official_portal": "https://cooperation.gov.in/",
+            "abbreviations": [],
+        },
+        "abbreviations": [],
+    }
+
+
 def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, Any]:
     norm_query = _normalize_query(query_text)
-
-    greeting_queries = {
-        "hi", "hello", "hey", "hello sahayak", "hi sahayak", "hey sahayak",
-        "namaste", "namaste sahayak", "नमस्ते", "नमस्ते सहायक", "नमस्कार",
-        "नमस्कार सहायक"
-    }
-    lang_key = lang_code.split("-")[0]
-    if norm_query in greeting_queries:
+    normalized_lang_code = lang_code.strip().lower()
+    lang_key = LANG_MAP.get(
+        normalized_lang_code,
+        LANG_MAP.get(normalized_lang_code.split("-")[0], "en"),
+    )
+    if _is_greeting_query(norm_query):
         greeting_messages = {
             "hi": "नमस्कार! मैं Neuro_X Sahayak हूँ। कृपया बताइए, मैं आपकी किस प्रकार सहायता कर सकती हूँ? सरकारी योजना, फसल बीमा, किसान ऋण या भूमि संबंधी समस्या के बारे में अपना सवाल पूछें।",
             "en": "Namaste! I’m Neuro_X Sahayak. How may I help you today? Please ask about a government scheme, crop insurance, a farmer loan, or a land-related issue."
@@ -282,6 +459,30 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
             "spoken_response": greeting_messages.get(lang_key, greeting_messages["en"]),
             "scheme": None
         }
+
+    cooperative_result = _find_cooperative_programme(query_text, lang_key)
+    if cooperative_result:
+        return cooperative_result
+
+    abbreviation = _find_cooperation_abbreviation(query_text)
+    if abbreviation:
+        definition = abbreviation["hi" if lang_key == "hi" else "en"]
+        if lang_key == "hi":
+            spoken_response = f"{abbreviation['abbreviation']} का अर्थ है: {definition}।"
+        else:
+            spoken_response = f"{abbreviation['abbreviation']} stands for {definition}."
+        return {
+            "found": True,
+            "spoken_response": spoken_response,
+            "scheme": None,
+            "abbreviations": [{
+                "abbreviation": abbreviation["abbreviation"],
+                "definition": definition,
+            }],
+        }
+
+    if _is_cooperative_query(query_text):
+        return _cooperative_overview(lang_key)
 
     # Check exact or keyword match
     scored_items = []
@@ -326,7 +527,8 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
                     }
                     for entry in SCHEME_ABBREVIATIONS.get(best_match["id"], [])
                 ]
-            }
+            },
+            "abbreviations": []
         }
     
     # Ask politely for clarification rather than guessing or redirecting.
@@ -342,7 +544,8 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
     return {
         "found": False,
         "spoken_response": fallback_messages.get(lang_key, fallback_messages["en"]),
-        "scheme": None
+        "scheme": None,
+        "abbreviations": []
     }
 
 @app.get("/health")
@@ -357,7 +560,12 @@ async def chat_endpoint(req: QueryRequest):
 
 @app.get("/api/schemes")
 async def get_all_schemes():
-    return JSONResponse({"schemes": SCHEMES_AND_LAWS, "helplines": EMERGENCY_HELPLINES})
+    return JSONResponse({
+        "schemes": SCHEMES_AND_LAWS,
+        "helplines": EMERGENCY_HELPLINES,
+        "abbreviations": COOPERATION_ABBREVIATIONS,
+        "cooperative_programmes": COOPERATIVE_PROGRAMMES,
+    })
 
 @app.get("/", response_class=HTMLResponse)
 async def home_page():
