@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 try:
     from knowledge_base import (
         COOPERATION_ABBREVIATIONS,
+        COOPERATIVE_GLOSSARY,
         COOPERATIVE_PROGRAMMES,
         SCHEMES_AND_LAWS,
         EMERGENCY_HELPLINES,
@@ -18,6 +19,7 @@ try:
 except ImportError:
     from .knowledge_base import (
         COOPERATION_ABBREVIATIONS,
+        COOPERATIVE_GLOSSARY,
         COOPERATIVE_PROGRAMMES,
         SCHEMES_AND_LAWS,
         EMERGENCY_HELPLINES,
@@ -54,6 +56,9 @@ class QueryRequest(BaseModel):
 LANG_MAP = {
     "hi": "hi",
     "hi-IN": "hi",
+    "hindi": "hi",
+    "हिंदी": "hi",
+    "हिन्दी": "hi",
     "pa": "pa",
     "pa-IN": "pa",
     "mr": "mr",
@@ -324,7 +329,14 @@ def _has_cooperation_abbreviation_intent(query: str) -> bool:
         "what is the role", "किसका पूरा नाम", "का अर्थ", "का मतलब",
         "का पूर्ण रूप", "पूरा नाम", "के बारे में", "जानकारी", "बताइए",
         "कार्य", "भूमिका", "उद्देश्य", "क्या काम", "किस काम", "काम क्या",
-        "कार्य क्या", "की भूमिका", "के कार्य",
+        "कार्य क्या", "की भूमिका", "के कार्य", "क्या है", "क्या होता है",
+        "क्या होती है", "क्या हैं", "किसे कहते हैं", "का फुल फॉर्म",
+        "की फुल फॉर्म", "फुल फॉर्म", "फुलफॉर्म", "मतलब क्या है",
+        "क्या मतलब है", "क्या काम करता", "क्या काम करती",
+        "kya hai", "kya hota hai", "kya hoti hai", "kya hote hain",
+        "ka full form", "ki full form", "full form kya hai", "ka matlab",
+        "ka kya matlab", "kya matlab hai", "iska kya kaam", "kaam kya hai",
+        "kya kaam karta", "kya kaam karti", "kaise kaam karta",
     )
     norm_query = _normalize_query(query)
     return any(_contains_phrase(norm_query, intent) for intent in lookup_intents)
@@ -352,6 +364,68 @@ def _cooperation_abbreviation_result(
             "definition": definition,
             "details": details,
         }],
+    }
+
+
+def _has_cooperative_glossary_intent(query: str) -> bool:
+    intents = (
+        "what is", "what are", "what does", "who is", "define", "definition of", "meaning of",
+        "explain", "tell me about", "how does", "क्या है", "क्या होता है",
+        "क्या होती है", "क्या हैं", "किसे कहते हैं", "का अर्थ", "का मतलब", "समझाइए",
+        "समझाएं", "के बारे में बताइए", "कौन होता है", "कौन है",
+        "kya hai", "kya hota hai", "kya hoti hai", "kya hote hain",
+        "kya hain", "kise kehte hain", "ka matlab", "ke bare mein",
+    )
+    return any(_contains_phrase(query, intent) for intent in intents)
+
+
+def _find_cooperative_glossary(
+    query: str, lang_key: str
+) -> Optional[Dict[str, Any]]:
+    norm_query = _normalize_query(query)
+    has_definition_intent = _has_cooperative_glossary_intent(norm_query)
+    matches = []
+    is_programme_overview = any(
+        _contains_phrase(norm_query, term)
+        for term in ("scheme", "schemes", "programme", "programmes", "program", "programs", "योजना", "योजनाएँ", "योजनाओं", "कार्यक्रम")
+    )
+    for entry in COOPERATIVE_GLOSSARY:
+        for term in entry["terms"]:
+            normalized_term = _normalize_query(term)
+            if not _contains_phrase(norm_query, normalized_term):
+                continue
+            if is_programme_overview and normalized_term == "cooperative":
+                continue
+            if not has_definition_intent and norm_query != normalized_term:
+                continue
+            exact_term_query = any(
+                norm_query == _normalize_query(candidate)
+                for candidate in entry["terms"]
+            )
+            specific_programme_match = not exact_term_query and any(
+                len(_normalize_query(keyword).split()) > 1
+                and _contains_phrase(norm_query, keyword)
+                for programme in COOPERATIVE_PROGRAMMES
+                for keyword in programme["keywords"]
+            )
+            if specific_programme_match:
+                continue
+            matches.append((len(normalized_term), entry))
+    if not matches:
+        return None
+
+    _, entry = max(matches, key=lambda match: match[0])
+    language = "hi" if lang_key == "hi" else "en"
+    return {
+        "found": True,
+        "spoken_response": entry["summary"][language],
+        "scheme": None,
+        "abbreviations": [],
+        "glossary": {
+            "id": entry["id"],
+            "title": entry["title"][language],
+            "source": entry["source"],
+        },
     }
 
 
@@ -458,6 +532,10 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
             "spoken_response": greeting_messages.get(lang_key, greeting_messages["en"]),
             "scheme": None
         }
+
+    glossary_entry = _find_cooperative_glossary(query_text, lang_key)
+    if glossary_entry:
+        return glossary_entry
 
     if _has_cooperation_abbreviation_intent(norm_query):
         abbreviation = _find_cooperation_abbreviation(query_text)
@@ -576,6 +654,7 @@ async def get_all_schemes():
         "schemes": SCHEMES_AND_LAWS,
         "helplines": EMERGENCY_HELPLINES,
         "abbreviations": COOPERATION_ABBREVIATIONS,
+        "cooperative_glossary": COOPERATIVE_GLOSSARY,
         "cooperative_programmes": COOPERATIVE_PROGRAMMES,
     })
 

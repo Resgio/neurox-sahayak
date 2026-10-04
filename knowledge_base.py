@@ -114,6 +114,189 @@ for _abbreviation in COOPERATION_ABBREVIATIONS:
         COOPERATION_ABBREVIATION_DETAILS[_abbreviation["abbreviation"]]
     )
 
+COOPERATIVE_GLOSSARY = [
+    {
+        "id": "cooperative_society",
+        "terms": ["cooperative society", "cooperative societies", "co-operative society", "co-operative societies", "co-op society", "a cooperative", "cooperative enterprise", "sahkari samiti", "sahakari samiti", "sahkari society", "सहकारी समिति", "सहकारी समितियाँ", "सहकारी समितियां", "सहकारी संस्था", "सहकारिता समिति"],
+        "title": {"en": "What is a cooperative society?", "hi": "सहकारी समिति क्या है?"},
+        "summary": {
+            "en": "A cooperative is a people-owned enterprise formed voluntarily to meet shared economic, social, or cultural needs. Members jointly own it and participate in democratic control, rather than ownership and voting being based only on how much outside capital someone invests. A society must follow the cooperative law under which it is registered, along with its registered bye-laws; exact rights, duties, and procedures vary by jurisdiction.",
+            "hi": "सहकारी समिति लोगों द्वारा स्वेच्छा से बनाई गई सदस्य-स्वामित्व वाली संस्था है, जिसका उद्देश्य सदस्यों की साझा आर्थिक, सामाजिक या सांस्कृतिक जरूरतें पूरी करना है। सदस्य मिलकर इसके स्वामित्व और लोकतांत्रिक नियंत्रण में भाग लेते हैं; नियंत्रण केवल बाहरी निवेश की मात्रा पर आधारित नहीं होता। समिति को अपने पंजीकरण पर लागू सहकारी कानून और पंजीकृत उपविधियों का पालन करना होता है; अधिकार और प्रक्रिया राज्य या क्षेत्र के अनुसार बदल सकते हैं।",
+        },
+        "source": "https://ica.coop/en/cooperatives/what-is-a-cooperative",
+    },
+    {
+        "id": "cooperative_member",
+        "terms": ["cooperative member", "member of a cooperative", "who is a member", "सहकारी समिति का सदस्य", "समिति का सदस्य", "सहकारी सदस्य"],
+        "title": {"en": "Who is a cooperative member?", "hi": "सहकारी समिति का सदस्य कौन होता है?"},
+        "summary": {
+            "en": "A member is a person or eligible organization admitted to the cooperative under its law and bye-laws. Members may have voting rights, access to services, and responsibilities such as paying dues and participating in meetings. The specific eligibility, voting arrangements, and member obligations depend on the society’s registered rules and applicable law.",
+            "hi": "सदस्य वह व्यक्ति या पात्र संस्था है जिसे समिति के लागू कानून और उपविधियों के अनुसार सदस्यता दी गई हो। सदस्यों को मतदान और सेवाओं का अधिकार मिल सकता है तथा देय राशि चुकाने और बैठकों में भाग लेने जैसी जिम्मेदारियाँ भी होती हैं। पात्रता, मतदान और दायित्व समिति के पंजीकृत नियमों तथा लागू कानून पर निर्भर करते हैं।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "cooperative_principles",
+        "terms": ["cooperative principles", "principles of cooperation", "seven cooperative principles", "sahkarita ke siddhant", "sahakari siddhant", "सहकारिता के सिद्धांत", "सहकारी सिद्धांत", "सहकारिता के सात सिद्धांत"],
+        "title": {"en": "Cooperative principles", "hi": "सहकारिता के सिद्धांत"},
+        "summary": {
+            "en": "The International Cooperative Alliance describes seven guiding principles: voluntary and open membership; democratic member control; member economic participation; autonomy and independence; education, training, and information; cooperation among cooperatives; and concern for community. They are practical values for how cooperatives are organized and run, not a replacement for the law governing a particular society.",
+            "hi": "अंतरराष्ट्रीय सहकारी गठबंधन सहकारिता के सात मार्गदर्शक सिद्धांत बताता है: स्वैच्छिक और खुली सदस्यता; सदस्य लोकतांत्रिक नियंत्रण; सदस्यों की आर्थिक भागीदारी; स्वायत्तता और स्वतंत्रता; शिक्षा, प्रशिक्षण और जानकारी; सहकारी संस्थाओं के बीच सहयोग; और समुदाय के प्रति सरोकार। ये संस्था चलाने के मार्गदर्शक सिद्धांत हैं, किसी समिति पर लागू कानून का विकल्प नहीं।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "open_membership",
+        "terms": ["open membership", "voluntary membership", "voluntary and open membership", "खुली सदस्यता", "स्वैच्छिक सदस्यता"],
+        "title": {"en": "Voluntary and open membership", "hi": "स्वैच्छिक और खुली सदस्यता"},
+        "summary": {
+            "en": "People who can use a cooperative’s services and are willing to accept its membership responsibilities should be able to apply without unfair discrimination. Membership is voluntary, and admission still follows the society’s lawful eligibility rules and bye-laws.",
+            "hi": "जो लोग समिति की सेवाओं का उपयोग कर सकते हैं और सदस्यता की जिम्मेदारियाँ निभाने को तैयार हैं, उन्हें अनुचित भेदभाव के बिना आवेदन का अवसर मिलना चाहिए। सदस्यता स्वैच्छिक होती है, लेकिन प्रवेश समिति की वैध पात्रता और उपविधियों के अनुसार होता है।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "democratic_member_control",
+        "terms": ["democratic member control", "one member one vote", "member voting", "सदस्य लोकतांत्रिक नियंत्रण", "एक सदस्य एक वोट", "सदस्यों का मतदान"],
+        "title": {"en": "Democratic member control", "hi": "सदस्य लोकतांत्रिक नियंत्रण"},
+        "summary": {
+            "en": "Members participate in setting cooperative policy and making important decisions, usually through member meetings and elected representatives. The cooperative principle describes democratic member control; actual voting rights, meeting procedures, and any exceptions are governed by the applicable law and registered bye-laws.",
+            "hi": "सदस्य समिति की नीतियाँ तय करने और महत्वपूर्ण निर्णयों में भाग लेते हैं, आमतौर पर सदस्य बैठकों और चुने हुए प्रतिनिधियों के माध्यम से। सहकारी सिद्धांत सदस्य लोकतांत्रिक नियंत्रण पर जोर देता है; वास्तविक मतदान अधिकार, बैठक प्रक्रिया और अपवाद लागू कानून तथा पंजीकृत उपविधियों से तय होते हैं।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "member_economic_participation",
+        "terms": ["member economic participation", "member contribution", "सदस्यों की आर्थिक भागीदारी", "सदस्य आर्थिक भागीदारी", "सदस्य अंशदान"],
+        "title": {"en": "Member economic participation", "hi": "सदस्यों की आर्थिक भागीदारी"},
+        "summary": {
+            "en": "Members contribute to and democratically control the cooperative’s capital. Any surplus is handled according to the cooperative’s purpose, member decisions, registered rules, and applicable law; it may support reserves, services, or other member-approved uses. This principle does not promise a fixed dividend or guaranteed return.",
+            "hi": "सदस्य समिति की पूँजी में योगदान करते हैं और उस पर लोकतांत्रिक नियंत्रण रखते हैं। अधिशेष का उपयोग समिति के उद्देश्य, सदस्य निर्णयों, पंजीकृत नियमों और लागू कानून के अनुसार किया जाता है; इसे आरक्षित निधि, सेवाओं या अन्य स्वीकृत कार्यों में लगाया जा सकता है। यह सिद्धांत निश्चित लाभांश या गारंटीकृत रिटर्न का वादा नहीं करता।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "cooperative_autonomy",
+        "terms": ["autonomy and independence", "cooperative autonomy", "स्वायत्तता और स्वतंत्रता", "सहकारी स्वायत्तता"],
+        "title": {"en": "Autonomy and independence", "hi": "स्वायत्तता और स्वतंत्रता"},
+        "summary": {
+            "en": "A cooperative is a member-controlled organization. If it enters agreements with government or other organizations or raises outside capital, the arrangements should preserve democratic member control and the cooperative’s autonomy, consistent with applicable law.",
+            "hi": "सहकारी संस्था सदस्य-नियंत्रित संगठन होती है। सरकार या अन्य संस्थाओं के साथ समझौते करने या बाहरी पूँजी लेने पर भी, लागू कानून के अनुरूप, सदस्यों का लोकतांत्रिक नियंत्रण और संस्था की स्वायत्तता बनी रहनी चाहिए।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "cooperative_education",
+        "terms": ["cooperative education training and information", "cooperative education", "सहकारी शिक्षा", "सहकारिता प्रशिक्षण", "सहकारी प्रशिक्षण"],
+        "title": {"en": "Education, training, and information", "hi": "शिक्षा, प्रशिक्षण और जानकारी"},
+        "summary": {
+            "en": "Cooperatives provide education and training for members, elected representatives, managers, and employees so they can contribute effectively. They also share clear information about the cooperative and its services with members and the public, especially young people and opinion leaders.",
+            "hi": "सहकारी संस्थाएँ सदस्यों, चुने हुए प्रतिनिधियों, प्रबंधकों और कर्मचारियों को शिक्षा तथा प्रशिक्षण देती हैं, ताकि वे प्रभावी योगदान कर सकें। वे सदस्यों और जनता को संस्था तथा उसकी सेवाओं के बारे में स्पष्ट जानकारी भी देती हैं, विशेषकर युवाओं और जनमत को प्रभावित करने वाले लोगों को।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "cooperation_among_cooperatives",
+        "terms": ["cooperation among cooperatives", "cooperative to cooperative collaboration", "सहकारी संस्थाओं के बीच सहयोग", "सहकारिताओं के बीच सहयोग"],
+        "title": {"en": "Cooperation among cooperatives", "hi": "सहकारी संस्थाओं के बीच सहयोग"},
+        "summary": {
+            "en": "Cooperatives strengthen services for their members and the cooperative movement by working together through local, national, regional, and international structures. Collaboration can help share services, expertise, and market access while each society remains subject to its own rules.",
+            "hi": "सहकारी संस्थाएँ स्थानीय, राष्ट्रीय, क्षेत्रीय और अंतरराष्ट्रीय स्तर पर मिलकर काम करके सदस्यों की सेवाओं और सहकारी आंदोलन को मजबूत कर सकती हैं। ऐसा सहयोग सेवाएँ, विशेषज्ञता और बाजार तक पहुँच साझा करने में मदद करता है, जबकि हर समिति अपने लागू नियमों के अधीन रहती है।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "concern_for_community",
+        "terms": ["concern for community", "cooperative community development", "समुदाय के प्रति सरोकार", "समुदाय का विकास", "सामुदायिक विकास"],
+        "title": {"en": "Concern for community", "hi": "समुदाय के प्रति सरोकार"},
+        "summary": {
+            "en": "Cooperatives work for the sustainable development of their communities through policies approved by their members. This can include locally relevant economic, social, or environmental activity; the principle does not mean every cooperative provides the same benefits.",
+            "hi": "सहकारी संस्थाएँ अपने सदस्यों द्वारा स्वीकृत नीतियों के माध्यम से समुदाय के सतत विकास के लिए काम करती हैं। इसमें स्थानीय जरूरतों के अनुरूप आर्थिक, सामाजिक या पर्यावरणीय गतिविधियाँ शामिल हो सकती हैं; हर समिति से समान लाभ मिलने का अर्थ नहीं है।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "cooperative_bye_laws",
+        "terms": ["cooperative bye-laws", "cooperative bylaws", "society bye-laws", "सहकारी समिति की उपविधियाँ", "समिति के उपनियम", "सहकारी उपविधि"],
+        "title": {"en": "Cooperative bye-laws", "hi": "सहकारी समिति की उपविधियाँ"},
+        "summary": {
+            "en": "Bye-laws are the registered internal rules that explain how a particular cooperative is organized and governed. They commonly cover membership, meetings, voting, management, capital, and member services. Bye-laws must be read with the applicable cooperative Act and rules; they cannot override the law.",
+            "hi": "उपविधियाँ समिति के पंजीकृत आंतरिक नियम हैं, जो बताते हैं कि कोई सहकारी संस्था कैसे संगठित और संचालित होगी। इनमें आमतौर पर सदस्यता, बैठकें, मतदान, प्रबंधन, पूँजी और सदस्य सेवाएँ शामिल होती हैं। उपविधियों को लागू सहकारी अधिनियम और नियमों के साथ पढ़ना चाहिए; वे कानून से ऊपर नहीं होतीं।",
+        },
+        "source": "https://cooperation.gov.in/",
+    },
+    {
+        "id": "cooperative_general_body",
+        "terms": ["cooperative general body", "general meeting of members", "members general body", "सहकारी समिति की आम सभा", "सामान्य सभा", "सदस्यों की आम बैठक"],
+        "title": {"en": "Cooperative general body", "hi": "सहकारी समिति की आम सभा"},
+        "summary": {
+            "en": "The general body is the meeting or assembly of a cooperative’s members and is a key forum for member participation and decisions. Notice, quorum, voting, annual meetings, and which matters it may decide are set by the applicable Act, rules, and bye-laws.",
+            "hi": "आम सभा सहकारी समिति के सदस्यों की बैठक या सभा होती है और सदस्य भागीदारी तथा निर्णयों का प्रमुख मंच है। सूचना, गणपूर्ति, मतदान, वार्षिक बैठक और सभा किन विषयों पर निर्णय ले सकती है—ये लागू अधिनियम, नियम और उपविधियाँ तय करते हैं।",
+        },
+        "source": "https://cooperation.gov.in/",
+    },
+    {
+        "id": "cooperative_board",
+        "terms": ["cooperative board", "board of directors cooperative", "managing committee cooperative", "सहकारी समिति का बोर्ड", "प्रबंध समिति", "संचालक मंडल"],
+        "title": {"en": "Cooperative board or managing committee", "hi": "सहकारी समिति का बोर्ड या प्रबंध समिति"},
+        "summary": {
+            "en": "A cooperative’s board or managing committee oversees its affairs between general-body meetings and acts within the authority given by law and the society’s bye-laws. Its composition, election, term, responsibilities, and reporting duties vary by cooperative type and jurisdiction.",
+            "hi": "सहकारी समिति का बोर्ड या प्रबंध समिति आम सभा की बैठकों के बीच संस्था के कामकाज की देखरेख करती है और कानून तथा उपविधियों से मिले अधिकारों के भीतर काम करती है। इसकी संरचना, चुनाव, कार्यकाल, जिम्मेदारियाँ और रिपोर्टिंग सहकारी संस्था के प्रकार तथा क्षेत्राधिकार के अनुसार बदलती हैं।",
+        },
+        "source": "https://cooperation.gov.in/",
+    },
+    {
+        "id": "cooperative_share_capital",
+        "terms": ["cooperative share capital", "shares in a cooperative", "सहकारी समिति की शेयर पूँजी", "सहकारी शेयर", "समिति की अंश पूँजी"],
+        "title": {"en": "Cooperative share capital", "hi": "सहकारी समिति की शेयर पूँजी"},
+        "summary": {
+            "en": "Share capital is money contributed by members for the cooperative’s capital in the form described by its rules. A share represents the rights and obligations specified by the cooperative’s law and bye-laws; it should not be assumed to be a bank deposit or to provide a guaranteed return. Transfer and repayment rules vary.",
+            "hi": "शेयर पूँजी वह राशि है जो सदस्य समिति की पूँजी में उसके नियमों के अनुसार योगदान करते हैं। शेयर से जुड़े अधिकार और दायित्व लागू कानून तथा उपविधियों से तय होते हैं; इसे बैंक जमा या गारंटीकृत लाभ नहीं मानना चाहिए। हस्तांतरण और वापसी के नियम अलग-अलग हो सकते हैं।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "cooperative_surplus",
+        "terms": ["cooperative surplus", "surplus in a cooperative", "cooperative profit distribution", "सहकारी समिति का अधिशेष", "सहकारी अधिशेष", "समिति का लाभ वितरण"],
+        "title": {"en": "Surplus in a cooperative", "hi": "सहकारी समिति का अधिशेष"},
+        "summary": {
+            "en": "A surplus is what remains after a cooperative meets its expenses and obligations for a period. Its use is determined through member-approved decisions, the cooperative’s purpose, bye-laws, and applicable law; it may be retained in reserves or used for services and other permitted purposes. A surplus does not guarantee a dividend to each member.",
+            "hi": "किसी अवधि के खर्च और देनदारियाँ पूरी करने के बाद समिति के पास बची राशि अधिशेष कहलाती है। इसका उपयोग सदस्य-स्वीकृत निर्णयों, समिति के उद्देश्य, उपविधियों और लागू कानून के अनुसार होता है; इसे आरक्षित निधि, सेवाओं या अन्य अनुमत कार्यों में लगाया जा सकता है। अधिशेष होने से हर सदस्य को लाभांश मिलने की गारंटी नहीं होती।",
+        },
+        "source": "https://ica.coop/en/cooperatives/cooperative-identity",
+    },
+    {
+        "id": "cooperative_audit",
+        "terms": ["cooperative audit", "audit of a cooperative society", "सहकारी समिति का ऑडिट", "सहकारी लेखा परीक्षा", "समिति की लेखापरीक्षा"],
+        "title": {"en": "Cooperative audit", "hi": "सहकारी समिति की लेखापरीक्षा"},
+        "summary": {
+            "en": "An audit examines a cooperative’s financial records and, where required, other aspects of its operations under the applicable audit standards and law. It supports accountability but is not a guarantee that every error or misuse will be detected. Auditor appointment, frequency, scope, and filing requirements depend on the society’s jurisdiction and type.",
+            "hi": "लेखापरीक्षा में सहकारी समिति के वित्तीय अभिलेखों और जहाँ आवश्यक हो वहाँ कामकाज के अन्य पहलुओं की लागू मानकों तथा कानून के अनुसार जाँच की जाती है। इससे जवाबदेही में मदद मिलती है, लेकिन यह हर गलती या दुरुपयोग पकड़े जाने की गारंटी नहीं है। लेखापरीक्षक की नियुक्ति, अवधि, दायरा और दाखिल करने की आवश्यकताएँ समिति के प्रकार तथा क्षेत्राधिकार पर निर्भर करती हैं।",
+        },
+        "source": "https://cooperation.gov.in/",
+    },
+    {
+        "id": "cooperative_registrar",
+        "terms": ["registrar of cooperative societies", "cooperative registrar", "registrar of societies", "सहकारी समितियों का रजिस्ट्रार", "सहकारी रजिस्ट्रार", "समिति पंजीयक"],
+        "title": {"en": "Registrar of Cooperative Societies", "hi": "सहकारी समितियों का रजिस्ट्रार"},
+        "summary": {
+            "en": "The Registrar is the statutory authority responsible for cooperative registration and specified oversight functions under the law for that jurisdiction. State-registered societies generally deal with the relevant State Registrar; multi-state societies come under the central framework and Central Registrar. The correct office and available remedies depend on where and under which law the society is registered.",
+            "hi": "रजिस्ट्रार उस क्षेत्र के कानून के तहत सहकारी समितियों के पंजीकरण और निर्धारित निगरानी कार्यों के लिए जिम्मेदार वैधानिक प्राधिकारी होता है। राज्य में पंजीकृत समितियाँ सामान्यतः संबंधित राज्य रजिस्ट्रार से संपर्क करती हैं; बहुराज्य समितियाँ केंद्रीय ढाँचे और केंद्रीय रजिस्ट्रार के अधीन आती हैं। सही कार्यालय और उपलब्ध उपाय समिति के पंजीकरण क्षेत्र तथा लागू कानून पर निर्भर करते हैं।",
+        },
+        "source": "https://cooperation.gov.in/",
+    },
+    {
+        "id": "pacs_definition",
+        "terms": ["what is a pacs", "what is pacs", "primary agricultural credit society", "primary agricultural credit societies", "pacs meaning", "पैक्स क्या है", "पैक्स का मतलब", "प्राथमिक कृषि ऋण समिति", "प्राथमिक कृषि ऋण समितियाँ"],
+        "title": {"en": "Primary Agricultural Credit Society (PACS)", "hi": "प्राथमिक कृषि ऋण समिति (पैक्स)"},
+        "summary": {
+            "en": "A PACS is a village-level cooperative credit institution and the grassroots tier of the short-term cooperative credit structure in many states. It commonly provides members with agricultural credit and may offer additional services if permitted by its registered bye-laws and state rules. Services, loan terms, and eligibility are local; ask the PACS or its linked cooperative bank for current details.",
+            "hi": "पैक्स गाँव स्तर की सहकारी ऋण संस्था है और कई राज्यों में अल्पकालीन सहकारी ऋण व्यवस्था की जमीनी इकाई होती है। यह आमतौर पर सदस्यों को कृषि ऋण देती है और पंजीकृत उपविधियों तथा राज्य नियमों की अनुमति होने पर अन्य सेवाएँ भी दे सकती है। सेवाएँ, ऋण की शर्तें और पात्रता स्थानीय होती हैं; वर्तमान जानकारी के लिए अपनी पैक्स या उससे जुड़े सहकारी बैंक से पूछें।",
+        },
+        "source": "https://cooperation.gov.in/",
+    },
+]
+
 COOPERATIVE_PROGRAMMES = [
     {
         "id": "pacs_computerization",
