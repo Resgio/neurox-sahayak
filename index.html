@@ -228,6 +228,9 @@
         <p id="heroSubPrompt" class="text-sm sm:text-base text-slate-300 mt-3 max-w-2xl">
           Choose a language, then ask about schemes, farming support, or legal rights.
         </p>
+        <p id="questionExamples" class="text-xs sm:text-sm text-brandNeon mt-3 max-w-2xl leading-relaxed">
+          Example: “How do I apply for PM-KISAN?” or “How can I claim crop insurance?”
+        </p>
 
         <!-- LARGE INTERACTIVE VOICE SPHERE & MICROPHONE BUTTON -->
         <div class="my-8 relative flex items-center justify-center">
@@ -284,18 +287,18 @@
           </div>
 
           <!-- Live User Speech Transcript Preview -->
-          <p id="liveTranscript" class="text-xs sm:text-sm text-sky-200 mt-2 italic font-mono bg-brandNavy/60 px-3 py-1 rounded-lg border border-slate-700/60 hidden max-w-full truncate"></p>
+          <p id="liveTranscript" class="text-xs sm:text-sm text-sky-200 mt-2 italic font-mono bg-brandNavy/60 px-3 py-1 rounded-lg border border-slate-700/60 hidden max-w-full whitespace-normal break-words"></p>
         </div>
 
         <!-- SPOKEN ANSWER CALLOUT CARD (Primary Voice Results displayed on the Main Screen) -->
-        <div id="voiceAnswerCard" class="hidden mt-6 w-full max-w-3xl bg-brandNavy/90 border-2 border-brandNeon/40 rounded-2xl p-5 text-left shadow-2xl transition-all">
-          <div class="flex items-center justify-between pb-3 mb-3 border-b border-brandHover">
-            <div class="flex items-center gap-3">
+        <div id="voiceAnswerCard" class="hidden mt-6 w-full max-w-4xl scroll-mt-4 bg-brandNavy/90 border-2 border-brandNeon/40 rounded-2xl p-4 sm:p-6 text-left shadow-2xl transition-all">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 mb-3 border-b border-brandHover">
+            <div class="flex items-center gap-3 min-w-0">
               <div class="w-10 h-10 rounded-xl bg-black border border-brandNeon/40 flex items-center justify-center p-1">
                 <img src="/assets/logo.png" alt="NeuroX" class="max-w-full max-h-full">
               </div>
               <div>
-                <h4 id="answerCardTitle" class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                <h4 id="answerCardTitle" class="text-base sm:text-lg font-bold text-white flex flex-wrap items-center gap-2">
                   <span id="answerSchemeName">Farmer guidance and support</span>
                   <span id="answerCategoryBadge" class="bg-brandBlue/30 text-brandNeon text-[10px] px-2 py-0.5 rounded-full border border-brandNeon/40 uppercase font-mono">Guidance</span>
                 </h4>
@@ -310,7 +313,7 @@
           </div>
 
           <!-- Spoken Text Display -->
-          <p id="answerSpokenText" class="text-sm sm:text-base text-slate-100 leading-relaxed font-medium mb-4">
+          <p id="answerSpokenText" class="text-base sm:text-lg text-slate-100 leading-relaxed font-medium mb-5">
             <!-- Populated dynamically -->
           </p>
 
@@ -511,6 +514,7 @@
           legal: "कानूनी अधिकार",
           guidanceBadge: "सलाह",
           answerMeta: "आवाज़ में उत्तर एवं सरकारी नियम विवरण",
+          questionExamples: "उदाहरण: “पीएम-किसान की किस्त कैसे मिलेगी?” या “फसल बीमा कैसे लें?”",
           replay: "दोबारा सुनें"
         }
       },
@@ -603,6 +607,7 @@
           legal: "Legal right",
           guidanceBadge: "Guidance",
           answerMeta: "Voice response and official guidance",
+          questionExamples: "Examples: “How do I apply for PM-KISAN?” or “How can I claim crop insurance?”",
           replay: "Listen again"
         }
       }
@@ -626,6 +631,7 @@
       document.getElementById('listeningStatusLabel').textContent = ui.listening;
       document.getElementById('speakingStatusLabel').textContent = ui.speaking;
       document.getElementById('answerMetaDescription').textContent = ui.answerMeta;
+      document.getElementById('questionExamples').textContent = ui.questionExamples;
       document.getElementById('replayVoiceText').textContent = ui.replay;
     }
 
@@ -880,6 +886,7 @@
         lastSpokenText = data.spoken_response;
 
         displayPrimaryVoiceResult(data);
+        document.getElementById('idleStatusText').textContent = getLanguageConfig().idleText;
 
         if (data.spoken_response) {
           speakVoicePrompt(data.spoken_response, currentLanguage);
@@ -919,7 +926,7 @@
         document.getElementById('schemeDetailsGrid').classList.add('hidden');
       }
 
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      card.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // Text to Speech

@@ -122,28 +122,41 @@ def _normalize_query(text: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^\w₹]+", " ", text.lower())).strip()
 
 
+def _contains_phrase(text: str, phrase: str) -> bool:
+    """Match a whole normalized phrase, not a fragment inside another word."""
+    return f" {_normalize_query(phrase)} " in f" {text} "
+
+
 def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, Any]:
     norm_query = _normalize_query(query_text)
-    
+
+    greeting_queries = {
+        "hi", "hello", "hey", "hello sahayak", "hi sahayak", "hey sahayak",
+        "namaste", "namaste sahayak", "नमस्ते", "नमस्ते सहायक", "नमस्कार",
+        "नमस्कार सहायक"
+    }
+    lang_key = lang_code.split("-")[0]
+    if norm_query in greeting_queries:
+        greeting_messages = {
+            "hi": "नमस्कार! मैं Neuro_X Sahayak हूँ। कृपया बताइए, मैं आपकी किस प्रकार सहायता कर सकता हूँ? आप किसी सरकारी योजना, फसल बीमा, किसान ऋण या भूमि संबंधी समस्या के बारे में पूछ सकते हैं।",
+            "en": "Namaste! I’m Neuro_X Sahayak. How may I help you today? Please ask about a government scheme, crop insurance, a farmer loan, or a land-related issue."
+        }
+        return {
+            "found": False,
+            "spoken_response": greeting_messages.get(lang_key, greeting_messages["en"]),
+            "scheme": None
+        }
+
     # Check exact or keyword match
     scored_items = []
     for item in SCHEMES_AND_LAWS:
         score = 0
         for kw in item["keywords"]:
-            if _normalize_query(kw) in norm_query:
+            if _contains_phrase(norm_query, kw):
                 score += 3
         for alias in HINDI_QUERY_ALIASES.get(item["id"], []):
-            if _normalize_query(alias) in norm_query:
+            if _contains_phrase(norm_query, alias):
                 score += 6
-        # Check title words
-        for word in _normalize_query(item["title"]).split():
-            if len(word) > 2 and word in norm_query:
-                score += 2
-        # Check summary words
-        summary_words = set(_normalize_query(item["summary"].get("en", "")).split())
-        for w in norm_query.split():
-            if len(w) > 3 and w in summary_words:
-                score += 1
         
         if score > 0:
             scored_items.append((score, item))
@@ -151,8 +164,6 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
     scored_items.sort(key=lambda x: x[0], reverse=True)
     
     # Language key fallback
-    lang_key = lang_code.split("-")[0]
-    
     if scored_items:
         best_match = scored_items[0][1]
         summary_text = best_match["summary"].get(lang_key) or best_match["summary"].get("en") or best_match["summary"].get("hi")

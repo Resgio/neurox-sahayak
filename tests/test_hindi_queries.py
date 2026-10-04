@@ -45,6 +45,26 @@ class HindiQueryTests(unittest.TestCase):
         )
         self.assertNotIn("1800", result["spoken_response"])
 
+    def test_greeting_gets_consistent_hindi_welcome(self):
+        result = search_knowledge_base("Hello Sahayak", "hi-IN")
+
+        self.assertFalse(result["found"])
+        self.assertIn("नमस्कार", result["spoken_response"])
+        self.assertIn("मैं आपकी किस प्रकार सहायता कर सकता हूँ", result["spoken_response"])
+
+    def test_greeting_gets_consistent_english_welcome(self):
+        result = search_knowledge_base("hello sahayak", "en-IN")
+
+        self.assertFalse(result["found"])
+        self.assertIn("Namaste!", result["spoken_response"])
+        self.assertIn("How may I help you today?", result["spoken_response"])
+
+    def test_unrelated_national_cooperation_query_does_not_match_enam(self):
+        result = search_knowledge_base("What is the national cooperation policy?", "en-IN")
+
+        self.assertFalse(result["found"])
+        self.assertIsNone(result["scheme"])
+
     def test_every_hindi_alias_resolves_to_its_intended_scheme(self):
         for scheme_id, aliases in HINDI_QUERY_ALIASES.items():
             for alias in aliases:
