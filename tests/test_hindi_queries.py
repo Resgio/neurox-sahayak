@@ -37,6 +37,28 @@ class HindiQueryTests(unittest.TestCase):
 
         self.assertEqual(result["scheme"]["id"], "kcc")
 
+    def test_equivalent_hindi_loan_phrasings_get_the_same_kcc_answer(self):
+        queries = ("मुझे उधार लेना है", "मुझे लोन लेना है कैसे लूं")
+        results = [search_knowledge_base(query, "hi-IN") for query in queries]
+
+        self.assertEqual([result["scheme"]["id"] for result in results], ["kcc", "kcc"])
+        self.assertEqual(
+            results[0]["spoken_response"],
+            results[1]["spoken_response"],
+        )
+
+    def test_common_loan_and_borrowing_phrases_route_to_kcc(self):
+        queries = (
+            "कर्ज लेना है",
+            "खेती के लिए उधार चाहिए",
+            "mujhe udhaar lena hai",
+            "loan kaise loon",
+        )
+        for query in queries:
+            with self.subTest(query=query):
+                result = search_knowledge_base(query, "hi-IN")
+                self.assertEqual(result["scheme"]["id"], "kcc")
+
     def test_hinglish_crop_loan_query_matches_kcc(self):
         result = search_knowledge_base("fasal ke liye loan chahiye", "hi-IN")
 
