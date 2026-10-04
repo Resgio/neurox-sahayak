@@ -472,6 +472,7 @@
     let isListening = false;
     let synth = window.speechSynthesis;
     let currentUtterance = null;
+    let speechRequestId = 0;
     let lastSpokenText = '';
     let isChatOpen = false;
 
@@ -480,8 +481,8 @@
       "hi-IN": {
         code: "hi-IN",
         name: "हिन्दी",
-        langGreetingVoice: "नमस्ते! Neuro_X Sahayak में आपका स्वागत है। कृपया हिन्दी या अंग्रेज़ी में से अपनी पसंद की भाषा चुनें।",
-        helpPromptVoice: "नमस्ते। मैं Neuro_X Sahayak हूँ और आपकी सहायता के लिए उपस्थित हूँ। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकता हूँ? आप पीएम किसान योजना, फसल बीमा, केसीसी ऋण, जमीन के अधिकार, या निःशुल्क कानूनी सहायता के बारे में पूछ सकते हैं।",
+        langGreetingVoice: "नमस्कार! Neuro_X Sahayak में आपका स्वागत है। कृपया हिन्दी या अंग्रेज़ी में से अपनी पसंद की भाषा चुनें।",
+        helpPromptVoice: "नमस्कार। मैं Neuro_X Sahayak हूँ और आपकी सहायता के लिए यहाँ उपस्थित हूँ। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकता हूँ? आप पीएम किसान योजना, फसल बीमा, केसीसी ऋण, भूमि अधिकार या निःशुल्क कानूनी सहायता के बारे में पूछ सकते हैं।",
         heroTitle: "मैं आपकी क्या सहायता करूँ?",
         heroSub: "माइक दबाकर अपनी भाषा में खेत, योजना, मुआवजा या कानूनी अधिकारों का सवाल पूछें।",
         idleText: "माइक बटन दबाकर सवाल बोलें, या नीचे से कोई विषय चुनें",
@@ -497,13 +498,14 @@
           chatbot: "चैटबॉट",
           stop: "रोकें",
           voiceHeader: "प्राथमिक वॉइस सहायता · बोलकर पूछें और आवाज़ में सुनें",
-          micIdle: "माइक दबाएं",
+          micIdle: "कृपया माइक दबाएँ",
           micListening: "सुन रहा हूँ...",
           listening: "सहायक आपकी आवाज़ सुन रहा है... बोलिए!",
           speaking: "सहायक उत्तर बोलकर सुना रहा है...",
           loading: "सहायक उत्तर खोज रहा है...",
           serverError: "त्रुटि: सर्वर से संपर्क नहीं हो पाया। पुनः प्रयास करें।",
-          noHindiVoice: "इस डिवाइस पर हिन्दी आवाज़ उपलब्ध नहीं है। सिस्टम में हिन्दी आवाज़ जोड़ें।",
+          noHindiVoice: "इस डिवाइस पर हिन्दी (भारत) की आवाज़ उपलब्ध नहीं है। कृपया डिवाइस की वाक् सेटिंग में हिन्दी (भारत) की आवाज़ जोड़ें।",
+          noIndianEnglishVoice: "इस डिवाइस पर भारतीय अंग्रेज़ी की आवाज़ उपलब्ध नहीं है। कृपया डिवाइस की वाक् सेटिंग में अंग्रेज़ी (भारत) की आवाज़ जोड़ें।",
           guidance: "किसान मार्गदर्शन एवं सहायता",
           scheme: "सरकारी योजना",
           legal: "कानूनी अधिकार",
@@ -571,8 +573,8 @@
       "en-IN": {
         code: "en-IN",
         name: "English",
-        langGreetingVoice: "Welcome to Neuro_X Sahayak. Please choose your preferred language: Hindi or English.",
-        helpPromptVoice: "Welcome. I am Neuro_X Sahayak and I will be glad to assist you. Please tell me how I may help you today. You may ask about PM-KISAN, Crop Insurance, KCC loans, land rights, or free legal aid.",
+        langGreetingVoice: "Namaste, and welcome to Neuro_X Sahayak. Please choose Hindi or Indian English as your preferred language.",
+        helpPromptVoice: "Namaste. I’m Neuro_X Sahayak, and I’m here to help. How may I assist you today? You may ask about the PM-KISAN scheme, crop insurance, Kisan Credit Card loans, land rights, or free legal aid.",
         heroTitle: "How may I help you today?",
         heroSub: "Tap the microphone and ask questions about schemes, loans, compensation, or legal laws.",
         idleText: "Tap the microphone to speak, or click any topic below",
@@ -580,7 +582,7 @@
         speakingText: "Sahayak is speaking...",
         inputPlaceholder: "Type your query here (e.g., PM Kisan, Crop Insurance, KCC)...",
         introChatGreeting: "Welcome to Neuro_X Sahayak. 🙏",
-        introChatBody: "English is selected. Please tell me how I may assist you with schemes, farming support, or legal rights today.",
+        introChatBody: "Indian English is selected. Please tell me how I may assist you with a government scheme, farming support, or your legal rights.",
         ui: {
           brandTitle: "Sahayak",
           headerSubtitle: "Legal and government-scheme voice assistant for Indian farmers",
@@ -588,13 +590,14 @@
           chatbot: "Chatbot",
           stop: "Stop",
           voiceHeader: "Voice assistance · Ask by speaking and listen to the answer",
-          micIdle: "Tap mic (Speak)",
+          micIdle: "Please tap the mic",
           micListening: "Listening...",
           listening: "Sahayak is listening... Speak now!",
           speaking: "Sahayak is speaking...",
           loading: "Sahayak is finding an answer...",
           serverError: "Error: Could not reach the server. Please try again.",
-          noHindiVoice: "",
+          noHindiVoice: "An Indian Hindi voice is not available on this device. Please add a Hindi (India) voice in your device’s speech settings.",
+          noIndianEnglishVoice: "An Indian English voice is not available on this device. Please add an English (India) voice in your device’s speech settings.",
           guidance: "Farmer guidance and support",
           scheme: "Government scheme",
           legal: "Legal right",
@@ -643,7 +646,7 @@
       const config = LANGUAGE_DATA['en-IN'];
       document.getElementById('languageSelect').value = 'en-IN';
       document.getElementById('heroPrompt').textContent = '"Welcome to Neuro_X Sahayak"';
-      document.getElementById('heroSubPrompt').textContent = 'Please choose Hindi or English, or say the language name using the microphone.';
+      document.getElementById('heroSubPrompt').textContent = 'Please choose Hindi or Indian English, or say the language name using the microphone.';
       
       speakVoicePrompt(config.langGreetingVoice, 'en-IN', () => {
         setTimeout(() => {
@@ -655,7 +658,7 @@
 
       addBotChatMessage(`
         <strong>Welcome to Neuro_X Sahayak. 🙏</strong><br>
-        Please choose Hindi or English.<br>
+        Please choose Hindi or Indian English.<br>
         <span class="text-sky-300">👉 Select a language on the main screen or say its name.</span>
       `);
     }
@@ -920,21 +923,49 @@
     }
 
     // Text to Speech
-    function speakVoicePrompt(text, langCode, onCompleteCallback) {
+    async function speakVoicePrompt(text, langCode, onCompleteCallback) {
       if (!synth) return;
       stopSpeaking();
+      const requestId = speechRequestId;
+
+      let voices = synth.getVoices();
+      if (!voices.length) {
+        voices = await new Promise(resolve => {
+          const onVoicesChanged = () => {
+            const availableVoices = synth.getVoices();
+            if (availableVoices.length) {
+              clearTimeout(timeoutId);
+              synth.removeEventListener('voiceschanged', onVoicesChanged);
+              resolve(availableVoices);
+            }
+          };
+          const timeoutId = setTimeout(() => {
+            synth.removeEventListener('voiceschanged', onVoicesChanged);
+            resolve(synth.getVoices());
+          }, 1200);
+          synth.addEventListener('voiceschanged', onVoicesChanged);
+        });
+      }
+      if (requestId !== speechRequestId) return;
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = langCode || currentLanguage || 'hi-IN';
       utterance.rate = 0.95;
       utterance.pitch = 1.0;
 
-      const voices = synth.getVoices();
       const targetLang = utterance.lang.split('-')[0];
-      const matchVoice = voices.find(v => v.lang.toLowerCase() === utterance.lang.toLowerCase())
-        || voices.find(v => v.lang.toLowerCase().startsWith(targetLang.toLowerCase()));
-      if (utterance.lang === 'hi-IN' && !matchVoice) {
-        document.getElementById('idleStatusText').textContent = getLanguageConfig().ui.noHindiVoice;
+      const isHindiOrEnglish = targetLang === 'hi' || targetLang === 'en';
+      const indianVoices = voices.filter(v => v.lang.toLowerCase().startsWith(`${targetLang.toLowerCase()}-in`));
+      const matchVoice = indianVoices.find(v => v.lang.toLowerCase() === utterance.lang.toLowerCase())
+        || indianVoices[0]
+        || (isHindiOrEnglish
+          ? null
+          : voices.find(v => v.lang.toLowerCase() === utterance.lang.toLowerCase())
+            || voices.find(v => v.lang.toLowerCase().startsWith(targetLang.toLowerCase())));
+      if (isHindiOrEnglish && !matchVoice) {
+        document.getElementById('idleStatusText').textContent = targetLang === 'hi'
+          ? getLanguageConfig().ui.noHindiVoice
+          : getLanguageConfig().ui.noIndianEnglishVoice;
         if (typeof onCompleteCallback === 'function') {
           onCompleteCallback();
         }
@@ -981,6 +1012,7 @@
     }
 
     function stopSpeaking() {
+      speechRequestId++;
       if (synth && synth.speaking) {
         synth.cancel();
       }

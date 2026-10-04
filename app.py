@@ -56,24 +56,93 @@ LANG_MAP = {
     "en-US": "en"
 }
 
+HINDI_QUERY_ALIASES = {
+    "pm_kisan": [
+        "पीएम किसान", "प्रधानमंत्री किसान सम्मान निधि", "किसान सम्मान निधि",
+        "पीएम किसान की किस्त", "किस्त कब आएगी", "किस्त नहीं आई",
+        "पैसा नहीं आया", "पैसे नहीं आए", "छह हजार रुपये",
+        "छह हज़ार रुपये", "मेरी किस्त", "pm kisan ki kist", "kisan samman nidhi"
+    ],
+    "pmfby": [
+        "फसल बीमा", "प्रधानमंत्री फसल बीमा", "फसल का बीमा", "फसल नुकसान",
+        "फसल बर्बाद", "फसल खराब", "ओलावृष्टि", "ओले पड़ना", "सूखा पड़ना",
+        "फसल में कीट", "fasal bima", "fasal ka nuksan", "fasal barbad"
+    ],
+    "kcc": [
+        "किसान क्रेडिट कार्ड", "केसीसी", "खेती का कर्ज", "खेती के लिए कर्ज",
+        "कृषि ऋण", "फसल ऋण", "ब्याज दर", "किसान कर्ज", "kheti ka karz",
+        "kisan credit card"
+    ],
+    "pm_kusum": [
+        "पीएम कुसुम", "कुसुम योजना", "सोलर पंप", "सौर पंप", "सौर ऊर्जा",
+        "सोलर सब्सिडी", "खेत में सोलर", "solar pump", "kusum yojana"
+    ],
+    "soil_health_card": [
+        "मृदा स्वास्थ्य कार्ड", "मिट्टी की जांच", "मिट्टी जांच", "मिट्टी का परीक्षण",
+        "मृदा परीक्षण", "मिट्टी कार्ड", "mitti ki jaanch"
+    ],
+    "pmksy": [
+        "प्रधानमंत्री कृषि सिंचाई योजना", "ड्रिप सिंचाई", "टपक सिंचाई",
+        "स्प्रिंकलर सिंचाई", "फव्वारा सिंचाई", "सिंचाई सब्सिडी",
+        "पानी की बचत", "drip sinchai"
+    ],
+    "enam": [
+        "ई नाम", "मंडी भाव", "फसल का भाव", "उपज बेचना", "ऑनलाइन मंडी",
+        "मंडी में फसल बेचना", "fasal ka bhav", "mandi bhav"
+    ],
+    "msp_law": [
+        "न्यूनतम समर्थन मूल्य", "एमएसपी", "समर्थन मूल्य", "सरकारी खरीद",
+        "एमएसपी पर फसल", "fasal ka sarkari bhav"
+    ],
+    "land_rights": [
+        "जमीन का अधिकार", "भूमि विवाद", "जमीन विवाद", "नामांतरण",
+        "दाखिल खारिज", "दाखिल-खारिज", "जमीन की विरासत", "पैतृक जमीन",
+        "जमीन पर कब्जा", "खतौनी", "जमाबंदी", "zameen ka vivad"
+    ],
+    "apmc_model_act": [
+        "मंडी में कमीशन", "आढ़ती", "मंडी में तौल", "तौल में कटौती",
+        "मंडी का भुगतान", "मंडी भुगतान नहीं मिला", "व्यापारी ने भुगतान नहीं किया",
+        "mandi mein tol", "aadhati"
+    ],
+    "seed_fertilizer_act": [
+        "नकली बीज", "नकली खाद", "खराब बीज", "मिलावटी खाद",
+        "बीज की शिकायत", "खाद की शिकायत", "कीटनाशक की शिकायत",
+        "खराब बीज से नुकसान", "nakli beej", "nakli khaad"
+    ],
+    "nalsa_farmer_legal_aid": [
+        "मुफ्त वकील", "निःशुल्क वकील", "मुफ्त कानूनी सहायता",
+        "निःशुल्क कानूनी सहायता", "कानूनी मदद", "विधिक सहायता",
+        "जिला विधिक सेवा", "नालसा", "muft vakil", "kanooni madad"
+    ]
+}
+
+
+def _normalize_query(text: str) -> str:
+    """Normalize punctuation and spacing while preserving Devanagari characters."""
+    return re.sub(r"\s+", " ", re.sub(r"[^\w₹]+", " ", text.lower())).strip()
+
+
 def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, Any]:
-    norm_query = query_text.lower()
+    norm_query = _normalize_query(query_text)
     
     # Check exact or keyword match
     scored_items = []
     for item in SCHEMES_AND_LAWS:
         score = 0
         for kw in item["keywords"]:
-            if kw.lower() in norm_query:
+            if _normalize_query(kw) in norm_query:
                 score += 3
+        for alias in HINDI_QUERY_ALIASES.get(item["id"], []):
+            if _normalize_query(alias) in norm_query:
+                score += 6
         # Check title words
-        for word in item["title"].lower().split():
+        for word in _normalize_query(item["title"]).split():
             if len(word) > 2 and word in norm_query:
                 score += 2
         # Check summary words
-        summary_en = item["summary"].get("en", "").lower()
+        summary_words = set(_normalize_query(item["summary"].get("en", "")).split())
         for w in norm_query.split():
-            if len(w) > 3 and w in summary_en:
+            if len(w) > 3 and w in summary_words:
                 score += 1
         
         if score > 0:
@@ -105,14 +174,14 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
             }
         }
     
-    # Fallback generic response with helpline advice
+    # Ask politely for clarification rather than guessing or redirecting.
     fallback_messages = {
-        "hi": "नमस्ते किसान भाई, आपकी क्वेरी के लिए सटीक सरकारी योजना या कानूनी सहायता प्राप्त करने हेतु आप किसान कॉल सेंटर के टोल-फ्री नंबर 1800-180-1551 पर कॉल कर सकते हैं। आप नीचे दिए गए त्वरित बटनों से पीएम किसान, फसल बीमा, केसीसी, या मुफ्त कानूनी सहायता के बारे में सीधे पूछ सकते हैं।",
+        "hi": "क्षमा कीजिए, मैं आपकी बात ठीक से समझ नहीं पाया। कृपया अपना सवाल एक बार फिर बताइए।",
         "pa": "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਕਿਸਾਨ ਵੀਰੋ, ਹੋਰ ਜਾਣਕਾਰੀ ਲਈ ਤੁਸੀਂ ਕਿਸਾਨ ਕਾਲ ਸੈਂਟਰ 1800-180-1551 'ਤੇ ਮੁਫ਼ਤ ਸੰਪਰਕ ਕਰ ਸਕਦੇ ਹੋ, ਜਾਂ ਹੇਠਾਂ ਦਿੱਤੇ ਵਿਸ਼ਿਆਂ ਵਿੱਚੋਂ ਚੁਣ ਸਕਦੇ ਹੋ।",
         "mr": "नमस्कार शेतकरी बंधूंनो, अधिक माहितीसाठी आपण किसान कॉल सेंटर 1800-180-1551 वर मोफत संपर्क करू शकता किंवा खालील पर्यायांवर विचारू शकता.",
         "te": "నమస్కారం రైతు సోదరులారా, మరిన్ని వివరాలకు కిసాన్ కాల్ సెంటర్ 1800-180-1551 కు ఉచితంగా సంప్రదించవచ్చు.",
         "ta": "வணக்கம் விவசாய நண்பர்களே, மேலும் விவரங்களுக்கு கிசான் கால் சென்டர் 1800-180-1551 என்ற எண்ணில் இலவசமாக தொடர்பு கொள்ளலாம்.",
-        "en": "Hello farmer friend, for personalized legal or scheme assistance, you can call the Kisan Call Centre at toll-free 1800-180-1551 or Legal Aid at 15100. Feel free to ask about PM-Kisan, Crop Insurance (PMFBY), KCC Loans, Land Dispute laws, or Free Lawyer aid."
+        "en": "I’m sorry, I couldn’t understand your question. Could you please say it again?"
     }
     
     return {

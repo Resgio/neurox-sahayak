@@ -41,3 +41,10 @@
    ```
    http://localhost:8000
    ```
+
+## Hindi voice and answer accuracy
+
+- No Python speech package is required for the current browser-based microphone and speech playback. Use Chrome, allow microphone access, and select **हिन्दी (Hindi)** or English. Hindi playback prefers a **Hindi (India)** voice; English playback uses only an **English (India)** voice. The app will not silently switch to a foreign English voice if an Indian voice is unavailable.
+- Add **Hindi (India)** and **English (India)** voices in the operating system's speech/accessibility settings before presenting. The app waits briefly for browser voices to load and displays a message if a required Indian voice is unavailable. Speech recognition quality depends on the browser's speech service and network connection.
+- Hindi and common Romanized-Hindi queries for the schemes in the local knowledge base are matched directly. This prototype does not use an AI model, so it cannot reliably answer questions outside that knowledge base. For stronger free-form understanding, connect a Hindi-capable speech-to-text service and a grounded language model (with verified government sources); those require provider credentials and may have usage costs.
+- When the prototype cannot match a question to a supported scheme, it politely asks the user to repeat the question in the selected Hindi or English language.
