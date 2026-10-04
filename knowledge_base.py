@@ -9,10 +9,12 @@ COOPERATIVE_PROGRAMMES = [
         "category": "cooperative",
         "title": "Computerization of Primary Agricultural Credit Societies (PACS)",
         "keywords": [
+            "pacs", "primary agricultural credit", "agricultural credit societies",
             "computerization of pacs", "computerisation of pacs", "digitization of pacs",
             "digitisation of pacs", "pacs computerization", "pacs computerisation",
             "computerized pacs", "computerised pacs", "pacs software",
-            "पैक्स कंप्यूटरीकरण", "पैक्स का कंप्यूटरीकरण", "पैक्स डिजिटलीकरण",
+            "पैक्स", "पैक्स क्या है", "पैक्स कंप्यूटरीकरण", "पैक्स का कंप्यूटरीकरण", "पैक्स डिजिटलीकरण",
+            "प्राथमिक कृषि ऋण समिति",
         ],
         "summary": {
             "en": "The central-sector project supports computerization of participating Primary Agricultural Credit Societies (PACS), connecting their day-to-day operations with a common national software platform. It is intended to improve record keeping, transparency, service delivery, and links with the cooperative banking system. State implementation, onboarding, and support arrangements vary.",
@@ -41,9 +43,10 @@ COOPERATIVE_PROGRAMMES = [
         "category": "cooperative",
         "title": "World’s Largest Grain Storage Plan in the Cooperative Sector",
         "keywords": [
-            "grain storage plan", "cooperative grain storage", "storage at pacs",
-            "godown at pacs", "warehouse for cooperative", "grain godown",
-            "अनाज भंडारण योजना", "पैक्स गोदाम", "सहकारी अनाज भंडारण",
+            "grain storage plan", "grain storage", "cooperative grain storage", "storage at pacs",
+            "godown at pacs", "warehouse for cooperative", "grain godown", "post-harvest storage",
+            "अनाज भंडारण", "अनाज भंडारण योजना", "पैक्स गोदाम", "सहकारी अनाज भंडारण",
+            "फसल के बाद भंडारण", "गोदाम", "भंडारण सुविधा",
         ],
         "summary": {
             "en": "This plan seeks to build decentralized storage and related agricultural infrastructure through cooperatives, including suitable PACS, by converging existing government schemes. The aim is to reduce distance to storage and support local handling of produce. Site selection, project approval, funding, and construction depend on the applicable guidelines and state implementation.",
@@ -74,6 +77,7 @@ COOPERATIVE_PROGRAMMES = [
             "model bye laws", "model bylaws", "pacs bye laws", "pacs bylaws",
             "pacs diversification", "pacs business activities", "multipurpose pacs",
             "पैक्स के आदर्श उपविधि", "पैक्स उपविधि", "पैक्स विविधीकरण",
+            "पैक्स नियम", "उपविधि", "पैक्स गतिविधियाँ",
         ],
         "summary": {
             "en": "Model bye-laws provide a common framework for states and union territories that choose to adopt them, allowing PACS to take up a wider range of member-oriented activities in addition to credit. The model is not a substitute for state cooperative law: a PACS can undertake activities only as permitted by its registered bye-laws and applicable state rules.",
@@ -104,8 +108,10 @@ COOPERATIVE_PROGRAMMES = [
             "new cooperative societies", "new pacs", "new dairy cooperative",
             "new fisheries cooperative", "multipurpose cooperative", "form a cooperative",
             "start a cooperative society", "register a cooperative", "new multipurpose pacs",
+            "cooperative society formation", "how to start cooperative",
             "नई सहकारी समिति", "नई पैक्स", "डेयरी सहकारी समिति", "मत्स्य सहकारी समिति",
-            "सहकारी समिति कैसे बनाएं", "सहकारी समिति पंजीकरण",
+            "सहकारी समिति कैसे बनाएं", "सहकारी समिति पंजीकरण", "सहकारी समिति खोलना",
+            "कोऑपरेटिव समिति",
         ],
         "summary": {
             "en": "The national expansion initiative aims to establish new multipurpose PACS, dairy cooperatives, and fisheries cooperatives in uncovered areas, with support coordinated across relevant departments and institutions. Formation is subject to local demand, state cooperative law, feasibility, and registration; it is not an automatic individual grant.",
@@ -168,10 +174,12 @@ COOPERATIVE_PROGRAMMES = [
         "category": "cooperative",
         "title": "NCDC Financial Assistance to Cooperatives",
         "keywords": [
-            "ncdc loan", "ncdc finance", "ncdc financial assistance", "ncdc funding",
+            "ncdc", "ncdc loan", "ncdc finance", "ncdc financial assistance", "ncdc funding",
             "cooperative project funding", "cooperative society finance",
-            "cooperative development loan", "सहकारी परियोजना वित्त", "एनसीडीसी ऋण",
-            "एनसीडीसी वित्तीय सहायता",
+            "cooperative development loan", "राष्ट्रीय सहकारी विकास निगम",
+            "एनसीडीसी", "एनसीडीसी क्या है", "एनसीडीसी ऋण",
+            "एनसीडीसी वित्तीय सहायता", "एनसीडीसी से ऋण",
+            "सहकारी परियोजना वित्त",
         ],
         "summary": {
             "en": "The National Cooperative Development Corporation (NCDC) provides financial assistance for eligible cooperative development activities and projects through notified schemes and channels. Assistance is generally routed through state governments, cooperative federations, or eligible cooperatives, depending on the programme. This is project finance, not an automatic grant to every member or society.",
@@ -200,8 +208,9 @@ COOPERATIVE_PROGRAMMES = [
         "title": "Yuva Sahakar: Cooperative Enterprise Support",
         "keywords": [
             "yuva sahakar", "yuva sahakaar", "ncdc yuva", "young cooperative",
-            "innovative cooperative startup", "cooperative startup scheme",
-            "युवा सहकार", "युवा सहकार योजना",
+            "innovative cooperative startup", "cooperative startup scheme", "youth cooperative",
+            "युवा सहकार", "युवा सहकार योजना", "नई सहकारी परियोजना", "युवा उद्यमी",
+            "नवीन सहकारी उद्यम",
         ],
         "summary": {
             "en": "Yuva Sahakar is an NCDC financing initiative intended to encourage new and innovative cooperative ventures, particularly those involving young people. Support is financing subject to the scheme’s current terms, eligible cooperative status, project appraisal, and availability; it should not be described as a guaranteed grant.",
@@ -230,8 +239,9 @@ COOPERATIVE_PROGRAMMES = [
         "title": "Ayushman Sahakar: Healthcare Infrastructure through Cooperatives",
         "keywords": [
             "ayushman sahakar", "ayushman sahakaar", "cooperative hospital scheme",
-            "healthcare cooperative finance", "medical college cooperative",
-            "आयुष्मान सहकार", "सहकारी अस्पताल योजना",
+            "healthcare cooperative finance", "medical college cooperative", "health cooperative",
+            "आयुष्मान सहकार", "सहकारी अस्पताल योजना", "सहकारी स्वास्थ्य सेवा",
+            "चिकित्सा सहकारी",
         ],
         "summary": {
             "en": "Ayushman Sahakar is an NCDC financing initiative for eligible cooperative-led healthcare infrastructure and services, such as hospitals or related facilities, subject to current scheme conditions and project appraisal. It is not a personal health-insurance benefit or a direct cash benefit for patients.",
@@ -260,8 +270,9 @@ COOPERATIVE_PROGRAMMES = [
         "title": "Sahakar Mitra: NCDC Internship and Cooperative Learning",
         "keywords": [
             "sahakar mitra", "sahakar mitra scheme", "ncdc internship",
-            "cooperative internship", "student cooperative internship",
-            "सहकार मित्र", "एनसीडीसी इंटर्नशिप", "सहकारी इंटर्नशिप",
+            "cooperative internship", "student cooperative internship", "co-operative training",
+            "सहकार मित्र", "एनसीडीसी इंटर्नशिप", "सहकारी इंटर्नशिप", "सहकार मित्र प्रशिक्षण",
+            "सहकारी प्रशिक्षण",
         ],
         "summary": {
             "en": "Sahakar Mitra has been an NCDC internship initiative intended to give eligible students exposure to cooperative-sector work and project preparation. Internship cycles, disciplines, stipends, and application windows can change; check the current NCDC notice before applying.",
@@ -319,9 +330,11 @@ COOPERATIVE_PROGRAMMES = [
         "category": "cooperative",
         "title": "White Revolution 2.0: Strengthening Dairy Cooperatives",
         "keywords": [
-            "white revolution 2", "white revolution 2.0", "dairy cooperative scheme",
-            "dairy cooperative development", "milk cooperative support",
-            "दुग्ध सहकारी", "श्वेत क्रांति 2.0", "डेयरी सहकारी योजना",
+            "white revolution", "white revolution 2", "white revolution 2.0", "dairy cooperative scheme",
+            "dairy cooperative development", "milk cooperative support", "milk business",
+            "dairy business", "doodh vyapar",
+            "श्वेत क्रांति", "श्वेत क्रांति 2.0", "दूध व्यवसाय", "दुग्ध व्यवसाय", "दुग्ध सहकारी",
+            "डेयरी सहकारी योजना", "दूध उत्पादन", "दूध का काम",
         ],
         "summary": {
             "en": "White Revolution 2.0 is an initiative to strengthen and expand dairy cooperative coverage, including milk procurement and services in uncovered areas, with implementation involving dairy institutions and state-level cooperation. Local opportunities, targets, and assistance depend on the current programme and state plan.",
@@ -349,10 +362,11 @@ COOPERATIVE_PROGRAMMES = [
         "category": "cooperative",
         "title": "Multi-State Cooperative Societies Act and Registration",
         "keywords": [
-            "multi state cooperative", "multi-state cooperative", "mscs act",
+            "multi state cooperative", "multi-state cooperative", "mscs", "mscs act",
             "cooperative society across states", "central registrar cooperative",
-            "multi state society registration", "बहुराज्य सहकारी समिति",
-            "बहुराज्य सहकारी कानून", "एमएससीएस अधिनियम",
+            "multi state society registration", "interstate cooperative",
+            "बहुराज्य सहकारी समिति", "बहुराज्य सहकारी", "बहुराज्य सहकारी कानून",
+            "एमएससीएस", "एमएससीएस अधिनियम", "बहु-राज्य सहकारी",
         ],
         "summary": {
             "en": "A cooperative operating across more than one state may fall under the Multi-State Cooperative Societies Act and central registration framework. A society operating only within one state is generally governed by that state’s cooperative law. Registration, governance, audit, elections, and dispute procedures depend on the applicable law and current rules; this is general information, not legal advice.",
