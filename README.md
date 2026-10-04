@@ -1,2 +1,43 @@
-# **Neuro_X Sahayak**
-Chatbot
+# 🌾 Neuro_X Sahayak (Working Kiosk Prototype)
+
+**Neuro_X Sahayak** is an end-to-end working prototype of a **Voice-First AI Assistant & Legal Chatbot** built specifically for Indian agriculture kiosk environments and rural awareness.
+
+---
+
+## 🌟 Prototype Features
+
+1. **Interactive Prototype Stepper (प्रोटोटाइप प्रवाह):**
+   - **Step 1:** भाषा का चयन (Voice & Touch Language Selection).
+   - **Step 2:** सहायता पूछताछ (Sahayak welcomes in the chosen dialect and asks how it can help).
+   - **Step 3:** आवाज में कानूनी सलाह (Hands-free speech-to-text input + audio playback + rich legal card display).
+
+2. **1-Click Voice Demo Tour:**
+   - Evaluators and judges can click the **"1-Click Voice Demo"** button on the top banner to experience the complete automated voice flow without needing manual voice inputs.
+
+3. **Primary Feature — Voice AI Assistance:**
+   - Central glowing audio sphere that reacts dynamically (listening, speaking, idle).
+   - Real-time sound frequency bars and radar wave animations.
+   - Multilingual support for **Hindi, Punjabi, Marathi, Telugu, Tamil, and English**.
+   - Primary Voice Result card on the main screen with eligibility criteria, document checklists, and a **"दोबारा सुनें" (Replay Voice)** button.
+
+4. **Secondary Feature — Collapsible Chatbot Drawer:**
+   - Hidden by default to prioritize voice, can be toggled via the **"चैटबॉट (लिखित)"** button to view conversation transcripts and type manual queries.
+
+---
+
+## 🚀 Running the Prototype
+
+1. Navigate to the project directory:
+   ```bash
+   cd "**Neuro_X Sahayak**"
+   ```
+
+2. Start the FastAPI server:
+   ```bash
+   python3 -m uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+   ```
+
+3. Open in your browser:
+   ```
+   http://localhost:8000
+   ```

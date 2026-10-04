@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neuro_X Sahayak | किसान कानूनी एवं सरकारी योजना वॉइस सहायक (Working Prototype)</title>
+  <!-- Tailwind CSS CDN for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandDark: '#040914',
+            brandNavy: '#0a1628',
+            brandBlue: '#0284c7',
+            brandNeon: '#38bdf8',
+            brandCard: '#0f2038',
+            brandHover: '#1e385c'
+          },
+          animation: {
+            'pulse-slow': 'pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'sound-wave': 'soundWave 1.2s ease-in-out infinite alternate',
+            'radar-ping': 'radarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite'
+          },
+          keyframes: {
+            radarPing: {
+              '0%': { transform: 'scale(0.9)', opacity: '0.9' },
+              '75%, 100%': { transform: 'scale(1.8)', opacity: '0' }
+            },
+            soundWave: {
+              '0%': { height: '15%' },
+              '100%': { height: '100%' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a1628; }
+    ::-webkit-scrollbar-thumb { background: #0284c7; border-radius: 4px; }
+    
+    /* Dynamic visualizer bars */
+    .viz-bar {
+      width: 4px;
+      border-radius: 9999px;
+      background: linear-gradient(to top, #0284c7, #38bdf8);
+      transition: height 0.1s ease;
+    }
+
+    /* Floating glowing orb */
+    .glow-sphere {
+      background: radial-gradient(circle at 30% 30%, #38bdf8, #0284c7 60%, #034f80 90%);
+      box-shadow: 0 0 50px rgba(56, 189, 248, 0.45), inset 0 0 25px rgba(255, 255, 255, 0.35);
+    }
+    .glow-sphere-listening {
+      background: radial-gradient(circle at 30% 30%, #f43f5e, #e11d48 60%, #9f1239 90%);
+      box-shadow: 0 0 65px rgba(244, 63, 94, 0.6), inset 0 0 25px rgba(255, 255, 255, 0.45);
+    }
+    .glow-sphere-speaking {
+      background: radial-gradient(circle at 30% 30%, #38bdf8, #0284c7 60%, #0c4a6e 90%);
+      box-shadow: 0 0 65px rgba(56, 189, 248, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-brandDark text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brandBlue selection:text-white">
+
+  <!-- TOP PROTOTYPE NOTIFICATION BANNER -->
+  <aside class="bg-gradient-to-r from-sky-950 via-brandNavy to-slate-900 border-b border-brandNeon/30 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-2 shadow-sm z-50">
+    <div class="flex items-center gap-2">
+      <span class="bg-sky-500/20 text-brandNeon font-mono font-bold px-2 py-0.5 rounded border border-brandNeon/40 flex items-center gap-1">
+        <i class="fa-solid fa-flask text-[10px]"></i> PROTOTYPE MODE
+      </span>
+      <span class="text-slate-300">
+        <strong>Neuro_X Sahayak v1.0 Kiosk Prototype</strong> &bull; Primary: Voice Assistance &bull; Secondary: Chatbot
+      </span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button onclick="playPrototypeGuidedTour()" class="bg-brandBlue hover:bg-sky-500 text-white px-2.5 py-1 rounded font-semibold transition flex items-center gap-1.5 shadow">
+        <i class="fa-solid fa-circle-play text-xs"></i> 1-Click Voice Demo
+      </button>
+      <button onclick="resetPrototype()" class="text-slate-400 hover:text-white transition flex items-center gap-1 text-[11px]">
+        <i class="fa-solid fa-arrows-rotate"></i> रीसेट (Reset)
+      </button>
+    </div>
+  </aside>
+
+  <!-- TOP HEADER -->
+  <header class="border-b border-brandHover/70 bg-brandNavy/95 backdrop-blur sticky top-0 z-40 px-4 py-3 shadow-xl">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand & Logo -->
+      <div class="flex items-center gap-3">
+        <div class="relative w-12 h-12 rounded-xl bg-black border border-brandNeon/30 flex items-center justify-center p-1 shadow-md">
+          <img src="/assets/logo.png" alt="NeuroX Logo" class="max-w-full max-h-full object-contain">
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl md:text-2xl font-black tracking-wide text-white">
+              Neuro<span class="text-brandNeon font-extrabold">_X</span> <span id="headerBrandTitle" class="text-sky-400 font-semibold text-lg md:text-xl">सहायक</span>
+            </h1>
+            <span class="bg-brandBlue/30 text-brandNeon text-xs px-2.5 py-0.5 rounded-full border border-brandNeon/40 font-mono font-bold tracking-wider">
+              PRIMARY: VOICE AI
+            </span>
+          </div>
+          <p id="headerSubtitle" class="text-xs text-slate-400">भारतीय किसानों का कानूनी एवं सरकारी योजना वॉइस सहायक</p>
+        </div>
+      </div>
+
+      <!-- Controls: Audio Indicator, Language Dropdown & Chat Drawer Toggle -->
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        
+        <!-- Live Voice Mode Pill -->
+        <div id="voiceModeBadge" class="hidden sm:flex items-center gap-2 bg-brandDark/90 border border-emerald-500/40 px-3 py-1.5 rounded-full text-xs text-emerald-300 font-medium shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>वॉइस मोड सक्रिय (Voice First)</span>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="flex items-center bg-brandCard border border-brandHover rounded-xl px-3 py-1.5 shadow-inner">
+          <i class="fa-solid fa-language text-brandNeon mr-2"></i>
+          <label for="languageSelect" class="sr-only">भाषा चुनें (Language)</label>
+          <select id="languageSelect" onchange="onLanguageDropdownChange()" class="bg-transparent text-sm font-medium text-slate-200 focus:outline-none cursor-pointer">
+            <option value="hi-IN" class="bg-brandDark text-white">हिन्दी (Hindi)</option>
+            <option value="pa-IN" class="bg-brandDark text-white">ਪੰਜਾਬੀ (Punjabi)</option>
+            <option value="mr-IN" class="bg-brandDark text-white">मराठी (Marathi)</option>
+            <option value="te-IN" class="bg-brandDark text-white">తెలుగు (Telugu)</option>
+            <option value="ta-IN" class="bg-brandDark text-white">தமிழ் (Tamil)</option>
+            <option value="en-IN" class="bg-brandDark text-white">English (India)</option>
+          </select>
+        </div>
+
+        <!-- Secondary Chat Drawer Toggle Button -->
+        <button id="chatToggleBtn" onclick="toggleChatDrawer()" title="चैटबॉट देखें (View Secondary Chatbot)" class="bg-brandCard hover:bg-brandHover text-slate-200 border border-slate-700 text-xs px-3 py-2 rounded-xl transition flex items-center gap-1.5 font-semibold shadow-md">
+          <i class="fa-solid fa-comments text-brandNeon"></i>
+          <span class="hidden md:inline">चैटबॉट (लिखित)</span>
+        </button>
+
+        <!-- Stop Speaking Button -->
+        <button id="stopSpeechBtn" onclick="stopSpeaking()" title="आवाज बंद करें (Stop Speaking)" class="hidden bg-rose-950/80 hover:bg-rose-900 text-rose-300 border border-rose-500/50 text-xs px-3 py-2 rounded-xl transition items-center gap-1 font-semibold">
+          <i class="fa-solid fa-volume-xmark"></i> <span class="hidden sm:inline">रोकें</span>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 relative">
+
+    <!-- PRIMARY COLUMN: FULL VOICE ASSISTANCE EXPERIENCE (EXPANDED TO FULL 12 COLS OR 8 COLS WHEN CHAT OPEN) -->
+    <section id="primaryVoiceSection" class="lg:col-span-12 transition-all duration-300 flex flex-col gap-6">
+
+      <!-- STAGE 1: PROTOTYPE ONBOARDING STEPPER -->
+      <div class="bg-brandNavy/80 border border-brandHover rounded-2xl px-5 py-3 shadow-lg flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-3">
+          <span class="text-slate-400 font-medium">प्रोटोटाइप प्रवाह (Flow):</span>
+          <div class="flex items-center gap-2">
+            <span id="step1Indicator" class="px-2.5 py-1 rounded-full bg-brandBlue text-white font-bold flex items-center gap-1 shadow">
+              <span class="w-2 h-2 rounded-full bg-white"></span> 1. भाषा का चयन
+            </span>
+            <i class="fa-solid fa-chevron-right text-slate-500 text-[10px]"></i>
+            <span id="step2Indicator" class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-slate-600"></span> 2. सहायता पूछताछ
+            </span>
+            <i class="fa-solid fa-chevron-right text-slate-500 text-[10px]"></i>
+            <span id="step3Indicator" class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-slate-600"></span> 3. आवाज में कानूनी सलाह
+            </span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-slate-400">
+          <i class="fa-solid fa-circle-info text-sky-400"></i>
+          <span>किओस्क टच स्क्रीन या माइक्रोफोन दोनों से संचालित</span>
+        </div>
+      </div>
+
+      <!-- STAGE 1 CARD: LANGUAGE SELECTION BANNER -->
+      <div id="languageOnboardingCard" class="bg-gradient-to-r from-brandNavy via-brandCard to-[#0b1c36] border-2 border-brandNeon/50 rounded-2xl p-5 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-4 text-center md:text-left">
+          <div class="w-14 h-14 rounded-2xl bg-brandDark border border-brandNeon/40 flex items-center justify-center text-brandNeon text-2xl shrink-0 shadow-lg">
+            <i class="fa-solid fa-language animate-bounce"></i>
+          </div>
+          <div>
+            <div class="inline-flex items-center gap-2 bg-brandBlue/30 text-brandNeon text-xs px-2.5 py-0.5 rounded-full font-bold uppercase mb-1">
+              चरण 1: अपनी पसंदीदा भाषा चुनें (Select Your Language)
+            </div>
+            <h3 class="text-lg md:text-xl font-black text-white">
+              "नमस्ते! आप किस भाषा में बात करना चाहते हैं?"
+            </h3>
+            <p class="text-xs md:text-sm text-slate-300">
+              नीचे अपनी भाषा पर क्लिक करें या सीधे माइक दबाकर अपनी भाषा का नाम बोलें।
+            </p>
+          </div>
+        </div>
+
+        <!-- 6 Direct Touch Language Cards -->
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 w-full md:w-auto shrink-0">
+          <button onclick="selectLanguageAndPrompt('hi-IN')" class="lang-pill bg-brandDark/90 border-2 border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+            <span class="text-sm">हिन्दी</span>
+            <span class="text-[10px] text-slate-400 font-normal">Hindi</span>
+          </button>
+          <button onclick="selectLanguageAndPrompt('pa-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+            <span class="text-sm">ਪੰਜਾਬੀ</span>
+            <span class="text-[10px] text-slate-400 font-normal">Punjabi</span>
+          </button>
+          <button onclick="selectLanguageAndPrompt('mr-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+            <span class="text-sm">मराठी</span>
+            <span class="text-[10px] text-slate-400 font-normal">Marathi</span>
+          </button>
+          <button onclick="selectLanguageAndPrompt('te-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+            <span class="text-sm">తెలుగు</span>
+            <span class="text-[10px] text-slate-400 font-normal">Telugu</span>
+          </button>
+          <button onclick="selectLanguageAndPrompt('ta-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+            <span class="text-sm">தமிழ்</span>
+            <span class="text-[10px] text-slate-400 font-normal">Tamil</span>
+          </button>
+          <button onclick="selectLanguageAndPrompt('en-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+            <span class="text-sm">English</span>
+            <span class="text-[10px] text-slate-400 font-normal">India</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- MAIN VOICE INTERACTIVE CONSOLE (HERO CENTERPIECE) -->
+      <div class="relative bg-gradient-to-b from-brandNavy via-brandCard to-[#051122] border border-brandHover/90 rounded-3xl p-6 sm:p-10 shadow-2xl overflow-hidden flex flex-col items-center text-center">
+        
+        <!-- Ambient Radial Background Lighting -->
+        <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-brandBlue/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Mode Badge -->
+        <div class="inline-flex items-center gap-2 bg-brandDark/90 border border-brandNeon/30 rounded-full px-4 py-1.5 mb-4 text-xs font-semibold text-brandNeon">
+          <i class="fa-solid fa-microphone-lines animate-pulse text-sky-400"></i>
+          <span id="voiceHeaderTag">प्राथमिक वॉइस सहायता &bull; बोलकर पूछें और आवाज में सुनें</span>
+        </div>
+
+        <!-- Dynamic Main Question -->
+        <h2 id="heroPrompt" class="text-2xl sm:text-4xl font-black text-white leading-tight max-w-3xl">
+          "नमस्ते! आप किस भाषा में बात करना चाहते हैं?"
+        </h2>
+        <p id="heroSubPrompt" class="text-sm sm:text-base text-slate-300 mt-3 max-w-2xl">
+          भाषा चुनने के बाद, मैं आपसे पूछूंगा कि मैं आपकी क्या सहायता कर सकता हूँ।
+        </p>
+
+        <!-- LARGE INTERACTIVE VOICE SPHERE & MICROPHONE BUTTON -->
+        <div class="my-8 relative flex items-center justify-center">
+          
+          <!-- Outer Radar Rings (Pulsing when listening or speaking) -->
+          <div id="micRing1" class="hidden absolute w-48 h-48 sm:w-56 sm:h-56 rounded-full border-2 border-brandNeon/60 animate-ping"></div>
+          <div id="micRing2" class="hidden absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full border border-sky-400/30 animate-pulse"></div>
+
+          <!-- Main Interactive Button -->
+          <button id="voiceMicBtn" onclick="toggleMicRecording()" class="glow-sphere relative z-10 w-36 h-36 sm:w-44 sm:h-44 rounded-full flex flex-col items-center justify-center text-white active:scale-95 transition-all duration-300 hover:scale-105 border-4 border-slate-900 cursor-pointer shadow-2xl">
+            <i id="micIcon" class="fa-solid fa-microphone text-4xl sm:text-5xl mb-2 transition-transform duration-300"></i>
+            <span id="micLabel" class="text-xs sm:text-sm font-black uppercase tracking-wider">माइक दबाएं (Speak)</span>
+          </button>
+        </div>
+
+        <!-- REAL-TIME AUDIO VISUALIZER & STATUS BANNER -->
+        <div id="statusContainer" class="w-full max-w-2xl bg-brandDark/95 border border-brandHover/80 rounded-2xl p-4 flex flex-col items-center justify-center min-h-[90px] shadow-inner">
+          
+          <!-- Idle Message -->
+          <div id="idleState" class="text-slate-300 flex items-center gap-2 text-sm sm:text-base font-medium">
+            <i class="fa-solid fa-circle-play text-brandNeon text-lg"></i>
+            <span id="idleStatusText">माइक बटन दबाकर सवाल बोलें, या नीचे दिए गए किसी विषय पर क्लिक करें</span>
+          </div>
+
+          <!-- Listening Animation Waveform -->
+          <div id="listeningState" class="hidden flex-col items-center gap-2">
+            <div class="flex items-center gap-1.5 h-8">
+              <span class="viz-bar h-3 animate-[soundWave_0.6s_ease-in-out_infinite_alternate]"></span>
+              <span class="viz-bar h-6 animate-[soundWave_0.9s_ease-in-out_infinite_alternate_0.2s]"></span>
+              <span class="viz-bar h-8 animate-[soundWave_0.7s_ease-in-out_infinite_alternate_0.4s]"></span>
+              <span class="viz-bar h-5 animate-[soundWave_0.8s_ease-in-out_infinite_alternate_0.1s]"></span>
+              <span class="viz-bar h-7 animate-[soundWave_1.0s_ease-in-out_infinite_alternate_0.3s]"></span>
+              <span class="viz-bar h-4 animate-[soundWave_0.5s_ease-in-out_infinite_alternate_0.5s]"></span>
+            </div>
+            <span id="listeningStatusText" class="text-rose-400 font-bold text-sm sm:text-base flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+              सहायक आपकी आवाज सुन रहा है... बोलिए!
+            </span>
+          </div>
+
+          <!-- Speaking Animation Waveform -->
+          <div id="speakingState" class="hidden flex-col items-center gap-2">
+            <div class="flex items-center gap-1.5 h-8">
+              <span class="viz-bar h-4 animate-[soundWave_0.7s_ease-in-out_infinite_alternate]"></span>
+              <span class="viz-bar h-7 animate-[soundWave_0.8s_ease-in-out_infinite_alternate_0.2s]"></span>
+              <span class="viz-bar h-9 animate-[soundWave_0.6s_ease-in-out_infinite_alternate_0.4s]"></span>
+              <span class="viz-bar h-6 animate-[soundWave_0.9s_ease-in-out_infinite_alternate_0.1s]"></span>
+              <span class="viz-bar h-8 animate-[soundWave_0.7s_ease-in-out_infinite_alternate_0.3s]"></span>
+            </div>
+            <span id="speakingStatusText" class="text-sky-300 font-bold text-sm sm:text-base flex items-center gap-2">
+              <i class="fa-solid fa-volume-high animate-bounce text-brandNeon"></i>
+              सहायक उत्तर बोलकर सुना रहा है... (सुनिए)
+            </span>
+          </div>
+
+          <!-- Live User Speech Transcript Preview -->
+          <p id="liveTranscript" class="text-xs sm:text-sm text-sky-200 mt-2 italic font-mono bg-brandNavy/60 px-3 py-1 rounded-lg border border-slate-700/60 hidden max-w-full truncate"></p>
+        </div>
+
+        <!-- SPOKEN ANSWER CALLOUT CARD (Primary Voice Results displayed on the Main Screen) -->
+        <div id="voiceAnswerCard" class="hidden mt-6 w-full max-w-3xl bg-brandNavy/90 border-2 border-brandNeon/40 rounded-2xl p-5 text-left shadow-2xl transition-all">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-brandHover">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-black border border-brandNeon/40 flex items-center justify-center p-1">
+                <img src="/assets/logo.png" alt="NeuroX" class="max-w-full max-h-full">
+              </div>
+              <div>
+                <h4 id="answerCardTitle" class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                  <span id="answerSchemeName">पीएम किसान सम्मान निधि</span>
+                  <span id="answerCategoryBadge" class="bg-brandBlue/30 text-brandNeon text-[10px] px-2 py-0.5 rounded-full border border-brandNeon/40 uppercase font-mono">योजना</span>
+                </h4>
+                <p class="text-xs text-slate-400">आवाज उत्तर एवं सरकारी नियम विवरण</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="replayVoiceBtn" onclick="replayCurrentAnswer()" class="bg-brandBlue/30 hover:bg-brandBlue/50 text-brandNeon border border-brandNeon/40 text-xs px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5">
+                <i class="fa-solid fa-rotate-right"></i> दोबारा सुनें
+              </button>
+            </div>
+          </div>
+
+          <!-- Spoken Text Display -->
+          <p id="answerSpokenText" class="text-sm sm:text-base text-slate-100 leading-relaxed font-medium mb-4">
+            <!-- Populated dynamically -->
+          </p>
+
+          <!-- Rich Details Grid -->
+          <div id="schemeDetailsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="bg-brandDark/80 p-3 rounded-xl border border-slate-800">
+              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-user-check text-emerald-400 mr-1"></i> पात्रता (Eligibility):</span>
+              <span id="answerEligibility" class="text-slate-200"></span>
+            </div>
+            <div class="bg-brandDark/80 p-3 rounded-xl border border-slate-800">
+              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-file-invoice text-amber-400 mr-1"></i> आवश्यक कागज़ात:</span>
+              <span id="answerDocs" class="text-slate-200"></span>
+            </div>
+            <div class="bg-brandDark/80 p-3 rounded-xl border border-slate-800">
+              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-arrow-right-to-bracket text-sky-400 mr-1"></i> आवेदन व हेल्पलाइन:</span>
+              <span id="answerProcess" class="text-slate-200"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- QUICK 1-TOUCH VOICE TOPICS (FARMER CENTRIC CARDS) -->
+      <div class="bg-brandCard border border-brandHover rounded-2xl p-5 shadow-lg">
+        <div class="flex items-center justify-between mb-3">
+          <h3 id="quickTopicsHeading" class="text-sm sm:text-base font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-bolt text-brandNeon"></i>
+            तुरंत पूछें (1-Touch Farmer Voice Topics)
+          </h3>
+          <span class="text-xs text-slate-400">टच करें और तुरंत आवाज में सुनें</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+          <button onclick="triggerQuickQuery('pm kisan samman nidhi kist')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
+            <i class="fa-solid fa-hand-holding-dollar text-emerald-400 text-lg"></i>
+            <p class="font-bold text-white text-xs">₹6,000 पीएम-किसान</p>
+            <p class="text-[10px] text-slate-400">किस्त, e-KYC व पात्रता</p>
+          </button>
+
+          <button onclick="triggerQuickQuery('pmfby fasal bima crop insurance')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
+            <i class="fa-solid fa-cloud-showers-heavy text-sky-400 text-lg"></i>
+            <p class="font-bold text-white text-xs">फसल बीमा (PMFBY)</p>
+            <p class="text-[10px] text-slate-400">72 घंटे में दावा नियम</p>
+          </button>
+
+          <button onclick="triggerQuickQuery('kcc kisan credit card loan')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
+            <i class="fa-solid fa-credit-card text-amber-400 text-lg"></i>
+            <p class="font-bold text-white text-xs">केसीसी (KCC) लोन</p>
+            <p class="text-[10px] text-slate-400">4% सस्ता फसली ऋण</p>
+          </button>
+
+          <button onclick="triggerQuickQuery('nakli beej fake seeds compensation law')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
+            <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg"></i>
+            <p class="font-bold text-white text-xs">नकली बीज व खाद</p>
+            <p class="text-[10px] text-slate-400">उपभोक्ता मुआवजा कानून</p>
+          </button>
+
+          <button onclick="triggerQuickQuery('land dispute mutation dakhil kharij inheritance')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
+            <i class="fa-solid fa-map-location-dot text-indigo-400 text-lg"></i>
+            <p class="font-bold text-white text-xs">जमीन विवाद व विरासत</p>
+            <p class="text-[10px] text-slate-400">दाखिल-खारिज व SDM नियम</p>
+          </button>
+
+          <button onclick="triggerQuickQuery('free lawyer nalsa legal aid for farmers')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
+            <i class="fa-solid fa-scale-balanced text-teal-400 text-lg"></i>
+            <p class="font-bold text-white text-xs">मुफ्त सरकारी वकील</p>
+            <p class="text-[10px] text-slate-400">नालसा 100% मुफ्त सहायता</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- EMERGENCY HELPLINES BAR -->
+      <div class="bg-brandDark border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-brandBlue/20 border border-brandNeon/40 flex items-center justify-center text-brandNeon">
+            <i class="fa-solid fa-phone-volume text-lg"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">किसान हेल्पलाइन (24x7 निःशुल्क कानूनी व कृषि सहायता)</h4>
+            <p class="text-xs text-slate-400">किसान कॉल सेंटर: 1800-180-1551 &bull; नालसा कानूनी सहायता: 15100 &bull; फसल बीमा: 14447</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="tel:18001801551" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-md">
+            <i class="fa-solid fa-phone"></i> 1800-180-1551
+          </a>
+          <a href="tel:15100" class="bg-brandBlue hover:bg-sky-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition flex items-center gap-1 shadow-md">
+            <i class="fa-solid fa-scale-balanced"></i> 15100
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECONDARY COLUMN: INTERACTIVE CHATBOT DRAWER (OPTIONAL / COLLAPSIBLE) -->
+    <aside id="secondaryChatDrawer" class="hidden lg:col-span-4 bg-brandNavy border border-brandHover/80 rounded-2xl overflow-hidden shadow-2xl flex-col h-[700px] transition-all duration-300">
+      
+      <!-- Drawer Header -->
+      <div class="bg-brandDark px-4 py-3 border-b border-brandHover flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
+              चैटबॉट सहायक
+              <span class="text-[10px] bg-brandBlue/30 text-brandNeon px-2 py-0.5 rounded-full border border-brandNeon/30">Secondary</span>
+            </h3>
+            <p class="text-[11px] text-slate-400">लिखित संदेश एवं इतिहास</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button onclick="clearChat()" class="text-slate-400 hover:text-white text-xs px-2 py-1 rounded" title="चैट साफ करें">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+          <button onclick="toggleChatDrawer()" class="text-slate-400 hover:text-white text-xs px-2 py-1 rounded" title="बंद करें">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 text-xs md:text-sm">
+        <!-- Chat bubbles populated dynamically -->
+      </div>
+
+      <!-- Manual Chat Input Form -->
+      <div class="p-3 bg-brandDark border-t border-brandHover">
+        <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center gap-2">
+          <input 
+            type="text" 
+            id="chatInput" 
+            placeholder="यहाँ सवाल लिखें (उदा. पीएम किसान, केसीसी)..."
+            class="flex-1 bg-brandCard border border-slate-700 focus:border-brandNeon rounded-xl px-3 py-2 text-xs md:text-sm text-white placeholder-slate-400 focus:outline-none transition shadow-inner"
+          />
+          <button 
+            type="submit" 
+            class="bg-brandBlue hover:bg-sky-500 text-white rounded-xl px-3 py-2 text-xs md:text-sm font-semibold transition flex items-center justify-center shadow-md active:scale-95"
+            title="भेजें"
+          >
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-brandHover/50 bg-brandDark/80 py-3 px-4 text-center text-xs text-slate-500">
+    <p>Neuro_X Sahayak &bull; Working Prototype for Indian Farmers &bull; Primary: Voice Assistance &bull; Secondary: Chatbot</p>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC (Voice-First Flow, STT, TTS, Two-Stage Onboarding, Demo Mode) -->
+  <script>
+    // State & Elements
+    let currentStage = 'ask_language'; // 'ask_language', 'ask_help', 'answering'
+    let currentLanguage = 'hi-IN';
+    let recognition = null;
+    let isListening = false;
+    let synth = window.speechSynthesis;
+    let currentUtterance = null;
+    let lastSpokenText = '';
+    let isChatOpen = false;
+
+    // Multi-Language Conversation Mapping
+    const LANGUAGE_DATA = {
+      "hi-IN": {
+        code: "hi-IN",
+        name: "हिन्दी",
+        langGreetingVoice: "नमस्ते किसान साथी! आप किस भाषा में बात करना चाहते हैं? अपनी भाषा चुनें या बोलें।",
+        helpPromptVoice: "बहुत अच्छा! मैं आपकी किस प्रकार सहायता करूँ? आप पीएम किसान योजना, फसल बीमा, केसीसी लोन, जमीन विवाद, या मुफ्त कानूनी वकील के बारे में पूछ सकते हैं।",
+        heroTitle: "मैं आपकी क्या सहायता करूँ?",
+        heroSub: "माइक दबाकर अपनी भाषा में खेत, योजना, मुआवजा या कानूनी अधिकारों का सवाल पूछें।",
+        idleText: "माइक बटन दबाकर सवाल बोलें, या नीचे से कोई विषय चुनें",
+        listeningText: "सहायक आपकी आवाज सुन रहा है... बोलिए!",
+        speakingText: "सहायक उत्तर पढ़कर सुना रहा है... (सुनिए)",
+        inputPlaceholder: "यहाँ सवाल लिखें (उदा. पीएम किसान, मुआवजा, केसीसी)...",
+        introChatGreeting: "प्रणाम किसान साथी! 🙏",
+        introChatBody: "मैंने आपकी भाषा हिन्दी चुन ली है। बताइए, मैं आपकी क्या सहायता करूँ?"
+      },
+      "pa-IN": {
+        code: "pa-IN",
+        name: "ਪੰਜਾਬੀ",
+        langGreetingVoice: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਕਿਸਾਨ ਵੀਰੋ! ਤੁਸੀਂ ਕਿਹੜੀ ਬੋਲੀ ਵਿੱਚ ਗੱਲਬਾਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
+        helpPromptVoice: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਮੈਂ ਤੁਹਾਡੀ ਕੀ ਮਦਦ ਕਰ ਸਕਦਾ ਹਾਂ? ਤੁਸੀਂ ਪੀਐਮ ਕਿਸਾਨ, ਫਸਲ ਬੀਮਾ, ਕੇਸੀਸੀ ਕਰਜ਼ਾ ਜਾਂ ਜ਼ਮੀਨੀ ਕਾਨੂੰਨਾਂ ਬਾਰੇ ਪੁੱਛ ਸਕਦੇ ਹੋ।",
+        heroTitle: "ਦੱਸੋ ਕਿਸਾਨ ਵੀਰੋ, ਮੈਂ ਤੁਹਾਡੀ ਕੀ ਮਦਦ ਕਰਾਂ?",
+        heroSub: "ਮਾਈਕ ਦਬਾ ਕੇ ਖੇਤੀ, ਕਰਜ਼ੇ ਜਾਂ ਕਾਨੂੰਨ ਸੰਬੰਧੀ ਸਵਾਲ ਪੁੱਛੋ।",
+        idleText: "ਮਾਈਕ ਦਬਾ ਕੇ ਸਵਾਲ ਬੋਲੋ ਜਾਂ ਹੇਠਾਂ ਦਿੱਤੇ ਵਿਸ਼ੇ ਚੁਣੋ",
+        listeningText: "ਸਹਾਇਕ ਸੁਣ ਰਿਹਾ ਹੈ... ਬੋਲੋ ਜੀ!",
+        speakingText: "ਸਹਾਇਕ ਬੋਲ ਕੇ ਦੱਸ ਰਿਹਾ ਹੈ...",
+        inputPlaceholder: "ਇੱਥੇ ਸਵਾਲ ਲਿਖੋ (ਜਿਵੇਂ: ਪੀਐਮ ਕਿਸਾਨ, ਫਸਲ ਬੀਮਾ)...",
+        introChatGreeting: "ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਕਿਸਾਨ ਵੀਰੋ! 🙏",
+        introChatBody: "ਮੈਂ ਤੁਹਾਡੀ ਬੋਲੀ ਪੰਜਾਬੀ ਚੁਣ ਲਈ ਹੈ। ਦੱਸੋ ਜੀ, ਮੈਂ ਤੁਹਾਡੀ ਕੀ ਸਹਾਇਤਾ ਕਰਾਂ?"
+      },
+      "mr-IN": {
+        code: "mr-IN",
+        name: "मराठी",
+        langGreetingVoice: "नमस्कार शेतकरी बंधूंनो! आपण कोणत्या भाषेत संवाद साधू इच्छिता?",
+        helpPromptVoice: "नमस्कार! मी आपली काय मदत करू शकतो? आपण पीएम किसान योजना, पीक विमा, केसीसी कर्ज किंवा शेतजमीन कायद्याबद्दल विचारू शकता.",
+        heroTitle: "शेतकरी मित्रांनो, मी आपली काय मदत करू?",
+        heroSub: "माइक दाबून शेती, कर्ज, पीक विमा किंवा जमिनीच्या कायद्याविषयी विचारा.",
+        idleText: "माइक दाबून बोला किंवा खालील पर्याय निवडा",
+        listeningText: "सहाय्यक ऐकत आहे... बोला!",
+        speakingText: "सहाय्यक बोलत आहे...",
+        inputPlaceholder: "येथे प्रश्न लिहा (उदा. पीएम किसान, पीक विमा)...",
+        introChatGreeting: "नमस्कार शेतकरी बंधूंनो! 🙏",
+        introChatBody: "मी आपली भाषा मराठी निवडली आहे. सांगा, मी आपली काय मदत करू?"
+      },
+      "te-IN": {
+        code: "te-IN",
+        name: "తెలుగు",
+        langGreetingVoice: "నమస్కారం రైతు సోదరులారా! మీరు ఏ భాషలో మాట్లాడాలనుకుంటున్నారు?",
+        helpPromptVoice: "నమస్కారం! నేను మీకు ఎలా సహాయపడగలను? పీఎం కిసాన్, పంటల బీమా, కేసీసీ రుణాలు లేదా భూమి వివాదాల చట్టాల గురించి అడగవచ్చు.",
+        heroTitle: "రైతు సోదరులారా, నేను మీకు ఎలా సహాయపడగలను?",
+        heroSub: "మైక్ నొక్కి వ్యవసాయం, బీమా లేదా చట్టాల గురించి అడగండి.",
+        idleText: "మైక్ నొక్కి మాట్లాడండి లేదా కింద ఉన్న అంశాన్ని ఎంచుకోండి",
+        listeningText: "సహాయక్ వింటున్నారు... మాట్లాడండి!",
+        speakingText: "సహాయక్ సమాధానం చెబుతున్నారు...",
+        inputPlaceholder: "ఇక్కడ ప్రశ్న రాయండి (ఉదా: పీఎం కిసాన్, ఫసల్ బీమా)...",
+        introChatGreeting: "నమస్కారం రైతు సోదరులారా! 🙏",
+        introChatBody: "నేను మీ భాష తెలుగును ఎంచుకున్నాను. చెప్పండి, నేను మీకు ఎలా సహాయపడగలను?"
+      },
+      "ta-IN": {
+        code: "ta-IN",
+        name: "தமிழ்",
+        langGreetingVoice: "வணக்கம் விவசாய பெருமக்களே! நீங்கள் எந்த மொழியில் உரையாட விரும்புகிறீர்கள்?",
+        helpPromptVoice: "வணக்கம்! நான் உங்களுக்கு எவ்வாறு உதவ முடியும்? பிஎம் கிசான், பயிர் காப்பீடு, கேசிசி கடன் அல்லது நில சட்டங்கள் குறித்து நீங்கள் கேட்கலாம்.",
+        heroTitle: "விவசாய நண்பரே, நான் உங்களுக்கு எவ்வாறு உதவ வேண்டும்?",
+        heroSub: "மைக் அழுத்தி திட்டம், கடன், காப்பீடு அல்லது சட்டம் குறித்து கேளுங்கள்.",
+        idleText: "மைக் அழுத்தி பேசவும் அல்லது கீழே உள்ள தலைப்பை தேர்ந்தெடுக்கவும்",
+        listeningText: "உதவியாளர் கேட்கிறார்... பேசுங்கள்!",
+        speakingText: "உதவியாளர் பேசுகிறார்...",
+        inputPlaceholder: "இங்கே கேள்வி எழுதவும் (உதா: பிஎம் கிசான்)...",
+        introChatGreeting: "வணக்கம் விவசாய பெருமக்களே! 🙏",
+        introChatBody: "நான் உங்கள் மொழியாக தமிழைத் தேர்ந்தெடுத்துள்ளேன். சொல்லுங்கள், உங்களுக்கு என்ன உதவி வேண்டும்?"
+      },
+      "en-IN": {
+        code: "en-IN",
+        name: "English",
+        langGreetingVoice: "Hello farmer friend! Which language are you comfortable with? Hindi, Punjabi, Marathi, Telugu, Tamil, or English?",
+        helpPromptVoice: "Great! How can I help you today? You can ask about PM-Kisan, Crop Insurance (PMFBY), KCC Loans, Land Rights, or Free Legal Aid.",
+        heroTitle: "How may I help you today?",
+        heroSub: "Tap the microphone and ask questions about schemes, loans, compensation, or legal laws.",
+        idleText: "Tap the microphone to speak, or click any topic below",
+        listeningText: "Sahayak is listening... Speak now!",
+        speakingText: "Sahayak is speaking...",
+        inputPlaceholder: "Type your query here (e.g., PM Kisan, Crop Insurance, KCC)...",
+        introChatGreeting: "Hello Farmer Friend! 🙏",
+        introChatBody: "Language set to English. How can I assist you with farmer schemes and legal rights today?"
+      }
+    };
+
+    // Initialize On Load
+    window.addEventListener('DOMContentLoaded', () => {
+      startVoiceOnboarding();
+    });
+
+    // Start Voice Onboarding
+    function startVoiceOnboarding() {
+      currentStage = 'ask_language';
+      updateStepperUI(1);
+      document.getElementById('languageOnboardingCard').classList.remove('hidden');
+      document.getElementById('voiceAnswerCard').classList.add('hidden');
+      
+      const config = LANGUAGE_DATA['hi-IN'];
+      document.getElementById('heroPrompt').textContent = '"नमस्ते! आप किस भाषा में बात करना चाहते हैं?"';
+      document.getElementById('heroSubPrompt').textContent = 'अपनी भाषा चुनें या माइक दबाकर बोलें। इसके बाद बताइए, मैं आपकी क्या सहायता करूँ?';
+      
+      speakVoicePrompt(config.langGreetingVoice, 'hi-IN', () => {
+        setTimeout(() => {
+          if (currentStage === 'ask_language' && !isListening) {
+            startListening();
+          }
+        }, 300);
+      });
+
+      addBotChatMessage(`
+        <strong>प्रणाम किसान साथी! 🙏 Welcome to Neuro_X Sahayak Prototype</strong><br>
+        आप किस भाषा में बात करना चाहते हैं? / Which language are you comfortable with?<br>
+        <span class="text-sky-300">👉 मुख्य स्क्रीन पर अपनी भाषा चुनें या बोलें।</span>
+      `);
+    }
+
+    // Update Stepper UI
+    function updateStepperUI(stepNumber) {
+      const s1 = document.getElementById('step1Indicator');
+      const s2 = document.getElementById('step2Indicator');
+      const s3 = document.getElementById('step3Indicator');
+
+      [s1, s2, s3].forEach(el => {
+        el.className = 'px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center gap-1';
+        el.querySelector('span').className = 'w-2 h-2 rounded-full bg-slate-600';
+      });
+
+      if (stepNumber === 1) {
+        s1.className = 'px-2.5 py-1 rounded-full bg-brandBlue text-white font-bold flex items-center gap-1 shadow';
+        s1.querySelector('span').className = 'w-2 h-2 rounded-full bg-white animate-ping';
+      } else if (stepNumber === 2) {
+        s2.className = 'px-2.5 py-1 rounded-full bg-brandBlue text-white font-bold flex items-center gap-1 shadow';
+        s2.querySelector('span').className = 'w-2 h-2 rounded-full bg-white animate-ping';
+      } else if (stepNumber === 3) {
+        s3.className = 'px-2.5 py-1 rounded-full bg-emerald-600 text-white font-bold flex items-center gap-1 shadow';
+        s3.querySelector('span').className = 'w-2 h-2 rounded-full bg-white';
+      }
+    }
+
+    // Step 2: Language Chosen -> Sahayak Asks What to Help
+    function selectLanguageAndPrompt(langCode) {
+      stopSpeaking();
+      currentLanguage = langCode;
+      document.getElementById('languageSelect').value = langCode;
+      currentStage = 'ask_help';
+      updateStepperUI(2);
+
+      const config = LANGUAGE_DATA[langCode] || LANGUAGE_DATA['hi-IN'];
+
+      // Visual updates on Hero
+      document.getElementById('heroPrompt').textContent = `"${config.heroTitle}"`;
+      document.getElementById('heroSubPrompt').textContent = config.heroSub;
+      document.getElementById('idleStatusText').textContent = config.idleText;
+      document.getElementById('chatInput').placeholder = config.inputPlaceholder;
+      document.getElementById('languageOnboardingCard').classList.add('hidden');
+
+      // Highlight active pill
+      document.querySelectorAll('.lang-pill').forEach(btn => {
+        btn.classList.remove('border-brandNeon', 'bg-brandBlue/30');
+      });
+
+      // Voice prompt: Ask what to help in selected mother tongue
+      speakVoicePrompt(config.helpPromptVoice, langCode, () => {
+        setTimeout(() => {
+          if (!isListening) {
+            startListening();
+          }
+        }, 300);
+      });
+
+      // Add to secondary chat stream
+      addUserChatMessage(config.name + " भाषा चुनी गई");
+      addBotChatMessage(`
+        <strong>${config.introChatGreeting}</strong><br>
+        ${config.introChatBody}<br>
+        <div class="mt-2 p-2 bg-brandDark/80 rounded-lg text-xs space-y-1">
+          <p class="font-semibold text-brandNeon">उदाहरण सवाल:</p>
+          <p>• "मुझे ₹6000 वाली पीएम किसान योजना की किस्त चाहिए"</p>
+          <p>• "फसल नुकसान पर बीमा कैसे मिलेगा?"</p>
+          <p>• "नकली खाद-बीज की शिकायत कहाँ करें?"</p>
+        </div>
+      `);
+    }
+
+    function onLanguageDropdownChange() {
+      selectLanguageAndPrompt(document.getElementById('languageSelect').value);
+    }
+
+    // Speech Recognition Setup (Web Speech API)
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        console.warn('Speech Recognition not supported in this browser');
+        document.getElementById('idleStatusText').innerHTML = '<span class="text-amber-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i> इस ब्राउज़र में माइक समर्थित नहीं है। नीचे दिए गए तुरंत विषयों पर क्लिक करें या Chrome प्रयोग करें।</span>';
+        return null;
+      }
+
+      const recog = new SpeechRecognition();
+      recog.continuous = false;
+      recog.interimResults = true;
+      recog.lang = currentLanguage;
+
+      recog.onstart = () => {
+        isListening = true;
+        document.getElementById('micRing1').classList.remove('hidden');
+        document.getElementById('micRing2').classList.remove('hidden');
+        document.getElementById('idleState').classList.add('hidden');
+        document.getElementById('speakingState').classList.add('hidden');
+        document.getElementById('listeningState').classList.remove('hidden');
+        
+        const liveTranscript = document.getElementById('liveTranscript');
+        liveTranscript.classList.remove('hidden');
+        liveTranscript.textContent = 'सुन रहा हूँ... बोलिए...';
+        
+        const btn = document.getElementById('voiceMicBtn');
+        btn.classList.add('glow-sphere-listening');
+        document.getElementById('micLabel').textContent = 'सुन रहा हूँ...';
+      };
+
+      recog.onresult = (event) => {
+        let interimTranscript = '';
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+        document.getElementById('liveTranscript').textContent = finalTranscript || interimTranscript;
+        if (finalTranscript) {
+          handleIncomingVoiceSpeech(finalTranscript);
+        }
+      };
+
+      recog.onerror = (event) => {
+        console.error('Recognition error', event.error);
+        resetMicUI();
+      };
+
+      recog.onend = () => {
+        resetMicUI();
+      };
+
+      return recog;
+    }
+
+    function resetMicUI() {
+      isListening = false;
+      document.getElementById('micRing1').classList.add('hidden');
+      document.getElementById('micRing2').classList.add('hidden');
+      document.getElementById('listeningState').classList.add('hidden');
+      if (!synth.speaking) {
+        document.getElementById('idleState').classList.remove('hidden');
+      }
+      const btn = document.getElementById('voiceMicBtn');
+      btn.classList.remove('glow-sphere-listening');
+      document.getElementById('micLabel').textContent = 'माइक दबाएं (Speak)';
+    }
+
+    function startListening() {
+      stopSpeaking();
+      if (!recognition) {
+        recognition = initSpeechRecognition();
+      }
+      if (!recognition) return;
+      recognition.lang = currentLanguage;
+      try {
+        recognition.start();
+      } catch (e) {
+        recognition.stop();
+        setTimeout(() => recognition.start(), 200);
+      }
+    }
+
+    function toggleMicRecording() {
+      if (!recognition) {
+        recognition = initSpeechRecognition();
+      }
+      if (!recognition) return;
+
+      if (isListening) {
+        recognition.stop();
+        resetMicUI();
+      } else {
+        startListening();
+      }
+    }
+
+    // Handles Speech based on Current Stage
+    function handleIncomingVoiceSpeech(spokenText) {
+      const lower = spokenText.toLowerCase();
+
+      // Stage 1: If user is naming their language
+      if (currentStage === 'ask_language') {
+        if (lower.includes('hindi') || lower.includes('हिन्दी') || lower.includes('हिंदी')) {
+          selectLanguageAndPrompt('hi-IN');
+          return;
+        } else if (lower.includes('punjabi') || lower.includes('ਪੰਜਾਬੀ')) {
+          selectLanguageAndPrompt('pa-IN');
+          return;
+        } else if (lower.includes('marathi') || lower.includes('मराठी')) {
+          selectLanguageAndPrompt('mr-IN');
+          return;
+        } else if (lower.includes('telugu') || lower.includes('తెలుగు')) {
+          selectLanguageAndPrompt('te-IN');
+          return;
+        } else if (lower.includes('tamil') || lower.includes('தமிழ்')) {
+          selectLanguageAndPrompt('ta-IN');
+          return;
+        } else if (lower.includes('english')) {
+          selectLanguageAndPrompt('en-IN');
+          return;
+        }
+      }
+
+      // Stage 2 or 3: Process farmer's question
+      executeFarmerQuery(spokenText);
+    }
+
+    // Process Query (Called by Voice Mic or Touch Button)
+    async function executeFarmerQuery(queryText) {
+      if (!queryText || !queryText.trim()) return;
+      const cleanText = queryText.trim();
+      currentStage = 'answering';
+      updateStepperUI(3);
+
+      addUserChatMessage(cleanText);
+      document.getElementById('idleStatusText').textContent = 'सहायक उत्तर खोज रहा है...';
+
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: cleanText,
+            language: currentLanguage
+          })
+        });
+
+        const data = await response.json();
+        lastSpokenText = data.spoken_response;
+
+        displayPrimaryVoiceResult(data);
+
+        if (data.spoken_response) {
+          speakVoicePrompt(data.spoken_response, currentLanguage);
+        }
+
+        appendChatResponse(data);
+
+      } catch (err) {
+        console.error('API Error:', err);
+        document.getElementById('idleStatusText').textContent = 'त्रुटि: सर्वर से संपर्क नहीं हो पाया। पुनः प्रयास करें।';
+      }
+    }
+
+    // Render answer primarily on the Hero Section
+    function displayPrimaryVoiceResult(data) {
+      const card = document.getElementById('voiceAnswerCard');
+      card.classList.remove('hidden');
+
+      document.getElementById('answerSpokenText').textContent = data.spoken_response;
+
+      if (data.scheme) {
+        const s = data.scheme;
+        document.getElementById('answerSchemeName').textContent = s.title;
+        document.getElementById('answerCategoryBadge').textContent = s.category === 'scheme' ? 'सरकारी योजना' : 'कानूनी अधिकार';
+        document.getElementById('answerEligibility').textContent = s.eligibility;
+        document.getElementById('answerDocs').textContent = s.documents;
+        document.getElementById('answerProcess').innerHTML = `
+          ${escapeHtml(s.application_process)}<br>
+          <span class="text-brandNeon font-mono text-[11px] block mt-1">${escapeHtml(s.official_portal)}</span>
+        `;
+        document.getElementById('schemeDetailsGrid').classList.remove('hidden');
+      } else {
+        document.getElementById('answerSchemeName').textContent = 'किसान मार्गदर्शन एवं सहायता';
+        document.getElementById('answerCategoryBadge').textContent = 'सलाह';
+        document.getElementById('schemeDetailsGrid').classList.add('hidden');
+      }
+
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Text to Speech
+    function speakVoicePrompt(text, langCode, onCompleteCallback) {
+      if (!synth) return;
+      stopSpeaking();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = langCode || currentLanguage || 'hi-IN';
+      utterance.rate = 0.95;
+      utterance.pitch = 1.0;
+
+      const voices = synth.getVoices();
+      const targetLang = utterance.lang.split('-')[0];
+      const matchVoice = voices.find(v => v.lang.startsWith(targetLang));
+      if (matchVoice) {
+        utterance.voice = matchVoice;
+      }
+
+      utterance.onstart = () => {
+        document.getElementById('speakingState').classList.remove('hidden');
+        document.getElementById('idleState').classList.add('hidden');
+        document.getElementById('listeningState').classList.add('hidden');
+        document.getElementById('stopSpeechBtn').classList.remove('hidden');
+        document.getElementById('stopSpeechBtn').classList.add('flex');
+        
+        const btn = document.getElementById('voiceMicBtn');
+        btn.classList.add('glow-sphere-speaking');
+      };
+
+      utterance.onend = () => {
+        document.getElementById('speakingState').classList.add('hidden');
+        document.getElementById('idleState').classList.remove('hidden');
+        document.getElementById('stopSpeechBtn').classList.add('hidden');
+        document.getElementById('stopSpeechBtn').classList.remove('flex');
+        
+        const btn = document.getElementById('voiceMicBtn');
+        btn.classList.remove('glow-sphere-speaking');
+
+        if (typeof onCompleteCallback === 'function') {
+          onCompleteCallback();
+        }
+      };
+
+      utterance.onerror = () => {
+        document.getElementById('speakingState').classList.add('hidden');
+        document.getElementById('idleState').classList.remove('hidden');
+        document.getElementById('stopSpeechBtn').classList.add('hidden');
+        document.getElementById('stopSpeechBtn').classList.remove('flex');
+      };
+
+      currentUtterance = utterance;
+      synth.speak(utterance);
+    }
+
+    function stopSpeaking() {
+      if (synth && synth.speaking) {
+        synth.cancel();
+      }
+      document.getElementById('speakingState').classList.add('hidden');
+      document.getElementById('stopSpeechBtn').classList.add('hidden');
+      document.getElementById('stopSpeechBtn').classList.remove('flex');
+      const btn = document.getElementById('voiceMicBtn');
+      if (btn) btn.classList.remove('glow-sphere-speaking');
+    }
+
+    function replayCurrentAnswer() {
+      if (lastSpokenText) {
+        speakVoicePrompt(lastSpokenText, currentLanguage);
+      }
+    }
+
+    function triggerQuickQuery(topic) {
+      stopSpeaking();
+      executeFarmerQuery(topic);
+    }
+
+    // 1-Click Guided Demo Mode for Prototype Evaluation
+    function playPrototypeGuidedTour() {
+      stopSpeaking();
+      // Step 1: Select Hindi or user choice
+      selectLanguageAndPrompt('hi-IN');
+      
+      // Step 2: Automatically trigger PM-Kisan Query after speaking prompt
+      setTimeout(() => {
+        executeFarmerQuery('pm kisan samman nidhi ₹6000 kist ekyc');
+      }, 4500);
+    }
+
+    function resetPrototype() {
+      stopSpeaking();
+      clearChat();
+      startVoiceOnboarding();
+    }
+
+    // Secondary Chat Drawer Toggle
+    function toggleChatDrawer() {
+      const drawer = document.getElementById('secondaryChatDrawer');
+      const voiceSection = document.getElementById('primaryVoiceSection');
+      
+      if (isChatOpen) {
+        drawer.classList.add('hidden');
+        drawer.classList.remove('flex');
+        voiceSection.classList.remove('lg:col-span-8');
+        voiceSection.classList.add('lg:col-span-12');
+        isChatOpen = false;
+      } else {
+        drawer.classList.remove('hidden');
+        drawer.classList.add('flex');
+        voiceSection.classList.remove('lg:col-span-12');
+        voiceSection.classList.add('lg:col-span-8');
+        isChatOpen = true;
+      }
+    }
+
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const val = input.value;
+      if (!val) return;
+      input.value = '';
+      
+      if (currentStage === 'ask_language') {
+        handleIncomingVoiceSpeech(val);
+      } else {
+        executeFarmerQuery(val);
+      }
+    }
+
+    function addUserChatMessage(text) {
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'flex items-start justify-end gap-2';
+      div.innerHTML = `
+        <div class="bg-brandBlue text-white rounded-2xl rounded-tr-none p-2.5 max-w-[85%] shadow-md">
+          ${escapeHtml(text)}
+        </div>
+        <div class="w-7 h-7 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-[10px] text-brandNeon shrink-0">
+          <i class="fa-solid fa-user"></i>
+        </div>
+      `;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function addBotChatMessage(htmlContent) {
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'flex items-start gap-2';
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-black border border-brandNeon/40 flex items-center justify-center p-0.5 shrink-0">
+          <img src="/assets/logo.png" alt="NeuroX" class="max-w-full max-h-full">
+        </div>
+        <div class="bg-brandCard border border-brandHover rounded-2xl rounded-tl-none p-3 max-w-[90%] text-slate-200 leading-relaxed shadow-sm">
+          ${htmlContent}
+        </div>
+      `;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function appendChatResponse(data) {
+      let cardSnippet = '';
+      if (data.scheme) {
+        cardSnippet = `
+          <div class="mt-2 pt-2 border-t border-slate-700 text-[11px] text-slate-300">
+            <strong class="text-brandNeon">${escapeHtml(data.scheme.title)}</strong><br>
+            <span class="text-slate-400">पात्रता:</span> ${escapeHtml(data.scheme.eligibility)}
+          </div>
+        `;
+      }
+      addBotChatMessage(`
+        <p>${escapeHtml(data.spoken_response)}</p>
+        ${cardSnippet}
+      `);
+    }
+
+    function clearChat() {
+      document.getElementById('chatMessages').innerHTML = '';
+      stopSpeaking();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = () => {
+        // Voices ready
+      };
+    }
+  </script>
+</body>
+</html>
