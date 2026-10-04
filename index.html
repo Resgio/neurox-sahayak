@@ -319,6 +319,7 @@
           <p id="answerSpokenText" class="text-lg sm:text-xl text-slate-100 leading-relaxed font-medium mb-5 whitespace-pre-wrap break-words">
             <!-- Populated dynamically -->
           </p>
+          <a id="glossarySource" class="hidden text-xs text-brandNeon underline underline-offset-2 mb-5" target="_blank" rel="noopener noreferrer"></a>
 
           <!-- Rich Details Grid -->
           <div id="schemeDetailsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
@@ -568,6 +569,7 @@
           cooperativeCategory: "सहकारी कार्यक्रम",
           guidanceBadge: "सलाह",
           answerMeta: "आवाज़ में उत्तर एवं सरकारी नियम विवरण",
+          glossarySourceLabel: "संदर्भ स्रोत:",
           questionExamples: "उदाहरण: “पीएम-किसान की किस्त कैसे मिलेगी?”, “फसल बीमा कैसे लें?” या “मुझे उधार लेना है / लोन कैसे लूँ?”",
           eligibilityLabel: "पात्रता:",
           documentsLabel: "ज़रूरी दस्तावेज़:",
@@ -698,6 +700,7 @@
           cooperativeCategory: "Cooperative programme",
           guidanceBadge: "Guidance",
           answerMeta: "Voice response and official guidance",
+          glossarySourceLabel: "Reference source:",
           questionExamples: "Examples: “How do I apply for PM-KISAN?”, “How can I claim crop insurance?” or “How do I apply for a KCC farm loan?”",
           eligibilityLabel: "Eligibility:",
           documentsLabel: "Documents required:",
@@ -1100,6 +1103,18 @@
         abbreviationsCard.classList.remove('hidden');
       } else {
         abbreviationsCard.classList.add('hidden');
+      }
+
+      const glossarySource = document.getElementById('glossarySource');
+      if (data.glossary) {
+        document.getElementById('answerSchemeName').textContent = data.glossary.title;
+        document.getElementById('answerCategoryBadge').textContent = getLanguageConfig().ui.cooperativeCategory;
+        document.getElementById('schemeDetailsGrid').classList.add('hidden');
+        glossarySource.href = data.glossary.source;
+        glossarySource.textContent = `${getLanguageConfig().ui.glossarySourceLabel} ${new URL(data.glossary.source).hostname}`;
+        glossarySource.classList.remove('hidden');
+      } else {
+        glossarySource.classList.add('hidden');
       }
 
       card.scrollIntoView({ behavior: 'smooth', block: 'start' });

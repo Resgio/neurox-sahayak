@@ -4,6 +4,7 @@ import asyncio
 import json
 
 from app import (
+    COOPERATIVE_GLOSSARY,
     COOPERATIVE_PROGRAMMES,
     COOPERATION_ABBREVIATIONS,
     HINDI_QUERY_ALIASES,
@@ -197,6 +198,8 @@ class HindiQueryTests(unittest.TestCase):
             ("hi hello Sahayak", "en-IN", "Namaste!"),
             ("hello hi सहायक", "hi-IN", "नमस्कार!"),
             ("सुप्रभात सहायक", "hi-IN", "नमस्कार!"),
+            ("hello hi", "hindi", "नमस्कार!"),
+            ("hello hi", "हिंदी", "नमस्कार!"),
         ):
             with self.subTest(query=query):
                 result = search_knowledge_base(query, language)
@@ -333,6 +336,28 @@ class HindiQueryTests(unittest.TestCase):
         self.assertIn("strategic direction", english["spoken_response"])
         self.assertIn("परियोजना-आधारित वित्तीय सहायता", hindi["spoken_response"])
 
+    def test_hindi_abbreviation_questions_support_common_hindi_and_hinglish_forms(self):
+        queries = (
+            "NCDC क्या है?",
+            "NCDC क्या होता है?",
+            "NCDC का फुल फॉर्म क्या है?",
+            "NCDC ka full form kya hai",
+            "NCDC ka kya matlab hai",
+        )
+        for query in queries:
+            with self.subTest(query=query):
+                result = search_knowledge_base(query, "hi-IN")
+                self.assertTrue(result["found"])
+                self.assertEqual(result["abbreviations"][0]["abbreviation"], "NCDC")
+                self.assertIn("राष्ट्रीय सहकारी विकास निगम", result["spoken_response"])
+                self.assertIn("परियोजना-आधारित वित्तीय सहायता", result["spoken_response"])
+
+    def test_hindi_abbreviation_response_accepts_hindi_language_name(self):
+        result = search_knowledge_base("NCDC kya hai", "Hindi")
+
+        self.assertIn("राष्ट्रीय सहकारी विकास निगम", result["spoken_response"])
+        self.assertIn("परियोजना-आधारित वित्तीय सहायता", result["spoken_response"])
+
     def test_asking_about_abbreviation_full_name_returns_its_definition(self):
         result = search_knowledge_base(
             "I want to know about the State Cooperative Bank", "en-IN"
@@ -465,14 +490,51 @@ class HindiQueryTests(unittest.TestCase):
                 self.assertEqual(result["scheme"]["id"], "cooperative_programme_overview")
                 self.assertNotIn("couldn’t understand", result["spoken_response"])
 
+    def test_basic_cooperative_terms_get_bilingual_explanatory_paragraphs(self):
+        queries = (
+            ("What is a cooperative society?", "en-IN", "cooperative_society", "jointly own"),
+            ("What are cooperative societies?", "en-IN", "cooperative_society", "jointly own"),
+            ("सहकारी समितियाँ क्या हैं?", "hi-IN", "cooperative_society", "स्वामित्व"),
+            ("Sahkari samiti kya hai?", "hi-IN", "cooperative_society", "सदस्यों"),
+            ("सहकारी समिति क्या है?", "hi-IN", "cooperative_society", "सदस्य"),
+            ("What are the seven cooperative principles?", "en-IN", "cooperative_principles", "democratic member control"),
+            ("सहकारिता के सिद्धांत क्या हैं?", "hi-IN", "cooperative_principles", "लोकतांत्रिक"),
+            ("What are cooperative bye-laws?", "en-IN", "cooperative_bye_laws", "registered internal rules"),
+            ("सहकारी समिति की आम सभा क्या है?", "hi-IN", "cooperative_general_body", "आम सभा"),
+            ("What is a PACS?", "en-IN", "pacs_definition", "village-level"),
+            ("पैक्स क्या है?", "hi-IN", "pacs_definition", "गाँव स्तर"),
+            ("What does a cooperative registrar do?", "en-IN", "cooperative_registrar", "statutory authority"),
+        )
+        for query, language, term_id, expected_text in queries:
+            with self.subTest(query=query):
+                result = search_knowledge_base(query, language)
+                self.assertTrue(result["found"])
+                self.assertEqual(result["glossary"]["id"], term_id)
+                self.assertIn(expected_text, result["spoken_response"])
+                sentence_count = result["spoken_response"].count(".") + result["spoken_response"].count("।")
+                self.assertGreaterEqual(sentence_count, 2)
+                self.assertTrue(result["glossary"]["source"].startswith("https://"))
+
+    def test_cooperative_glossary_is_in_the_chatbot_feed(self):
+        feed = asyncio.run(get_all_schemes())
+        payload = json.loads(feed.body)
+
+        self.assertEqual(payload["cooperative_glossary"], COOPERATIVE_GLOSSARY)
+        self.assertGreaterEqual(len(payload["cooperative_glossary"]), 10)
+        for entry in payload["cooperative_glossary"]:
+            with self.subTest(term=entry["id"]):
+                self.assertTrue(entry["terms"])
+                self.assertTrue(entry["summary"]["en"])
+                self.assertTrue(entry["summary"]["hi"])
+                self.assertTrue(entry["source"].startswith("https://"))
+
     def test_common_hindi_cooperative_aliases_match_relevant_programmes(self):
         queries = (
-            ("PACS क्या है?", "hi-IN", "pacs_computerization"),
             ("पैक्स का कंप्यूटरीकरण क्या है?", "hi-IN", "pacs_computerization"),
             ("श्वेत क्रांति क्या है?", "hi-IN", "white_revolution_2"),
             ("दूध व्यवसाय", "hi-IN", "white_revolution_2"),
             ("युवा सहकार योजना क्या है?", "hi-IN", "yuva_sahakar"),
-            ("NCDC क्या है?", "hi-IN", "ncdc_finance"),
+            ("NCDC वित्तीय सहायता", "hi-IN", "ncdc_finance"),
             ("कोऑपरेटिव समिति कैसे शुरू करूं?", "hi-IN", "new_cooperative_societies"),
         )
         for query, language, programme_id in queries:
