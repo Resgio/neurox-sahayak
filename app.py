@@ -116,6 +116,93 @@ HINDI_QUERY_ALIASES = {
     ]
 }
 
+HINDI_SCHEME_DETAILS = {
+    "pm_kisan": {
+        "title": "पीएम-किसान (प्रधानमंत्री किसान सम्मान निधि)",
+        "eligibility": "खेती योग्य भूमि अपने नाम पर दर्ज कराने वाले किसान परिवार पात्र हैं। संस्थागत भूमि-धारक और अधिक आयकर देने वाले व्यक्ति पात्र नहीं हैं।",
+        "documents": "आधार कार्ड, भूमि के कागज़ (खाता/खसरा/अधिकार अभिलेख), आधार से जुड़ा सक्रिय बैंक खाता, चालू मोबाइल नंबर और पूरी की गई ई-केवाईसी।",
+        "application_process": "pmkisan.gov.in पर पंजीकरण करें या नज़दीकी कॉमन सर्विस सेंटर (CSC) अथवा राज्य कृषि विभाग के कार्यालय जाएँ। बायोमेट्रिक या ओटीपी से ई-केवाईसी पूरी करें।",
+        "official_portal": "https://pmkisan.gov.in | हेल्पलाइन: 155261 / 1800115526"
+    },
+    "pmfby": {
+        "title": "प्रधानमंत्री फसल बीमा योजना (PMFBY)",
+        "eligibility": "अधिसूचित क्षेत्र में अधिसूचित फसल उगाने वाले किसान, बटाईदार और किरायेदार किसान आवेदन कर सकते हैं।",
+        "documents": "भूमि अभिलेख (RoR/पट्टा), बुवाई प्रमाणपत्र या घोषणा, आधार कार्ड, बैंक पासबुक और किरायेदार किसान के लिए किरायेदारी समझौता।",
+        "application_process": "अंतिम तिथि से पहले pmfby.gov.in, बैंक, CSC या फसल बीमा ऐप के माध्यम से आवेदन करें। स्थानीय आपदा से नुकसान होने पर 72 घंटे के भीतर ऐप या टोल-फ्री नंबर 14447 पर सूचना दें।",
+        "official_portal": "https://pmfby.gov.in | राष्ट्रीय टोल-फ्री नंबर: 14447"
+    },
+    "kcc": {
+        "title": "किसान क्रेडिट कार्ड (KCC) — कृषि ऋण",
+        "eligibility": "व्यक्तिगत किसान, संयुक्त रूप से आवेदन करने वाले किसान, किरायेदार किसान, मौखिक पट्टेदार, बटाईदार और स्वयं सहायता समूह आवेदन कर सकते हैं। पशुपालन और मत्स्य पालन के लिए भी यह सुविधा उपलब्ध है।",
+        "documents": "भरा हुआ आवेदन-पत्र, पहचान प्रमाण (आधार/मतदाता पहचान-पत्र), पते का प्रमाण, भूमि अभिलेख या स्वामित्व के कागज़ और फसल का विवरण।",
+        "application_process": "किसी वाणिज्यिक बैंक, क्षेत्रीय ग्रामीण बैंक (RRB) या सहकारी बैंक में आवेदन करें। सार्वजनिक क्षेत्र के बैंकों के पोर्टल पर ऑनलाइन आवेदन का विकल्प भी देखें।",
+        "official_portal": "https://myscheme.gov.in | RBI हेल्पलाइन: 14440"
+    },
+    "pm_kusum": {
+        "title": "पीएम-कुसुम — सौर पंप और स्वच्छ ऊर्जा योजना",
+        "eligibility": "व्यक्तिगत किसान, किसान उत्पादक संगठन (FPO), पंचायतें, सहकारी संस्थाएँ और जल उपयोगकर्ता संघ आवेदन कर सकते हैं।",
+        "documents": "आधार कार्ड, भूमि स्वामित्व प्रमाणपत्र/जमाबंदी, बैंक पासबुक, पासपोर्ट आकार का फोटो और मोबाइल नंबर।",
+        "application_process": "अपने राज्य की निर्धारित अक्षय ऊर्जा विकास एजेंसी के पोर्टल से पंजीकरण करें। नकली वेबसाइटों से सावधान रहें और केवल आधिकारिक सरकारी पोर्टल का उपयोग करें।",
+        "official_portal": "https://pmkusum.mnre.gov.in | टोल-फ्री नंबर: 1800-180-3333"
+    },
+    "soil_health_card": {
+        "title": "मृदा स्वास्थ्य कार्ड योजना",
+        "eligibility": "भारत के सभी राज्यों और केंद्रशासित प्रदेशों के किसान इस योजना का लाभ ले सकते हैं।",
+        "documents": "किसान की पहचान और खेत के नमूने की पहचान के लिए भूमि/खसरा संबंधी बुनियादी जानकारी।",
+        "application_process": "कृषि अधिकारी खेत से मिट्टी का नमूना लेकर मृदा परीक्षण प्रयोगशाला में जाँच कराते हैं। कार्ड आम तौर पर हर 2–3 वर्ष में जारी किया जाता है। जानकारी आधिकारिक पोर्टल पर भी देखें।",
+        "official_portal": "https://soilhealth.dac.gov.in | किसान कॉल सेंटर: 1800-180-1551"
+    },
+    "pmksy": {
+        "title": "प्रधानमंत्री कृषि सिंचाई योजना — प्रति बूंद अधिक फसल",
+        "eligibility": "भूमि वाले सभी किसान आवेदन कर सकते हैं। छोटे और सीमांत किसानों को अधिक सब्सिडी मिल सकती है।",
+        "documents": "भूमि अभिलेख (7/12, खतौनी), आधार कार्ड, पानी के स्रोत का प्रमाण, बैंक पासबुक और सूचीबद्ध विक्रेता का मूल्य-प्रस्ताव।",
+        "application_process": "राज्य के बागवानी या कृषि विभाग के पोर्टल पर आवेदन करें। अपने राज्य में लागू नियमों और पात्र विक्रेताओं की जानकारी संबंधित विभाग से जाँचें।",
+        "official_portal": "https://pmksy.gov.in"
+    },
+    "enam": {
+        "title": "ई-नाम (राष्ट्रीय कृषि बाज़ार — ऑनलाइन मंडी)",
+        "eligibility": "अधिसूचित कृषि उपज मंडियों (APMC) में पंजीकृत किसान और व्यापारी।",
+        "documents": "आधार कार्ड, बैंक खाते का विवरण, APMC पंजीकरण या मंडी प्रवेश पर्ची और गुणवत्ता जाँच पर्ची।",
+        "application_process": "enam.gov.in या e-NAM मोबाइल ऐप पर पंजीकरण करें, अथवा e-NAM से जुड़ी APMC मंडी में अपनी उपज लाएँ।",
+        "official_portal": "https://enam.gov.in | हेल्पलाइन: 1800 270 0224"
+    },
+    "msp_law": {
+        "title": "न्यूनतम समर्थन मूल्य (MSP) और सरकारी खरीद के अधिकार",
+        "eligibility": "अधिसूचित अनाज, दालें, तिलहन, कपास और खोपरा उगाने वाले किसान।",
+        "documents": "भूमि/फसल अभिलेख (गिरदावरी या बोई गई फसल वाला खसरा), आधार कार्ड और सक्रिय बैंक पासबुक।",
+        "application_process": "कटाई से पहले अपने राज्य के सरकारी खरीद पोर्टल पर पंजीकरण करें, जैसे ई-उपार्जन या मेरी फसल मेरा ब्यौरा।",
+        "official_portal": "https://cacp.dacnet.nic.in | खाद्य एवं सार्वजनिक वितरण विभाग"
+    },
+    "land_rights": {
+        "title": "किसानों के भूमि अधिकार, उत्तराधिकार और विवाद समाधान",
+        "eligibility": "भूमि के दस्तावेज़ या सीमा-विवाद से प्रभावित भूमिधर, कानूनी वारिस, किरायेदार या खेती करने वाले व्यक्ति।",
+        "documents": "खतौनी/7/12 उतारा, बिक्री विलेख/दान-पत्र/वसीयत, उत्तराधिकार के लिए मृत्यु प्रमाणपत्र और परिवार वृक्ष/वारिस प्रमाणपत्र।",
+        "application_process": "नामांतरण के लिए अपने राज्य के भूमि अभिलेख पोर्टल पर आवेदन करें, जैसे भूलेख, महाभूमि, धरनी या AnyROR। कब्ज़े के विवाद में SDM या तहसीलदार के राजस्व न्यायालय से संपर्क करें।",
+        "official_portal": "https://dilrmp.gov.in | डिजिटल इंडिया भूमि अभिलेख आधुनिकीकरण कार्यक्रम"
+    },
+    "apmc_model_act": {
+        "title": "मंडी में किसान सुरक्षा और APMC अधिकार",
+        "eligibility": "नियमित कृषि उपज मंडियों में अपनी उपज बेचने वाले सभी किसान।",
+        "documents": "मंडी प्रवेश पर्ची, नीलामी पर्ची, तौल पर्ची और भुगतान रसीद।",
+        "application_process": "मंडी समिति के सचिव के पास लिखित शिकायत दर्ज करें या अपने राज्य के मंडी बोर्ड के शिकायत पोर्टल का उपयोग करें।",
+        "official_portal": "राज्य मंडी बोर्ड | https://agmarknet.gov.in"
+    },
+    "seed_fertilizer_act": {
+        "title": "नकली बीज और मिलावटी खाद से किसान सुरक्षा",
+        "eligibility": "बिल के साथ ब्रांडेड या प्रमाणित बीज, खाद अथवा कीटनाशक खरीदने वाले किसान।",
+        "documents": "खरीद का पक्का बिल/रसीद, बीज का पैकेट/टैग, कृषि अधिकारी की जाँच रिपोर्ट और खेत की फोटो या वीडियो।",
+        "application_process": "नमूने और शिकायत को जिला कृषि अधिकारी या बीज निरीक्षक के पास जमा करें। उपभोक्ता शिकायत के लिए e-Daakhil पोर्टल (edaakhil.nic.in) देखें।",
+        "official_portal": "https://edaakhil.nic.in | राष्ट्रीय उपभोक्ता हेल्पलाइन: 1915"
+    },
+    "nalsa_farmer_legal_aid": {
+        "title": "किसानों के लिए निःशुल्क कानूनी सहायता (NALSA)",
+        "eligibility": "सीमांत/छोटे किसान, राज्य की आय-सीमा में आने वाले लोग, अनुसूचित जाति/जनजाति के व्यक्ति, महिलाएँ और संकटग्रस्त व्यक्ति पात्र हो सकते हैं।",
+        "documents": "आधार कार्ड, आय प्रमाणपत्र/BPL राशन कार्ड/स्व-घोषणा और मामले से जुड़े दस्तावेज़।",
+        "application_process": "जिला न्यायालय के जिला विधिक सेवा प्राधिकरण (DLSA) कार्यालय जाएँ, nalsa.gov.in पर आवेदन करें या राष्ट्रीय टोल-फ्री कानूनी सहायता नंबर 15100 पर कॉल करें।",
+        "official_portal": "https://nalsa.gov.in | राष्ट्रीय कानूनी सहायता हेल्पलाइन: 15100"
+    }
+}
+
 
 def _normalize_query(text: str) -> str:
     """Normalize punctuation and spacing while preserving Devanagari characters."""
@@ -167,6 +254,7 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
     if scored_items:
         best_match = scored_items[0][1]
         summary_text = best_match["summary"].get(lang_key) or best_match["summary"].get("en") or best_match["summary"].get("hi")
+        localized_details = HINDI_SCHEME_DETAILS.get(best_match["id"], {}) if lang_key == "hi" else {}
         
         spoken_response = summary_text
         
@@ -175,13 +263,13 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
             "spoken_response": spoken_response,
             "scheme": {
                 "id": best_match["id"],
-                "title": best_match["title"],
+                "title": localized_details.get("title", best_match["title"]),
                 "category": best_match["category"],
                 "summary": summary_text,
-                "eligibility": best_match["eligibility"],
-                "documents": best_match["documents"],
-                "application_process": best_match["application_process"],
-                "official_portal": best_match["official_portal"]
+                "eligibility": localized_details.get("eligibility", best_match["eligibility"]),
+                "documents": localized_details.get("documents", best_match["documents"]),
+                "application_process": localized_details.get("application_process", best_match["application_process"]),
+                "official_portal": localized_details.get("official_portal", best_match["official_portal"])
             }
         }
     

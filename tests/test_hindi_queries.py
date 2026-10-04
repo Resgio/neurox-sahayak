@@ -1,4 +1,5 @@
 import unittest
+import re
 
 from app import HINDI_QUERY_ALIASES, search_knowledge_base
 
@@ -14,11 +15,15 @@ class HindiQueryTests(unittest.TestCase):
         result = search_knowledge_base("ओलावृष्टि से मेरी फसल बर्बाद हो गई", "hi-IN")
 
         self.assertEqual(result["scheme"]["id"], "pmfby")
+        self.assertIn("किसान", result["scheme"]["eligibility"])
+        self.assertIn("आधार कार्ड", result["scheme"]["documents"])
+        self.assertIn("आवेदन करें", result["scheme"]["application_process"])
 
     def test_romanized_hindi_query_matches_solar_pump_scheme(self):
         result = search_knowledge_base("khet mein solar pump chahiye", "hi-IN")
 
         self.assertEqual(result["scheme"]["id"], "pm_kusum")
+        self.assertIn("सौर पंप", result["scheme"]["title"])
 
     def test_hindi_land_dispute_query_matches_land_rights(self):
         result = search_knowledge_base("मेरी जमीन का नामांतरण नहीं हो रहा", "hi-IN")
@@ -71,6 +76,24 @@ class HindiQueryTests(unittest.TestCase):
                 with self.subTest(scheme=scheme_id, alias=alias):
                     result = search_knowledge_base(alias, "hi-IN")
                     self.assertEqual(result["scheme"]["id"], scheme_id)
+
+    def test_every_scheme_has_hindi_detail_fields(self):
+        for scheme_id in HINDI_QUERY_ALIASES:
+            result = search_knowledge_base(
+                HINDI_QUERY_ALIASES[scheme_id][0], "hi-IN"
+            )
+            with self.subTest(scheme=scheme_id):
+                for field in ("title", "eligibility", "documents", "application_process"):
+                    value = result["scheme"][field]
+                    self.assertTrue(value.strip())
+                    self.assertRegex(value, re.compile(r"[\u0900-\u097f]"))
+                self.assertTrue(result["scheme"]["official_portal"].strip())
+
+    def test_english_response_keeps_original_english_scheme_details(self):
+        result = search_knowledge_base("Kisan Credit Card", "en-IN")
+
+        self.assertEqual(result["scheme"]["title"], "Kisan Credit Card (KCC) - Low Interest Agriculture Loan")
+        self.assertIn("Individual farmers", result["scheme"]["eligibility"])
 
 
 if __name__ == "__main__":

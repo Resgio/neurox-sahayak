@@ -320,15 +320,15 @@
           <!-- Rich Details Grid -->
           <div id="schemeDetailsGrid" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
             <div class="bg-brandDark/80 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-user-check text-emerald-400 mr-1"></i> Eligibility:</span>
+              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-user-check text-emerald-400 mr-1"></i> <span id="eligibilityLabel">Eligibility:</span></span>
               <span id="answerEligibility" class="text-slate-200"></span>
             </div>
             <div class="bg-brandDark/80 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-file-invoice text-amber-400 mr-1"></i> Documents required:</span>
+              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-file-invoice text-amber-400 mr-1"></i> <span id="documentsLabel">Documents required:</span></span>
               <span id="answerDocs" class="text-slate-200"></span>
             </div>
             <div class="bg-brandDark/80 p-3 rounded-xl border border-slate-800">
-              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-arrow-right-to-bracket text-sky-400 mr-1"></i> Application and helpline:</span>
+              <span class="text-slate-400 block mb-1 font-semibold"><i class="fa-solid fa-arrow-right-to-bracket text-sky-400 mr-1"></i> <span id="applicationLabel">Application and contact:</span></span>
               <span id="answerProcess" class="text-slate-200"></span>
             </div>
           </div>
@@ -515,6 +515,9 @@
           guidanceBadge: "सलाह",
           answerMeta: "आवाज़ में उत्तर एवं सरकारी नियम विवरण",
           questionExamples: "उदाहरण: “पीएम-किसान की किस्त कैसे मिलेगी?” या “फसल बीमा कैसे लें?”",
+          eligibilityLabel: "पात्रता:",
+          documentsLabel: "ज़रूरी दस्तावेज़:",
+          applicationLabel: "आवेदन और संपर्क:",
           replay: "दोबारा सुनें"
         }
       },
@@ -608,6 +611,9 @@
           guidanceBadge: "Guidance",
           answerMeta: "Voice response and official guidance",
           questionExamples: "Examples: “How do I apply for PM-KISAN?” or “How can I claim crop insurance?”",
+          eligibilityLabel: "Eligibility:",
+          documentsLabel: "Documents required:",
+          applicationLabel: "Application and contact:",
           replay: "Listen again"
         }
       }
@@ -632,6 +638,9 @@
       document.getElementById('speakingStatusLabel').textContent = ui.speaking;
       document.getElementById('answerMetaDescription').textContent = ui.answerMeta;
       document.getElementById('questionExamples').textContent = ui.questionExamples;
+      document.getElementById('eligibilityLabel').textContent = ui.eligibilityLabel;
+      document.getElementById('documentsLabel').textContent = ui.documentsLabel;
+      document.getElementById('applicationLabel').textContent = ui.applicationLabel;
       document.getElementById('replayVoiceText').textContent = ui.replay;
     }
 
