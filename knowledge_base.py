@@ -44,18 +44,18 @@ SCHEMES_AND_LAWS = [
         "id": "kcc",
         "category": "scheme",
         "title": "Kisan Credit Card (KCC) - Low Interest Agriculture Loan",
-        "keywords": ["kcc", "kisan credit card", "loan", "credit", "interest subvention", "crop loan", "karz", "rin", "bank loan"],
+        "keywords": ["kcc", "kisan credit card", "loan", "credit", "interest subvention", "crop loan", "karz", "rin", "bank loan", "agricultural loan", "agriculture loan", "farm loan", "farmer loan", "loan for farmers", "crop credit", "loan for seeds", "farming loan", "working capital for farming", "animal husbandry loan", "fisheries loan"],
         "summary": {
-            "en": "Kisan Credit Card provides farmers with timely, affordable credit for cultivation and farm inputs at a subsidized effective interest rate of just 4% per annum (with 3% prompt repayment incentive) for loans up to Rs 3 Lakh without collateral up to Rs 1.6 Lakh.",
-            "hi": "किसान क्रेडिट कार्ड (KCC) से किसानों को खेती और खाद-बीज के लिए ₹3 लाख तक का सस्ता ऋण मिलता है। समय पर भुगतान करने पर ब्याज दर मात्र 4% वार्षिक रहती है। ₹1.6 लाख तक किसी बंधक (collateral) की आवश्यकता नहीं है।",
-            "pa": "ਕਿਸਾਨ ਕ੍ਰੈਡਿਟ ਕਾਰਡ (KCC) ਰਾਹੀਂ ₹3 ਲੱਖ ਤੱਕ ਦਾ ਖੇਤੀ ਕਰਜ਼ਾ ਸਿਰਫ਼ 4% ਸਾਲਾਨਾ ਵਿਆਜ ਦਰ 'ਤੇ ਮਿਲਦਾ ਹੈ ਜੇ ਸਮੇਂ ਸਿਰ ਭੁਗਤਾਨ ਕੀਤਾ ਜਾਵੇ। ₹1.6 ਲੱਖ ਤੱਕ ਕੋਈ ਗਾਰੰਟੀ ਨਹੀਂ ਚਾਹੀਦੀ।",
-            "mr": "किसान क्रेडिट कार्ड (KCC) द्वारे शेतकऱ्यांना शेतीसाठी ₹3 लाखांपर्यंतचे कर्ज वेळेवर परतफेड केल्यास अवघ्या 4% व्याजदराने मिळते. ₹1.6 लाखांपर्यंत तारण (collateral) लागत नाही.",
-            "te": "కిసాన్ క్రెడిట్ కార్డ్ (KCC) ద్వారా సకాలంలో చెల్లిస్తే కేవలం 4% వడ్డీకే ₹3 లక్షల వరకు పంట రుణం లభిస్తుంది. ₹1.6 లక్షల వరకు ఎలాంటి పూచీకత్తు అవసరం లేదు.",
-            "ta": "கிசான் கிரெடிட் கார்டு (KCC) மூலம் உரிய நேரத்தில் திருப்பி செலுத்தினால் வெறும் 4% வட்டியில் ₹3 லட்சம் வரை பயிர்க் கடன் பெறலாம். ₹1.6 லட்சம் வரை பிணையம் தேவையில்லை."
+            "en": "The Kisan Credit Card (KCC) can provide eligible farmers with credit for cultivation, farm inputs, and certain allied activities such as animal husbandry and fisheries. Apply through a participating bank. The loan amount, interest rate, repayment schedule, eligibility, and documents depend on the lender and current rules; please confirm them with the bank before borrowing.",
+            "hi": "किसान क्रेडिट कार्ड (KCC) के तहत पात्र किसानों को खेती, कृषि-इनपुट और लागू नियमों के अनुसार पशुपालन या मत्स्य पालन जैसी कुछ संबद्ध गतिविधियों के लिए ऋण सुविधा मिल सकती है। सहभागी बैंक में आवेदन करें। ऋण राशि, ब्याज दर, चुकौती अवधि, पात्रता और दस्तावेज़ बैंक तथा मौजूदा नियमों पर निर्भर करते हैं; ऋण लेने से पहले बैंक से इनकी पुष्टि करें।",
+            "pa": "ਕਿਸਾਨ ਕ੍ਰੈਡਿਟ ਕਾਰਡ (KCC) ਰਾਹੀਂ ਯੋਗ ਕਿਸਾਨ ਖੇਤੀ, ਖੇਤੀ ਦੇ ਸਮਾਨ ਅਤੇ ਕੁਝ ਸਹਾਇਕ ਕੰਮਾਂ ਲਈ ਕਰਜ਼ਾ ਲੈ ਸਕਦੇ ਹਨ। ਭਾਗੀਦਾਰ ਬੈਂਕ ਵਿੱਚ ਅਰਜ਼ੀ ਦਿਓ। ਕਰਜ਼ੇ ਦੀ ਰਕਮ, ਵਿਆਜ ਦਰ ਅਤੇ ਵਾਪਸੀ ਦੀਆਂ ਸ਼ਰਤਾਂ ਬੈਂਕ ਅਤੇ ਮੌਜੂਦਾ ਨਿਯਮਾਂ ਅਨੁਸਾਰ ਵੱਖਰੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ; ਕਰਜ਼ਾ ਲੈਣ ਤੋਂ ਪਹਿਲਾਂ ਬੈਂਕ ਤੋਂ ਪੁਸ਼ਟੀ ਕਰੋ।",
+            "mr": "किसान क्रेडिट कार्ड (KCC) द्वारे पात्र शेतकऱ्यांना शेती, शेतीसाठी लागणारे साहित्य आणि काही संलग्न कामांसाठी कर्ज मिळू शकते. सहभागी बँकेत अर्ज करा. कर्जाची रक्कम, व्याजदर आणि परतफेडीच्या अटी बँक व सध्याच्या नियमांनुसार बदलू शकतात; कर्ज घेण्यापूर्वी बँकेकडून खात्री करा.",
+            "te": "కిసాన్ క్రెడిట్ కార్డు (KCC) ద్వారా అర్హులైన రైతులు వ్యవసాయం, వ్యవసాయ అవసరాలు మరియు కొన్ని అనుబంధ కార్యకలాపాలకు రుణం పొందవచ్చు. భాగస్వామ్య బ్యాంకులో దరఖాస్తు చేయండి. రుణ మొత్తం, వడ్డీ రేటు, తిరిగి చెల్లింపు నిబంధనలు బ్యాంకు మరియు ప్రస్తుత నియమాలపై ఆధారపడి ఉంటాయి; రుణం తీసుకునే ముందు బ్యాంకుతో నిర్ధారించండి.",
+            "ta": "கிசான் கிரெடிட் கார்டு (KCC) மூலம் தகுதியுள்ள விவசாயிகள் விவசாயம், வேளாண் இடுபொருட்கள் மற்றும் சில தொடர்புடைய பணிகளுக்குக் கடன் பெறலாம். பங்கேற்கும் வங்கியில் விண்ணப்பிக்கவும். கடன் தொகை, வட்டி விகிதம், திருப்பிச் செலுத்தும் விதிமுறைகள் வங்கி மற்றும் தற்போதைய விதிகளின் அடிப்படையில் மாறலாம்; கடன் பெறுவதற்கு முன் வங்கியில் உறுதிப்படுத்தவும்."
         },
         "eligibility": "Individual farmers, joint borrowers, tenant farmers, oral lessees, sharecroppers, and Self Help Groups (SHGs). Now covers Animal Husbandry and Fisheries too.",
-        "documents": "Duly filled application form, Identity proof (Aadhaar/Voter ID), Address proof, Land record / title deeds, Crop pattern details.",
-        "application_process": "Apply at any Commercial Bank, Regional Rural Bank (RRB), or Cooperative Bank, or online via public sector bank portals.",
+        "documents": "Commonly requested: completed application form, identity proof (such as Aadhaar or Voter ID), address proof, land records/title deeds, and crop details. The bank may request additional documents.",
+        "application_process": "Ask a participating commercial bank, Regional Rural Bank (RRB), or cooperative bank about a KCC application. Loan amount, interest rate, repayment schedule, eligibility, and documents depend on the lender and current rules; confirm the terms with the bank before borrowing.",
         "official_portal": "https://myscheme.gov.in | RBI Helpline: 14440"
     },
     {

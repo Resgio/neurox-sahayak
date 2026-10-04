@@ -25,6 +25,38 @@ class HindiQueryTests(unittest.TestCase):
         self.assertEqual(result["scheme"]["id"], "pm_kusum")
         self.assertIn("सौर पंप", result["scheme"]["title"])
 
+    def test_hindi_farmer_loan_query_matches_kcc_with_cautious_guidance(self):
+        result = search_knowledge_base("खेती के लिए किसान को ऋण कैसे मिलेगा", "hi-IN")
+
+        self.assertEqual(result["scheme"]["id"], "kcc")
+        self.assertIn("ऋण लेने से पहले बैंक से", result["spoken_response"])
+        self.assertIn("चुकौती अवधि", result["scheme"]["application_process"])
+
+    def test_hinglish_crop_loan_query_matches_kcc(self):
+        result = search_knowledge_base("fasal ke liye loan chahiye", "hi-IN")
+
+        self.assertEqual(result["scheme"]["id"], "kcc")
+
+    def test_english_agriculture_loan_query_matches_kcc(self):
+        result = search_knowledge_base("How do I apply for an agriculture loan?", "en-IN")
+
+        self.assertEqual(result["scheme"]["id"], "kcc")
+        self.assertIn("confirm them with the bank", result["spoken_response"])
+
+    def test_kcc_summary_does_not_promise_fixed_rate_or_loan_amount(self):
+        for language in ("hi-IN", "en-IN"):
+            with self.subTest(language=language):
+                result = search_knowledge_base("KCC farm loan", language)
+                self.assertNotIn("4%", result["spoken_response"])
+                self.assertNotIn("₹3 लाख", result["spoken_response"])
+
+    def test_kcc_guidance_marks_documents_as_a_general_checklist(self):
+        for language in ("hi-IN", "en-IN"):
+            with self.subTest(language=language):
+                result = search_knowledge_base("KCC loan", language)
+                expected = "बैंक अतिरिक्त दस्तावेज़" if language == "hi-IN" else "bank may request additional documents"
+                self.assertIn(expected, result["scheme"]["documents"])
+
     def test_hindi_land_dispute_query_matches_land_rights(self):
         result = search_knowledge_base("मेरी जमीन का नामांतरण नहीं हो रहा", "hi-IN")
 
