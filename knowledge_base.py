@@ -3,6 +3,382 @@ Legal and Agricultural Scheme Knowledge Base for Neuro_X Sahayak
 Targeted for Indian Farmers with multi-language support (Hindi, Punjabi, Marathi, Telugu, Tamil, Bengali, Kannada, Gujarati, English).
 """
 
+COOPERATIVE_PROGRAMMES = [
+    {
+        "id": "pacs_computerization",
+        "category": "cooperative",
+        "title": "Computerization of Primary Agricultural Credit Societies (PACS)",
+        "keywords": [
+            "computerization of pacs", "computerisation of pacs", "digitization of pacs",
+            "digitisation of pacs", "pacs computerization", "pacs computerisation",
+            "computerized pacs", "computerised pacs", "pacs software",
+            "पैक्स कंप्यूटरीकरण", "पैक्स का कंप्यूटरीकरण", "पैक्स डिजिटलीकरण",
+        ],
+        "summary": {
+            "en": "The central-sector project supports computerization of participating Primary Agricultural Credit Societies (PACS), connecting their day-to-day operations with a common national software platform. It is intended to improve record keeping, transparency, service delivery, and links with the cooperative banking system. State implementation, onboarding, and support arrangements vary.",
+            "hi": "केंद्र की इस परियोजना में भाग लेने वाली प्राथमिक कृषि ऋण समितियों (PACS/पैक्स) के कामकाज को कंप्यूटरीकृत कर साझा राष्ट्रीय सॉफ्टवेयर मंच से जोड़ने में सहायता दी जाती है। इसका उद्देश्य रिकॉर्ड, पारदर्शिता, सेवाओं और सहकारी बैंकिंग से जुड़ाव को बेहतर करना है। कार्यान्वयन और समिति का चयन राज्य के अनुसार होता है।",
+        },
+        "eligibility": {
+            "en": "Participating PACS selected through the state or union-territory implementation process; individual farmers do not apply directly to the central project.",
+            "hi": "राज्य या केंद्रशासित प्रदेश की कार्यान्वयन प्रक्रिया में चुनी गई पैक्स समितियाँ भाग लेती हैं; किसान इस केंद्रीय परियोजना के लिए सीधे आवेदन नहीं करते।",
+        },
+        "documents": {
+            "en": "PACS onboarding requirements are communicated by the state cooperative department or implementing agency.",
+            "hi": "पैक्स को आवश्यक दस्तावेज़ और ऑनबोर्डिंग की जानकारी राज्य सहकारिता विभाग या कार्यान्वयन एजेंसी से लेनी चाहिए।",
+        },
+        "application_process": {
+            "en": "Contact the PACS secretary, District Central Cooperative Bank (DCCB), or state Registrar of Cooperative Societies to check whether the society is included and what onboarding steps apply.",
+            "hi": "समिति के शामिल होने और आगे की प्रक्रिया की जानकारी के लिए पैक्स सचिव, जिला केंद्रीय सहकारी बैंक (DCCB) या राज्य सहकारी समितियों के रजिस्ट्रार से संपर्क करें।",
+        },
+        "official_portal": "https://cooperation.gov.in/",
+        "abbreviations": [
+            {"abbreviation": "PACS", "en": "Primary Agricultural Credit Societies", "hi": "प्राथमिक कृषि ऋण समितियाँ"},
+            {"abbreviation": "DCCB", "en": "District Central Cooperative Bank", "hi": "जिला केंद्रीय सहकारी बैंक"},
+        ],
+    },
+    {
+        "id": "cooperative_grain_storage",
+        "category": "cooperative",
+        "title": "World’s Largest Grain Storage Plan in the Cooperative Sector",
+        "keywords": [
+            "grain storage plan", "cooperative grain storage", "storage at pacs",
+            "godown at pacs", "warehouse for cooperative", "grain godown",
+            "अनाज भंडारण योजना", "पैक्स गोदाम", "सहकारी अनाज भंडारण",
+        ],
+        "summary": {
+            "en": "This plan seeks to build decentralized storage and related agricultural infrastructure through cooperatives, including suitable PACS, by converging existing government schemes. The aim is to reduce distance to storage and support local handling of produce. Site selection, project approval, funding, and construction depend on the applicable guidelines and state implementation.",
+            "hi": "इस योजना का उद्देश्य मौजूदा सरकारी योजनाओं के समन्वय से सहकारी समितियों, उपयुक्त पैक्स सहित, के माध्यम से विकेंद्रीकृत भंडारण और संबंधित कृषि ढाँचा विकसित करना है। इससे स्थानीय स्तर पर उपज के भंडारण और प्रबंधन में मदद मिल सकती है। स्थान, स्वीकृति, वित्त और निर्माण लागू दिशानिर्देशों तथा राज्य के कार्यान्वयन पर निर्भर करते हैं।",
+        },
+        "eligibility": {
+            "en": "Cooperative societies and PACS identified as suitable under the project and state process; an individual farmer benefit or construction grant is not automatic.",
+            "hi": "परियोजना और राज्य प्रक्रिया के तहत उपयुक्त पाई गई सहकारी समितियाँ और पैक्स इसमें शामिल हो सकती हैं; किसान को व्यक्तिगत लाभ या निर्माण अनुदान स्वतः नहीं मिलता।",
+        },
+        "documents": {
+            "en": "A participating society generally needs project and land/site documentation as specified by the implementing agency and financing partner.",
+            "hi": "भाग लेने वाली समिति को कार्यान्वयन एजेंसी और वित्तपोषण संस्था द्वारा बताए गए परियोजना तथा भूमि/स्थल संबंधी दस्तावेज़ देने पड़ सकते हैं।",
+        },
+        "application_process": {
+            "en": "A PACS or cooperative should approach its District Central Cooperative Bank and state cooperative department for current participation criteria, project appraisal, and financing instructions.",
+            "hi": "पात्रता, परियोजना मूल्यांकन और वित्त की मौजूदा प्रक्रिया के लिए पैक्स या सहकारी समिति अपने जिला केंद्रीय सहकारी बैंक और राज्य सहकारिता विभाग से संपर्क करे।",
+        },
+        "official_portal": "https://cooperation.gov.in/",
+        "abbreviations": [
+            {"abbreviation": "PACS", "en": "Primary Agricultural Credit Societies", "hi": "प्राथमिक कृषि ऋण समितियाँ"},
+        ],
+    },
+    {
+        "id": "model_pacs_bye_laws",
+        "category": "cooperative",
+        "title": "Model Bye-laws for PACS",
+        "keywords": [
+            "model bye laws", "model bylaws", "pacs bye laws", "pacs bylaws",
+            "pacs diversification", "pacs business activities", "multipurpose pacs",
+            "पैक्स के आदर्श उपविधि", "पैक्स उपविधि", "पैक्स विविधीकरण",
+        ],
+        "summary": {
+            "en": "Model bye-laws provide a common framework for states and union territories that choose to adopt them, allowing PACS to take up a wider range of member-oriented activities in addition to credit. The model is not a substitute for state cooperative law: a PACS can undertake activities only as permitted by its registered bye-laws and applicable state rules.",
+            "hi": "आदर्श उपविधियाँ उन राज्यों और केंद्रशासित प्रदेशों के लिए एक साझा ढाँचा देती हैं जो इन्हें अपनाते हैं। इनके तहत पैक्स ऋण के अलावा सदस्यों के लिए अन्य गतिविधियाँ भी कर सकती हैं। यह मॉडल राज्य के सहकारी कानून का विकल्प नहीं है; पैक्स केवल अपनी पंजीकृत उपविधियों और लागू राज्य नियमों के अनुसार काम कर सकती है।",
+        },
+        "eligibility": {
+            "en": "Existing PACS and state or union-territory cooperative authorities; adoption and permitted activities are governed by state law.",
+            "hi": "मौजूदा पैक्स तथा राज्य/केंद्रशासित प्रदेश के सहकारी प्राधिकरण; इसे अपनाना और अनुमत गतिविधियाँ राज्य कानून से नियंत्रित होती हैं।",
+        },
+        "documents": {
+            "en": "A society should check its registered bye-laws, amendment procedure, and state cooperative legislation.",
+            "hi": "समिति अपनी पंजीकृत उपविधियाँ, उनमें संशोधन की प्रक्रिया और राज्य सहकारी कानून की जाँच करे।",
+        },
+        "application_process": {
+            "en": "Ask the state Registrar of Cooperative Societies or district cooperative office whether the model bye-laws have been adopted and how a society can amend its registered bye-laws.",
+            "hi": "राज्य सहकारी समितियों के रजिस्ट्रार या जिला सहकारी कार्यालय से पूछें कि आदर्श उपविधियाँ अपनाई गई हैं या नहीं और पंजीकृत उपविधियों में संशोधन कैसे किया जा सकता है।",
+        },
+        "official_portal": "https://cooperation.gov.in/",
+        "abbreviations": [
+            {"abbreviation": "PACS", "en": "Primary Agricultural Credit Societies", "hi": "प्राथमिक कृषि ऋण समितियाँ"},
+        ],
+    },
+    {
+        "id": "new_cooperative_societies",
+        "category": "cooperative",
+        "title": "Formation of New Multipurpose PACS, Dairy, and Fisheries Cooperatives",
+        "keywords": [
+            "new cooperative societies", "new pacs", "new dairy cooperative",
+            "new fisheries cooperative", "multipurpose cooperative", "form a cooperative",
+            "start a cooperative society", "register a cooperative", "new multipurpose pacs",
+            "नई सहकारी समिति", "नई पैक्स", "डेयरी सहकारी समिति", "मत्स्य सहकारी समिति",
+            "सहकारी समिति कैसे बनाएं", "सहकारी समिति पंजीकरण",
+        ],
+        "summary": {
+            "en": "The national expansion initiative aims to establish new multipurpose PACS, dairy cooperatives, and fisheries cooperatives in uncovered areas, with support coordinated across relevant departments and institutions. Formation is subject to local demand, state cooperative law, feasibility, and registration; it is not an automatic individual grant.",
+            "hi": "राष्ट्रीय विस्तार पहल का उद्देश्य कम सेवित क्षेत्रों में नई बहुउद्देशीय पैक्स, डेयरी सहकारी समितियाँ और मत्स्य सहकारी समितियाँ स्थापित करने में सहायता देना है। यह संबंधित विभागों और संस्थाओं के समन्वय से किया जाता है। गठन स्थानीय आवश्यकता, राज्य सहकारी कानून, व्यवहार्यता और पंजीकरण पर निर्भर है; यह किसी व्यक्ति को स्वतः मिलने वाला अनुदान नहीं है।",
+        },
+        "eligibility": {
+            "en": "Local people with a shared economic need may organize a society, subject to the membership, area, viability, and registration requirements under the relevant state law.",
+            "hi": "साझा आर्थिक आवश्यकता वाले स्थानीय लोग संबंधित राज्य कानून की सदस्यता, क्षेत्र, व्यवहार्यता और पंजीकरण शर्तों के अधीन समिति बना सकते हैं।",
+        },
+        "documents": {
+            "en": "Typical requirements include proposed bye-laws, promoter/member details, a business plan, address and premises records, and the forms required by the state Registrar; exact requirements vary by state and society type.",
+            "hi": "आम तौर पर प्रस्तावित उपविधियाँ, प्रवर्तक/सदस्यों का विवरण, व्यवसाय योजना, पता/परिसर के अभिलेख और राज्य रजिस्ट्रार के निर्धारित प्रपत्र माँगे जा सकते हैं। सटीक आवश्यकताएँ राज्य और समिति के प्रकार के अनुसार बदलती हैं।",
+        },
+        "application_process": {
+            "en": "Contact the state Registrar of Cooperative Societies or district cooperative office for the current registration checklist and local support available for PACS, dairy, or fisheries societies.",
+            "hi": "पैक्स, डेयरी या मत्स्य समिति के लिए मौजूदा पंजीकरण सूची और स्थानीय सहायता की जानकारी राज्य सहकारी समितियों के रजिस्ट्रार या जिला सहकारी कार्यालय से लें।",
+        },
+        "official_portal": "https://cooperation.gov.in/",
+        "abbreviations": [
+            {"abbreviation": "PACS", "en": "Primary Agricultural Credit Societies", "hi": "प्राथमिक कृषि ऋण समितियाँ"},
+        ],
+    },
+    {
+        "id": "cooperative_credit",
+        "category": "cooperative",
+        "title": "Cooperative Credit: PACS, District and State Cooperative Banks",
+        "keywords": [
+            "cooperative bank loan", "cooperative society loan", "cooperative credit",
+            "pacs loan", "loan from pacs", "district cooperative bank loan",
+            "state cooperative bank loan", "urban cooperative bank loan",
+            "dccb loan", "stcb loan", "farm loan cooperative bank",
+            "सहकारी बैंक ऋण", "पैक्स से ऋण", "पैक्स से कृषि ऋण", "पैक्स लोन", "सहकारी समिति से कर्ज",
+            "जिला सहकारी बैंक ऋण", "राज्य सहकारी बैंक ऋण", "सहकारी बैंक से लोन",
+        ],
+        "summary": {
+            "en": "Cooperative credit is provided through different institutions, including PACS and district or state cooperative banks. Depending on the state and institution, PACS may serve as a local point for short-term agricultural credit, while higher-tier cooperative banks provide banking and refinance-linked services. Products, interest, subsidies, eligibility, and repayment terms are not uniform; the lender confirms the current terms.",
+            "hi": "सहकारी ऋण पैक्स तथा जिला और राज्य सहकारी बैंकों जैसी अलग-अलग संस्थाओं के माध्यम से मिलता है। राज्य और संस्था के अनुसार पैक्स अल्पकालीन कृषि ऋण का स्थानीय केंद्र हो सकती है और उच्च स्तर के सहकारी बैंक बैंकिंग/पुनर्वित्त से जुड़ी सेवाएँ देते हैं। ऋण, ब्याज, सब्सिडी, पात्रता और चुकौती की शर्तें हर जगह समान नहीं हैं; मौजूदा शर्तें ऋणदाता से पक्की करें।",
+        },
+        "eligibility": {
+            "en": "Membership, residence or service-area, land/cultivation evidence, credit assessment, and other conditions depend on the particular cooperative and state rules.",
+            "hi": "सदस्यता, निवास या सेवा-क्षेत्र, भूमि/खेती का प्रमाण, ऋण आकलन और अन्य शर्तें संबंधित सहकारी संस्था तथा राज्य नियमों पर निर्भर करती हैं।",
+        },
+        "documents": {
+            "en": "Ask the lending cooperative for its current list; it may include membership records, identity and address proof, land or cultivation records, bank details, and a loan application.",
+            "hi": "दस्तावेज़ों की मौजूदा सूची ऋण देने वाली सहकारी संस्था से लें; इसमें सदस्यता, पहचान और पते का प्रमाण, भूमि/खेती के अभिलेख, बैंक विवरण और ऋण आवेदन शामिल हो सकते हैं।",
+        },
+        "application_process": {
+            "en": "Start with the local PACS or cooperative bank serving your area. Request the written interest rate, fees, repayment schedule, subsidy conditions, and grievance contact before accepting a loan. Do not assume a particular rate or subsidy.",
+            "hi": "अपने क्षेत्र की पैक्स या सहकारी बैंक से शुरुआत करें। ऋण स्वीकार करने से पहले ब्याज दर, शुल्क, चुकौती अवधि, सब्सिडी की शर्तें और शिकायत संपर्क लिखित में लें। किसी खास ब्याज दर या सब्सिडी को निश्चित न मानें।",
+        },
+        "official_portal": "Contact the relevant PACS or state cooperative bank; https://cooperation.gov.in/",
+        "abbreviations": [
+            {"abbreviation": "PACS", "en": "Primary Agricultural Credit Societies", "hi": "प्राथमिक कृषि ऋण समितियाँ"},
+            {"abbreviation": "DCCB", "en": "District Central Cooperative Bank", "hi": "जिला केंद्रीय सहकारी बैंक"},
+            {"abbreviation": "StCB", "en": "State Cooperative Bank", "hi": "राज्य सहकारी बैंक"},
+        ],
+    },
+    {
+        "id": "ncdc_finance",
+        "category": "cooperative",
+        "title": "NCDC Financial Assistance to Cooperatives",
+        "keywords": [
+            "ncdc loan", "ncdc finance", "ncdc financial assistance", "ncdc funding",
+            "cooperative project funding", "cooperative society finance",
+            "cooperative development loan", "सहकारी परियोजना वित्त", "एनसीडीसी ऋण",
+            "एनसीडीसी वित्तीय सहायता",
+        ],
+        "summary": {
+            "en": "The National Cooperative Development Corporation (NCDC) provides financial assistance for eligible cooperative development activities and projects through notified schemes and channels. Assistance is generally routed through state governments, cooperative federations, or eligible cooperatives, depending on the programme. This is project finance, not an automatic grant to every member or society.",
+            "hi": "राष्ट्रीय सहकारी विकास निगम (NCDC) अधिसूचित योजनाओं और माध्यमों से पात्र सहकारी विकास गतिविधियों तथा परियोजनाओं के लिए वित्तीय सहायता देता है। कार्यक्रम के अनुसार सहायता राज्य सरकार, सहकारी महासंघ या पात्र सहकारी संस्था के माध्यम से मिल सकती है। यह परियोजना-वित्त है, हर सदस्य या समिति को स्वतः मिलने वाला अनुदान नहीं।",
+        },
+        "eligibility": {
+            "en": "Eligibility, eligible activities, financing share, security, and repayment depend on the current NCDC scheme and the cooperative applicant.",
+            "hi": "पात्रता, अनुमत गतिविधियाँ, वित्त का हिस्सा, प्रतिभूति और चुकौती मौजूदा NCDC योजना तथा आवेदक सहकारी संस्था पर निर्भर करते हैं।",
+        },
+        "documents": {
+            "en": "A project report, audited accounts, registration and governance records, financial projections, and security or state-guarantee documents may be required; obtain the checklist from NCDC or the state channel.",
+            "hi": "परियोजना रिपोर्ट, लेखापरीक्षित खाते, पंजीकरण और संचालन अभिलेख, वित्तीय अनुमान तथा प्रतिभूति/राज्य गारंटी के दस्तावेज़ माँगे जा सकते हैं; सूची NCDC या राज्य माध्यम से लें।",
+        },
+        "application_process": {
+            "en": "Review the current NCDC scheme and contact the relevant NCDC regional office, state cooperative department, or federation to confirm eligibility, application route, and whether applications are open.",
+            "hi": "मौजूदा NCDC योजना देखें और पात्रता, आवेदन माध्यम तथा आवेदन खुले होने की पुष्टि के लिए NCDC के क्षेत्रीय कार्यालय, राज्य सहकारिता विभाग या महासंघ से संपर्क करें।",
+        },
+        "official_portal": "https://www.ncdc.in/",
+        "abbreviations": [
+            {"abbreviation": "NCDC", "en": "National Cooperative Development Corporation", "hi": "राष्ट्रीय सहकारी विकास निगम"},
+        ],
+    },
+    {
+        "id": "yuva_sahakar",
+        "category": "cooperative",
+        "title": "Yuva Sahakar: Cooperative Enterprise Support",
+        "keywords": [
+            "yuva sahakar", "yuva sahakaar", "ncdc yuva", "young cooperative",
+            "innovative cooperative startup", "cooperative startup scheme",
+            "युवा सहकार", "युवा सहकार योजना",
+        ],
+        "summary": {
+            "en": "Yuva Sahakar is an NCDC financing initiative intended to encourage new and innovative cooperative ventures, particularly those involving young people. Support is financing subject to the scheme’s current terms, eligible cooperative status, project appraisal, and availability; it should not be described as a guaranteed grant.",
+            "hi": "युवा सहकार NCDC की वित्तीय पहल है, जिसका उद्देश्य नए और नवोन्मेषी सहकारी उद्यमों, विशेषकर युवाओं से जुड़े उद्यमों, को प्रोत्साहित करना है। सहायता मौजूदा योजना की शर्तों, सहकारी पंजीकरण, परियोजना मूल्यांकन और उपलब्धता पर निर्भर वित्त है; इसे पक्का अनुदान नहीं मानना चाहिए।",
+        },
+        "eligibility": {
+            "en": "A qualifying cooperative and project must meet the latest NCDC eligibility and appraisal conditions; individual applicants should first organize or work through an eligible cooperative.",
+            "hi": "पात्र सहकारी संस्था और परियोजना को NCDC की नवीनतम पात्रता तथा मूल्यांकन शर्तें पूरी करनी होती हैं; व्यक्तिगत आवेदक पहले पात्र सहकारी संस्था के माध्यम से जानकारी लें।",
+        },
+        "documents": {
+            "en": "Expect cooperative registration and governance records, a detailed project report, audited accounts, financial projections, and any security documents required by the current guidelines.",
+            "hi": "सहकारी पंजीकरण और संचालन अभिलेख, विस्तृत परियोजना रिपोर्ट, लेखापरीक्षित खाते, वित्तीय अनुमान और मौजूदा दिशानिर्देशों में माँगे गए प्रतिभूति दस्तावेज़ तैयार रखें।",
+        },
+        "application_process": {
+            "en": "Contact NCDC or its regional office to verify whether the scheme is currently accepting proposals and to obtain current financing terms and application forms.",
+            "hi": "योजना में अभी प्रस्ताव लिए जा रहे हैं या नहीं और वर्तमान वित्तीय शर्तें तथा आवेदन पत्र पाने के लिए NCDC या उसके क्षेत्रीय कार्यालय से संपर्क करें।",
+        },
+        "official_portal": "https://www.ncdc.in/",
+        "abbreviations": [
+            {"abbreviation": "NCDC", "en": "National Cooperative Development Corporation", "hi": "राष्ट्रीय सहकारी विकास निगम"},
+        ],
+    },
+    {
+        "id": "ayushman_sahakar",
+        "category": "cooperative",
+        "title": "Ayushman Sahakar: Healthcare Infrastructure through Cooperatives",
+        "keywords": [
+            "ayushman sahakar", "ayushman sahakaar", "cooperative hospital scheme",
+            "healthcare cooperative finance", "medical college cooperative",
+            "आयुष्मान सहकार", "सहकारी अस्पताल योजना",
+        ],
+        "summary": {
+            "en": "Ayushman Sahakar is an NCDC financing initiative for eligible cooperative-led healthcare infrastructure and services, such as hospitals or related facilities, subject to current scheme conditions and project appraisal. It is not a personal health-insurance benefit or a direct cash benefit for patients.",
+            "hi": "आयुष्मान सहकार NCDC की वित्तीय पहल है, जिसके तहत मौजूदा शर्तों और परियोजना मूल्यांकन के अधीन पात्र सहकारी संस्थाओं की स्वास्थ्य सुविधाओं—जैसे अस्पताल—को वित्त मिल सकता है। यह व्यक्तिगत स्वास्थ्य बीमा या मरीजों को सीधे नकद लाभ देने वाली योजना नहीं है।",
+        },
+        "eligibility": {
+            "en": "Eligible cooperative societies or federations proposing a qualifying healthcare project, subject to current NCDC rules and appraisal.",
+            "hi": "पात्र स्वास्थ्य परियोजना प्रस्तावित करने वाली सहकारी समितियाँ या महासंघ, मौजूदा NCDC नियमों और मूल्यांकन के अधीन।",
+        },
+        "documents": {
+            "en": "The applicant should obtain the current NCDC checklist; project approvals, registration, detailed project report, financial statements, and applicable healthcare permissions may be needed.",
+            "hi": "आवेदक NCDC की मौजूदा सूची ले; परियोजना स्वीकृतियाँ, पंजीकरण, विस्तृत परियोजना रिपोर्ट, वित्तीय विवरण और लागू स्वास्थ्य अनुमतियाँ माँगी जा सकती हैं।",
+        },
+        "application_process": {
+            "en": "Contact NCDC or its regional office for current eligibility, financing terms, required healthcare approvals, and whether the scheme is open for proposals.",
+            "hi": "मौजूदा पात्रता, वित्तीय शर्तें, स्वास्थ्य संबंधी अनुमतियाँ और प्रस्ताव स्वीकार किए जाने की स्थिति जानने के लिए NCDC या उसके क्षेत्रीय कार्यालय से संपर्क करें।",
+        },
+        "official_portal": "https://www.ncdc.in/",
+        "abbreviations": [
+            {"abbreviation": "NCDC", "en": "National Cooperative Development Corporation", "hi": "राष्ट्रीय सहकारी विकास निगम"},
+        ],
+    },
+    {
+        "id": "sahakar_mitra",
+        "category": "cooperative",
+        "title": "Sahakar Mitra: NCDC Internship and Cooperative Learning",
+        "keywords": [
+            "sahakar mitra", "sahakar mitra scheme", "ncdc internship",
+            "cooperative internship", "student cooperative internship",
+            "सहकार मित्र", "एनसीडीसी इंटर्नशिप", "सहकारी इंटर्नशिप",
+        ],
+        "summary": {
+            "en": "Sahakar Mitra has been an NCDC internship initiative intended to give eligible students exposure to cooperative-sector work and project preparation. Internship cycles, disciplines, stipends, and application windows can change; check the current NCDC notice before applying.",
+            "hi": "सहकार मित्र NCDC की इंटर्नशिप पहल रही है, जिसका उद्देश्य पात्र विद्यार्थियों को सहकारी क्षेत्र के काम और परियोजना तैयारी का अनुभव देना है। इंटर्नशिप चक्र, विषय, वजीफा और आवेदन अवधि बदल सकते हैं; आवेदन से पहले NCDC की नवीनतम सूचना देखें।",
+        },
+        "eligibility": {
+            "en": "Student eligibility and disciplines are determined by the current NCDC internship notice.",
+            "hi": "विद्यार्थियों की पात्रता और विषय NCDC की मौजूदा इंटर्नशिप सूचना में निर्धारित होते हैं।",
+        },
+        "documents": {
+            "en": "Follow the current notice; it may request proof of enrollment, identity, academic records, and a statement or proposal.",
+            "hi": "मौजूदा सूचना के अनुसार आवेदन करें; इसमें अध्ययन प्रमाण, पहचान, शैक्षणिक रिकॉर्ड और उद्देश्य/प्रस्ताव माँगा जा सकता है।",
+        },
+        "application_process": {
+            "en": "Check NCDC’s official website for an active Sahakar Mitra call, deadlines, disciplines, and application instructions. Do not assume applications are always open.",
+            "hi": "सहकार मित्र का आवेदन खुला है या नहीं, अंतिम तिथि, विषय और निर्देश NCDC की आधिकारिक वेबसाइट पर जाँचें। आवेदन हमेशा खुले हों, यह न मानें।",
+        },
+        "official_portal": "https://www.ncdc.in/",
+        "abbreviations": [
+            {"abbreviation": "NCDC", "en": "National Cooperative Development Corporation", "hi": "राष्ट्रीय सहकारी विकास निगम"},
+        ],
+    },
+    {
+        "id": "cooperative_database",
+        "category": "cooperative",
+        "title": "National Cooperative Database",
+        "keywords": [
+            "national cooperative database", "cooperative database", "find a cooperative",
+            "cooperative society directory", "cooperative data portal", "society records",
+            "राष्ट्रीय सहकारी डेटाबेस", "सहकारी समिति खोजें", "सहकारी समितियों का डेटाबेस",
+        ],
+        "summary": {
+            "en": "The National Cooperative Database is a government information resource intended to bring together data about cooperative societies across sectors and regions. It helps users discover and understand the cooperative landscape; it is not itself a grant, loan, or cooperative registration service. Confirm a society’s current legal status with the relevant Registrar.",
+            "hi": "राष्ट्रीय सहकारी डेटाबेस विभिन्न क्षेत्रों और राज्यों की सहकारी समितियों की जानकारी एक जगह उपलब्ध कराने वाला सरकारी सूचना संसाधन है। इससे सहकारी क्षेत्र की जानकारी खोजने में मदद मिलती है; यह स्वयं अनुदान, ऋण या पंजीकरण सेवा नहीं है। किसी समिति की मौजूदा कानूनी स्थिति संबंधित रजिस्ट्रार से पुष्टि करें।",
+        },
+        "eligibility": {
+            "en": "The database is an information resource for the public, cooperatives, researchers, and government users; listing does not replace registration verification.",
+            "hi": "यह जनता, सहकारी संस्थाओं, शोधकर्ताओं और सरकारी उपयोगकर्ताओं के लिए सूचना संसाधन है; सूची में होना पंजीकरण सत्यापन का विकल्प नहीं।",
+        },
+        "documents": {
+            "en": "No application documents are needed to consult public information. For corrections or registration status, contact the relevant state or central Registrar.",
+            "hi": "सार्वजनिक जानकारी देखने के लिए आवेदन दस्तावेज़ नहीं चाहिए। सुधार या पंजीकरण स्थिति के लिए संबंधित राज्य या केंद्रीय रजिस्ट्रार से संपर्क करें।",
+        },
+        "application_process": {
+            "en": "Search the official database and contact the cooperative or Registrar for current records, services, and legal status.",
+            "hi": "आधिकारिक डेटाबेस में खोजें और वर्तमान रिकॉर्ड, सेवाओं तथा कानूनी स्थिति के लिए समिति या रजिस्ट्रार से संपर्क करें।",
+        },
+        "official_portal": "https://cooperatives.gov.in/",
+        "abbreviations": [
+            {"abbreviation": "NCD", "en": "National Cooperative Database", "hi": "राष्ट्रीय सहकारी डेटाबेस"},
+        ],
+    },
+    {
+        "id": "white_revolution_2",
+        "category": "cooperative",
+        "title": "White Revolution 2.0: Strengthening Dairy Cooperatives",
+        "keywords": [
+            "white revolution 2", "white revolution 2.0", "dairy cooperative scheme",
+            "dairy cooperative development", "milk cooperative support",
+            "दुग्ध सहकारी", "श्वेत क्रांति 2.0", "डेयरी सहकारी योजना",
+        ],
+        "summary": {
+            "en": "White Revolution 2.0 is an initiative to strengthen and expand dairy cooperative coverage, including milk procurement and services in uncovered areas, with implementation involving dairy institutions and state-level cooperation. Local opportunities, targets, and assistance depend on the current programme and state plan.",
+            "hi": "श्वेत क्रांति 2.0 का उद्देश्य दुग्ध सहकारी नेटवर्क को मजबूत और विस्तारित करना है, जिसमें कम सेवित क्षेत्रों में दूध संग्रहण और सेवाएँ शामिल हैं। कार्यान्वयन में डेयरी संस्थाएँ और राज्य शामिल होते हैं। स्थानीय अवसर, लक्ष्य और सहायता मौजूदा कार्यक्रम तथा राज्य योजना पर निर्भर करते हैं।",
+        },
+        "eligibility": {
+            "en": "Dairy cooperatives, milk producers, and communities in areas covered by the relevant state or dairy-institution plan; exact participation criteria are local.",
+            "hi": "संबंधित राज्य या डेयरी संस्था की योजना वाले क्षेत्रों की दुग्ध सहकारी समितियाँ, दूध उत्पादक और समुदाय; भागीदारी की सटीक शर्तें स्थानीय होती हैं।",
+        },
+        "documents": {
+            "en": "Ask the local dairy cooperative or state animal husbandry/dairy department for membership, milk-supply, and programme-specific requirements.",
+            "hi": "सदस्यता, दूध आपूर्ति और कार्यक्रम की शर्तों के लिए स्थानीय दुग्ध सहकारी समिति या राज्य पशुपालन/डेयरी विभाग से जानकारी लें।",
+        },
+        "application_process": {
+            "en": "Contact the nearest dairy cooperative, milk union, or state dairy department to check whether your village is covered and what current membership or support options exist.",
+            "hi": "आपके गाँव में योजना लागू है या नहीं और सदस्यता/सहायता के विकल्प क्या हैं, यह जानने के लिए निकटतम दुग्ध सहकारी समिति, दुग्ध संघ या राज्य डेयरी विभाग से संपर्क करें।",
+        },
+        "official_portal": "https://www.nddb.coop/",
+        "abbreviations": [
+            {"abbreviation": "NDDB", "en": "National Dairy Development Board", "hi": "राष्ट्रीय डेयरी विकास बोर्ड"},
+        ],
+    },
+    {
+        "id": "multi_state_cooperative_law",
+        "category": "cooperative",
+        "title": "Multi-State Cooperative Societies Act and Registration",
+        "keywords": [
+            "multi state cooperative", "multi-state cooperative", "mscs act",
+            "cooperative society across states", "central registrar cooperative",
+            "multi state society registration", "बहुराज्य सहकारी समिति",
+            "बहुराज्य सहकारी कानून", "एमएससीएस अधिनियम",
+        ],
+        "summary": {
+            "en": "A cooperative operating across more than one state may fall under the Multi-State Cooperative Societies Act and central registration framework. A society operating only within one state is generally governed by that state’s cooperative law. Registration, governance, audit, elections, and dispute procedures depend on the applicable law and current rules; this is general information, not legal advice.",
+            "hi": "एक से अधिक राज्यों में काम करने वाली सहकारी संस्था पर बहुराज्य सहकारी समिति अधिनियम और केंद्रीय पंजीकरण व्यवस्था लागू हो सकती है। केवल एक राज्य में काम करने वाली समिति सामान्यतः उस राज्य के सहकारी कानून के अधीन होती है। पंजीकरण, संचालन, लेखा-परीक्षा, चुनाव और विवाद की प्रक्रिया लागू कानून तथा मौजूदा नियमों पर निर्भर करती है; यह सामान्य जानकारी है, कानूनी सलाह नहीं।",
+        },
+        "eligibility": {
+            "en": "A proposed multi-state society must meet the membership, objects, area-of-operation, and other conditions in the current Act and rules; central registration is not interchangeable with state registration.",
+            "hi": "प्रस्तावित बहुराज्य समिति को मौजूदा अधिनियम और नियमों की सदस्यता, उद्देश्य, कार्यक्षेत्र तथा अन्य शर्तें पूरी करनी होती हैं; केंद्रीय पंजीकरण राज्य पंजीकरण का विकल्प नहीं है।",
+        },
+        "documents": {
+            "en": "Use the Central Registrar’s current checklist, which may include promoter/member details, proposed bye-laws, area and objects, address, and evidence required by the applicable rules.",
+            "hi": "केंद्रीय रजिस्ट्रार की मौजूदा सूची देखें; इसमें प्रवर्तक/सदस्य विवरण, प्रस्तावित उपविधियाँ, कार्यक्षेत्र और उद्देश्य, पता तथा लागू नियमों के प्रमाण शामिल हो सकते हैं।",
+        },
+        "application_process": {
+            "en": "Check the Central Registrar of Cooperative Societies’ official portal for current forms, fees, and procedures. For a society confined to one state, contact that state’s Registrar instead.",
+            "hi": "मौजूदा प्रपत्र, शुल्क और प्रक्रिया के लिए केंद्रीय सहकारी समितियों के रजिस्ट्रार का आधिकारिक पोर्टल देखें। केवल एक राज्य में काम करने वाली समिति के लिए उस राज्य के रजिस्ट्रार से संपर्क करें।",
+        },
+        "official_portal": "https://crcs.gov.in/",
+        "abbreviations": [
+            {"abbreviation": "MSCS", "en": "Multi-State Cooperative Societies", "hi": "बहुराज्य सहकारी समितियाँ"},
+            {"abbreviation": "CRCS", "en": "Central Registrar of Cooperative Societies", "hi": "केंद्रीय सहकारी समिति रजिस्ट्रार"},
+        ],
+    },
+]
+
+
 SCHEMES_AND_LAWS = [
     {
         "id": "pm_kisan",
