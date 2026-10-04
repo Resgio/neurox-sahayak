@@ -9,6 +9,7 @@ from app import (
     HINDI_QUERY_ALIASES,
     get_all_schemes,
     search_knowledge_base,
+    search_transcript_candidates,
 )
 
 
@@ -26,6 +27,34 @@ class HindiQueryTests(unittest.TestCase):
         self.assertIn("किसान", result["scheme"]["eligibility"])
         self.assertIn("आधार कार्ड", result["scheme"]["documents"])
         self.assertIn("आवेदन करें", result["scheme"]["application_process"])
+
+    def test_hindi_speech_alternative_can_recover_when_top_transcript_misses(self):
+        result = search_transcript_candidates(
+            "मेरी फसल का मौसम बताओ",
+            ["ओलावृष्टि से मेरी फसल बर्बाद हो गई", "मुझे बारिश चाहिए"],
+            "hi-IN",
+        )
+
+        self.assertTrue(result["found"])
+        self.assertEqual(result["scheme"]["id"], "pmfby")
+
+    def test_speech_alternatives_prefer_first_supported_transcript(self):
+        result = search_transcript_candidates(
+            "पीएम किसान की किस्त",
+            ["ओलावृष्टि से मेरी फसल बर्बाद हो गई"],
+            "hi-IN",
+        )
+
+        self.assertEqual(result["scheme"]["id"], "pm_kisan")
+
+    def test_duplicate_speech_alternatives_are_ignored(self):
+        result = search_transcript_candidates(
+            "ओलावृष्टि से मेरी फसल बर्बाद हो गई",
+            ["ओलावृष्टि से मेरी फसल बर्बाद हो गई"],
+            "hi-IN",
+        )
+
+        self.assertEqual(result["scheme"]["id"], "pmfby")
 
     def test_romanized_hindi_query_matches_solar_pump_scheme(self):
         result = search_knowledge_base("khet mein solar pump chahiye", "hi-IN")
@@ -328,12 +357,42 @@ class HindiQueryTests(unittest.TestCase):
         queries = (
             ("Tell me about cooperative schemes", "en-IN"),
             ("सहकारी योजनाओं के बारे में बताइए", "hi-IN"),
+            ("सहकारिता क्या है?", "hi-IN"),
         )
         for query, language in queries:
             with self.subTest(query=query):
                 result = search_knowledge_base(query, language)
                 self.assertEqual(result["scheme"]["id"], "cooperative_programme_overview")
                 self.assertNotIn("couldn’t understand", result["spoken_response"])
+
+    def test_common_hindi_cooperative_aliases_match_relevant_programmes(self):
+        queries = (
+            ("PACS क्या है?", "hi-IN", "pacs_computerization"),
+            ("पैक्स का कंप्यूटरीकरण क्या है?", "hi-IN", "pacs_computerization"),
+            ("श्वेत क्रांति क्या है?", "hi-IN", "white_revolution_2"),
+            ("दूध व्यवसाय", "hi-IN", "white_revolution_2"),
+            ("युवा सहकार योजना क्या है?", "hi-IN", "yuva_sahakar"),
+            ("NCDC क्या है?", "hi-IN", "ncdc_finance"),
+            ("कोऑपरेटिव समिति कैसे शुरू करूं?", "hi-IN", "new_cooperative_societies"),
+        )
+        for query, language, programme_id in queries:
+            with self.subTest(query=query):
+                result = search_knowledge_base(query, language)
+                self.assertEqual(result["scheme"]["id"], programme_id)
+                self.assertTrue(result["scheme"]["summary"])
+                self.assertTrue(result["scheme"]["application_process"])
+
+    def test_unrelated_queries_do_not_match_cooperative_programmes(self):
+        queries = (
+            ("How much does milk cost?", "en-IN"),
+            ("आज दूध का भाव क्या है?", "hi-IN"),
+            ("आयुष्मान कार्ड कैसे बनवाएं?", "hi-IN"),
+        )
+        for query, language in queries:
+            with self.subTest(query=query):
+                result = search_knowledge_base(query, language)
+                self.assertFalse(result["found"])
+                self.assertIsNone(result["scheme"])
 
     def test_every_cooperative_programme_has_bilingual_details_and_search_terms(self):
         self.assertGreaterEqual(len(COOPERATIVE_PROGRAMMES), 10)
