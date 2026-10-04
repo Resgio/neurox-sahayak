@@ -32,6 +32,11 @@ class HindiQueryTests(unittest.TestCase):
         self.assertIn("ऋण लेने से पहले बैंक से", result["spoken_response"])
         self.assertIn("चुकौती अवधि", result["scheme"]["application_process"])
 
+    def test_hindi_spoken_loan_question_matches_kcc(self):
+        result = search_knowledge_base("खेती के लिए लोन कैसे लें", "hi-IN")
+
+        self.assertEqual(result["scheme"]["id"], "kcc")
+
     def test_hinglish_crop_loan_query_matches_kcc(self):
         result = search_knowledge_base("fasal ke liye loan chahiye", "hi-IN")
 
@@ -68,7 +73,7 @@ class HindiQueryTests(unittest.TestCase):
         self.assertFalse(result["found"])
         self.assertEqual(
             result["spoken_response"],
-            "क्षमा कीजिए, मैं आपकी बात ठीक से समझ नहीं पाया। कृपया अपना सवाल एक बार फिर बताइए।",
+            "क्षमा कीजिए, मैं आपकी बात ठीक से समझ नहीं पाई। कृपया अपना सवाल एक बार फिर बताइए।",
         )
         self.assertNotIn("1800", result["spoken_response"])
 
@@ -87,7 +92,7 @@ class HindiQueryTests(unittest.TestCase):
 
         self.assertFalse(result["found"])
         self.assertIn("नमस्कार", result["spoken_response"])
-        self.assertIn("मैं आपकी किस प्रकार सहायता कर सकता हूँ", result["spoken_response"])
+        self.assertIn("मैं आपकी किस प्रकार सहायता कर सकती हूँ", result["spoken_response"])
 
     def test_greeting_gets_consistent_english_welcome(self):
         result = search_knowledge_base("hello sahayak", "en-IN")

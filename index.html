@@ -156,24 +156,24 @@
       <!-- STAGE 1: PROTOTYPE ONBOARDING STEPPER -->
       <div class="bg-brandNavy/80 border border-brandHover rounded-2xl px-5 py-3 shadow-lg flex flex-wrap items-center justify-between gap-3 text-xs">
         <div class="flex items-center gap-3">
-          <span class="text-slate-400 font-medium">Prototype flow:</span>
+          <span id="prototypeFlowLabel" class="text-slate-400 font-medium">Prototype flow:</span>
           <div class="flex items-center gap-2">
             <span id="step1Indicator" class="px-2.5 py-1 rounded-full bg-brandBlue text-white font-bold flex items-center gap-1 shadow">
-              <span class="w-2 h-2 rounded-full bg-white"></span> 1. Choose language
+              <span class="w-2 h-2 rounded-full bg-white"></span>               <span id="step1Label">1. Choose language</span>
             </span>
             <i class="fa-solid fa-chevron-right text-slate-500 text-[10px]"></i>
             <span id="step2Indicator" class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-slate-600"></span> 2. Ask for help
+              <span class="w-2 h-2 rounded-full bg-slate-600"></span>               <span id="step2Label">2. Ask for help</span>
             </span>
             <i class="fa-solid fa-chevron-right text-slate-500 text-[10px]"></i>
             <span id="step3Indicator" class="px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-slate-600"></span> 3. Listen to guidance
+              <span class="w-2 h-2 rounded-full bg-slate-600"></span>               <span id="step3Label">3. Listen to guidance</span>
             </span>
           </div>
         </div>
         <div class="flex items-center gap-2 text-slate-400">
           <i class="fa-solid fa-circle-info text-sky-400"></i>
-          <span>Use the kiosk touch screen or microphone</span>
+          <span id="kioskInstruction">Use the kiosk touch screen or microphone</span>
         </div>
       </div>
 
@@ -185,12 +185,12 @@
           </div>
           <div>
             <div class="inline-flex items-center gap-2 bg-brandBlue/30 text-brandNeon text-xs px-2.5 py-0.5 rounded-full font-bold uppercase mb-1">
-              Step 1: Choose your preferred language
+              <span id="onboardingStepLabel">Step 1: Choose your preferred language</span>
             </div>
-            <h3 class="text-lg md:text-xl font-black text-white">
+            <h3 id="onboardingGreeting" class="text-lg md:text-xl font-black text-white">
               "Hello! Which language would you like to use?"
             </h3>
-            <p class="text-xs md:text-sm text-slate-300">
+            <p id="onboardingInstruction" class="text-xs md:text-sm text-slate-300">
               Select a language below or say its name using the microphone.
             </p>
           </div>
@@ -345,46 +345,46 @@
         <div class="flex items-center justify-between mb-3">
           <h3 id="quickTopicsHeading" class="text-sm sm:text-base font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
             <i class="fa-solid fa-bolt text-brandNeon"></i>
-            Quick questions
+            <span id="quickTopicsTitle">Quick questions</span>
           </h3>
-          <span class="text-xs text-slate-400">Tap a topic and hear the answer</span>
+          <span id="quickTopicsHint" class="text-xs text-slate-400">Tap a topic and hear the answer</span>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
           <button onclick="triggerQuickQuery('pm kisan samman nidhi kist')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
             <i class="fa-solid fa-hand-holding-dollar text-emerald-400 text-lg"></i>
-            <p class="font-bold text-white text-xs">₹6,000 PM-KISAN</p>
-            <p class="text-[10px] text-slate-400">Installment, e-KYC and eligibility</p>
+            <p id="topicKisanTitle" class="font-bold text-white text-xs">₹6,000 PM-KISAN</p>
+            <p id="topicKisanHint" class="text-[10px] text-slate-400">Installment, e-KYC and eligibility</p>
           </button>
 
           <button onclick="triggerQuickQuery('pmfby fasal bima crop insurance')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
             <i class="fa-solid fa-cloud-showers-heavy text-sky-400 text-lg"></i>
-            <p class="font-bold text-white text-xs">Crop insurance (PMFBY)</p>
-            <p class="text-[10px] text-slate-400">72-hour claim rule</p>
+            <p id="topicInsuranceTitle" class="font-bold text-white text-xs">Crop insurance (PMFBY)</p>
+            <p id="topicInsuranceHint" class="text-[10px] text-slate-400">72-hour claim rule</p>
           </button>
 
           <button onclick="triggerQuickQuery('kcc kisan credit card loan')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
             <i class="fa-solid fa-credit-card text-amber-400 text-lg"></i>
-            <p class="font-bold text-white text-xs">KCC farm loan</p>
-            <p class="text-[10px] text-slate-400">Eligibility, documents and how to apply</p>
+            <p id="topicLoanTitle" class="font-bold text-white text-xs">KCC farm loan</p>
+            <p id="topicLoanHint" class="text-[10px] text-slate-400">Eligibility, documents and how to apply</p>
           </button>
 
           <button onclick="triggerQuickQuery('nakli beej fake seeds compensation law')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
             <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg"></i>
-            <p class="font-bold text-white text-xs">Fake seeds and fertiliser</p>
-            <p class="text-[10px] text-slate-400">Consumer compensation law</p>
+            <p id="topicSeedsTitle" class="font-bold text-white text-xs">Fake seeds and fertiliser</p>
+            <p id="topicSeedsHint" class="text-[10px] text-slate-400">Consumer compensation law</p>
           </button>
 
           <button onclick="triggerQuickQuery('land dispute mutation dakhil kharij inheritance')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
             <i class="fa-solid fa-map-location-dot text-indigo-400 text-lg"></i>
-            <p class="font-bold text-white text-xs">Land disputes and inheritance</p>
-            <p class="text-[10px] text-slate-400">Mutation and SDM guidance</p>
+            <p id="topicLandTitle" class="font-bold text-white text-xs">Land disputes and inheritance</p>
+            <p id="topicLandHint" class="text-[10px] text-slate-400">Mutation and SDM guidance</p>
           </button>
 
           <button onclick="triggerQuickQuery('free lawyer nalsa legal aid for farmers')" class="bg-brandDark/80 hover:bg-brandBlue/30 hover:border-brandNeon/50 border border-slate-700/60 text-slate-200 text-xs p-3 rounded-xl text-left transition flex flex-col gap-1 shadow-sm active:scale-95">
             <i class="fa-solid fa-scale-balanced text-teal-400 text-lg"></i>
-            <p class="font-bold text-white text-xs">Free legal aid</p>
-            <p class="text-[10px] text-slate-400">NALSA free-assistance guidance</p>
+            <p id="topicLegalTitle" class="font-bold text-white text-xs">Free legal aid</p>
+            <p id="topicLegalHint" class="text-[10px] text-slate-400">NALSA free-assistance guidance</p>
           </button>
         </div>
       </div>
@@ -396,8 +396,8 @@
             <i class="fa-solid fa-phone-volume text-lg"></i>
           </div>
           <div>
-            <h4 class="text-sm font-bold text-white">Farmer helplines: legal and agricultural support</h4>
-            <p class="text-xs text-slate-400">Kisan Call Centre: 1800-180-1551 &bull; NALSA Legal Aid: 15100 &bull; Crop Insurance: 14447</p>
+            <h4 id="helplinesTitle" class="text-sm font-bold text-white">Farmer helplines: legal and agricultural support</h4>
+            <p id="helplinesDescription" class="text-xs text-slate-400">Kisan Call Centre: 1800-180-1551 &bull; NALSA Legal Aid: 15100 &bull; Crop Insurance: 14447</p>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -421,10 +421,10 @@
           <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
           <div>
             <h3 class="text-sm font-bold text-white flex items-center gap-1.5">
-              Chatbot assistant
-              <span class="text-[10px] bg-brandBlue/30 text-brandNeon px-2 py-0.5 rounded-full border border-brandNeon/30">Secondary</span>
+              <span id="chatDrawerTitle">Chatbot assistant</span>
+              <span id="chatDrawerBadge" class="text-[10px] bg-brandBlue/30 text-brandNeon px-2 py-0.5 rounded-full border border-brandNeon/30">Secondary</span>
             </h3>
-            <p class="text-[11px] text-slate-400">Written messages and history</p>
+            <p id="chatDrawerDescription" class="text-[11px] text-slate-400">Written messages and history</p>
           </div>
         </div>
         <div class="flex items-center gap-1">
@@ -467,7 +467,7 @@
 
   <!-- FOOTER -->
   <footer class="border-t border-brandHover/50 bg-brandDark/80 py-3 px-4 text-center text-xs text-slate-500">
-    <p>Neuro_X Sahayak &bull; Working Prototype for Indian Farmers &bull; Primary: Voice Assistance &bull; Secondary: Chatbot</p>
+    <p id="footerText">Neuro_X Sahayak &bull; Working Prototype for Indian Farmers &bull; Primary: Voice Assistance &bull; Secondary: Chatbot</p>
   </footer>
 
   <!-- JAVASCRIPT LOGIC (Voice-First Flow, STT, TTS, Two-Stage Onboarding, Demo Mode) -->
@@ -489,28 +489,57 @@
         code: "hi-IN",
         name: "हिन्दी",
         langGreetingVoice: "नमस्कार! Neuro_X Sahayak में आपका स्वागत है। कृपया हिन्दी या अंग्रेज़ी में से अपनी पसंद की भाषा चुनें।",
-        helpPromptVoice: "नमस्कार। मैं Neuro_X Sahayak हूँ और आपकी सहायता के लिए यहाँ उपस्थित हूँ। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकता हूँ? आप पीएम किसान योजना, फसल बीमा, केसीसी ऋण, भूमि अधिकार या निःशुल्क कानूनी सहायता के बारे में पूछ सकते हैं।",
+        helpPromptVoice: "नमस्कार। मैं Neuro_X Sahayak हूँ और आपकी सहायता के लिए यहाँ उपस्थित हूँ। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकती हूँ? पीएम किसान योजना, फसल बीमा, केसीसी ऋण, भूमि अधिकार या निःशुल्क कानूनी सहायता के बारे में अपना सवाल पूछें।",
         heroTitle: "मैं आपकी क्या सहायता करूँ?",
         heroSub: "माइक दबाकर अपनी भाषा में खेत, योजना, मुआवजा या कानूनी अधिकारों का सवाल पूछें।",
         idleText: "माइक बटन दबाकर सवाल बोलें, या नीचे से कोई विषय चुनें",
-        listeningText: "सहायक आपकी आवाज सुन रहा है... बोलिए!",
-        speakingText: "सहायक उत्तर पढ़कर सुना रहा है... (सुनिए)",
+        listeningText: "मैं आपकी आवाज़ सुन रही हूँ... कृपया बोलिए।",
+        speakingText: "मैं आपका जवाब बोलकर सुना रही हूँ...",
         inputPlaceholder: "यहाँ सवाल लिखें (उदा. पीएम किसान, मुआवजा, केसीसी)...",
         introChatGreeting: "नमस्ते! Neuro_X Sahayak में आपका स्वागत है। 🙏",
-        introChatBody: "आपने हिन्दी चुनी है। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकता हूँ?",
+        introChatBody: "आपने हिन्दी चुनी है। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकती हूँ?",
         ui: {
           brandTitle: "सहायक",
           headerSubtitle: "भारतीय किसानों के लिए कानूनी एवं सरकारी योजना वॉइस सहायक",
           voiceMode: "वॉइस मोड सक्रिय",
           chatbot: "चैटबॉट",
+          prototypeFlow: "प्रोटोटाइप का तरीका:",
+          step1: "1. भाषा चुनें",
+          step2: "2. सवाल पूछें",
+          step3: "3. जवाब सुनें",
+          kioskInstruction: "टच स्क्रीन या माइक का उपयोग करें",
+          onboardingStep: "चरण 1: अपनी पसंद की भाषा चुनें",
+          onboardingGreeting: "“नमस्कार! कृपया अपनी पसंद की भाषा चुनें।”",
+          onboardingInstruction: "नीचे से भाषा चुनें या माइक पर उसका नाम बोलें।",
+          quickTopicsTitle: "ज़रूरी सवाल",
+          quickTopicsHint: "किसी विषय को चुनें और जवाब सुनें",
+          topicKisanTitle: "₹6,000 पीएम-किसान",
+          topicKisanHint: "किस्त, ई-केवाईसी और पात्रता",
+          topicInsuranceTitle: "फसल बीमा (PMFBY)",
+          topicInsuranceHint: "72 घंटे में सूचना दें",
+          topicLoanTitle: "KCC कृषि ऋण",
+          topicLoanHint: "पात्रता, दस्तावेज़ और आवेदन",
+          topicSeedsTitle: "नकली बीज और खाद",
+          topicSeedsHint: "उपभोक्ता शिकायत और मुआवज़ा",
+          topicLandTitle: "भूमि विवाद और उत्तराधिकार",
+          topicLandHint: "नामांतरण और SDM से जुड़ी जानकारी",
+          topicLegalTitle: "निःशुल्क कानूनी सहायता",
+          topicLegalHint: "NALSA सहायता की जानकारी",
+          helplinesTitle: "किसान हेल्पलाइन: कृषि और कानूनी सहायता",
+          helplinesDescription: "किसान कॉल सेंटर: 1800-180-1551 • NALSA कानूनी सहायता: 15100 • फसल बीमा: 14447",
+          chatDrawerTitle: "लिखित चैट सहायक",
+          chatDrawerBadge: "अतिरिक्त",
+          chatDrawerDescription: "लिखित बातचीत और संदेश",
+          chatInputPlaceholder: "अपना सवाल लिखें (जैसे: पीएम-किसान या KCC ऋण)...",
+          footerText: "Neuro_X Sahayak • भारतीय किसानों के लिए कार्यशील प्रोटोटाइप • मुख्य सुविधा: आवाज़ से सहायता • अतिरिक्त सुविधा: चैटबॉट",
           stop: "रोकें",
           voiceHeader: "प्राथमिक वॉइस सहायता · बोलकर पूछें और आवाज़ में सुनें",
           micIdle: "कृपया माइक दबाएँ",
-          micListening: "सुन रहा हूँ...",
-          listening: "सहायक आपकी आवाज़ सुन रहा है... बोलिए!",
-          speaking: "सहायक उत्तर बोलकर सुना रहा है...",
-          loading: "सहायक उत्तर खोज रहा है...",
-          serverError: "त्रुटि: सर्वर से संपर्क नहीं हो पाया। पुनः प्रयास करें।",
+          micListening: "मैं सुन रही हूँ...",
+          listening: "मैं आपकी आवाज़ सुन रही हूँ... कृपया बोलिए।",
+          speaking: "मैं जवाब बोलकर सुना रही हूँ...",
+          loading: "मैं आपके सवाल का जवाब ढूँढ़ रही हूँ...",
+          serverError: "त्रुटि: सर्वर से संपर्क नहीं हो सका। कृपया फिर से कोशिश करें।",
           noHindiVoice: "इस डिवाइस पर हिन्दी (भारत) की आवाज़ उपलब्ध नहीं है। कृपया डिवाइस की वाक् सेटिंग में हिन्दी (भारत) की आवाज़ जोड़ें।",
           noIndianEnglishVoice: "इस डिवाइस पर भारतीय अंग्रेज़ी की आवाज़ उपलब्ध नहीं है। कृपया डिवाइस की वाक् सेटिंग में अंग्रेज़ी (भारत) की आवाज़ जोड़ें।",
           guidance: "किसान मार्गदर्शन एवं सहायता",
@@ -600,6 +629,35 @@
           headerSubtitle: "Legal and government-scheme voice assistant for Indian farmers",
           voiceMode: "Voice mode active",
           chatbot: "Chatbot",
+          prototypeFlow: "Prototype flow:",
+          step1: "1. Choose language",
+          step2: "2. Ask for help",
+          step3: "3. Listen to guidance",
+          kioskInstruction: "Use the kiosk touch screen or microphone",
+          onboardingStep: "Step 1: Choose your preferred language",
+          onboardingGreeting: "“Hello! Which language would you like to use?”",
+          onboardingInstruction: "Select a language below or say its name using the microphone.",
+          quickTopicsTitle: "Quick questions",
+          quickTopicsHint: "Tap a topic and hear the answer",
+          topicKisanTitle: "₹6,000 PM-KISAN",
+          topicKisanHint: "Installment, e-KYC and eligibility",
+          topicInsuranceTitle: "Crop insurance (PMFBY)",
+          topicInsuranceHint: "Report crop loss within 72 hours",
+          topicLoanTitle: "KCC farm loan",
+          topicLoanHint: "Eligibility, documents and how to apply",
+          topicSeedsTitle: "Fake seeds and fertiliser",
+          topicSeedsHint: "Consumer complaint and compensation",
+          topicLandTitle: "Land disputes and inheritance",
+          topicLandHint: "Mutation and SDM guidance",
+          topicLegalTitle: "Free legal aid",
+          topicLegalHint: "NALSA assistance",
+          helplinesTitle: "Farmer helplines: legal and agricultural support",
+          helplinesDescription: "Kisan Call Centre: 1800-180-1551 • NALSA Legal Aid: 15100 • Crop Insurance: 14447",
+          chatDrawerTitle: "Chatbot assistant",
+          chatDrawerBadge: "Secondary",
+          chatDrawerDescription: "Written messages and history",
+          chatInputPlaceholder: "Type a question (for example: PM-KISAN or KCC loan)...",
+          footerText: "Neuro_X Sahayak • Working prototype for Indian farmers • Primary: Voice assistance • Secondary: Chatbot",
           stop: "Stop",
           voiceHeader: "Voice assistance · Ask by speaking and listen to the answer",
           micIdle: "Please tap the mic",
@@ -649,6 +707,35 @@
       document.getElementById('applicationLabel').textContent = ui.applicationLabel;
       document.getElementById('abbreviationsLabel').textContent = ui.abbreviationsLabel;
       document.getElementById('replayVoiceText').textContent = ui.replay;
+      document.getElementById('prototypeFlowLabel').textContent = ui.prototypeFlow;
+      document.getElementById('step1Label').textContent = ui.step1;
+      document.getElementById('step2Label').textContent = ui.step2;
+      document.getElementById('step3Label').textContent = ui.step3;
+      document.getElementById('kioskInstruction').textContent = ui.kioskInstruction;
+      document.getElementById('onboardingStepLabel').textContent = ui.onboardingStep;
+      document.getElementById('onboardingGreeting').textContent = ui.onboardingGreeting;
+      document.getElementById('onboardingInstruction').textContent = ui.onboardingInstruction;
+      document.getElementById('quickTopicsTitle').textContent = ui.quickTopicsTitle;
+      document.getElementById('quickTopicsHint').textContent = ui.quickTopicsHint;
+      document.getElementById('topicKisanTitle').textContent = ui.topicKisanTitle;
+      document.getElementById('topicKisanHint').textContent = ui.topicKisanHint;
+      document.getElementById('topicInsuranceTitle').textContent = ui.topicInsuranceTitle;
+      document.getElementById('topicInsuranceHint').textContent = ui.topicInsuranceHint;
+      document.getElementById('topicLoanTitle').textContent = ui.topicLoanTitle;
+      document.getElementById('topicLoanHint').textContent = ui.topicLoanHint;
+      document.getElementById('topicSeedsTitle').textContent = ui.topicSeedsTitle;
+      document.getElementById('topicSeedsHint').textContent = ui.topicSeedsHint;
+      document.getElementById('topicLandTitle').textContent = ui.topicLandTitle;
+      document.getElementById('topicLandHint').textContent = ui.topicLandHint;
+      document.getElementById('topicLegalTitle').textContent = ui.topicLegalTitle;
+      document.getElementById('topicLegalHint').textContent = ui.topicLegalHint;
+      document.getElementById('helplinesTitle').textContent = ui.helplinesTitle;
+      document.getElementById('helplinesDescription').textContent = ui.helplinesDescription;
+      document.getElementById('chatDrawerTitle').textContent = ui.chatDrawerTitle;
+      document.getElementById('chatDrawerBadge').textContent = ui.chatDrawerBadge;
+      document.getElementById('chatDrawerDescription').textContent = ui.chatDrawerDescription;
+      document.getElementById('chatInput').placeholder = ui.chatInputPlaceholder;
+      document.getElementById('footerText').textContent = ui.footerText;
     }
 
     // Initialize On Load
@@ -1161,7 +1248,7 @@
         cardSnippet = `
           <div class="mt-2 pt-2 border-t border-slate-700 text-[11px] text-slate-300">
             <strong class="text-brandNeon">${escapeHtml(data.scheme.title)}</strong><br>
-            <span class="text-slate-400">Eligibility:</span> ${escapeHtml(data.scheme.eligibility)}
+            <span class="text-slate-400">${escapeHtml(getLanguageConfig().ui.eligibilityLabel)}</span> ${escapeHtml(data.scheme.eligibility)}
           </div>
         `;
       }
