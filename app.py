@@ -37,7 +37,7 @@ if os.path.exists(assets_dir):
 
 class QueryRequest(BaseModel):
     query: str
-    language: str = "hi-IN" # Default Hindi
+    language: str = "en-IN"
     session_id: Optional[str] = "default"
 
 LANG_MAP = {
@@ -56,7 +56,7 @@ LANG_MAP = {
     "en-US": "en"
 }
 
-def search_knowledge_base(query_text: str, lang_code: str = "hi") -> Dict[str, Any]:
+def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, Any]:
     norm_query = query_text.lower()
     
     # Check exact or keyword match
@@ -86,7 +86,7 @@ def search_knowledge_base(query_text: str, lang_code: str = "hi") -> Dict[str, A
     
     if scored_items:
         best_match = scored_items[0][1]
-        summary_text = best_match["summary"].get(lang_key) or best_match["summary"].get("hi") or best_match["summary"].get("en")
+        summary_text = best_match["summary"].get(lang_key) or best_match["summary"].get("en") or best_match["summary"].get("hi")
         
         spoken_response = summary_text
         
@@ -117,7 +117,7 @@ def search_knowledge_base(query_text: str, lang_code: str = "hi") -> Dict[str, A
     
     return {
         "found": False,
-        "spoken_response": fallback_messages.get(lang_key, fallback_messages["hi"]),
+        "spoken_response": fallback_messages.get(lang_key, fallback_messages["en"]),
         "scheme": None
     }
 
