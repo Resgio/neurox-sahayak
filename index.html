@@ -118,7 +118,7 @@
         <!-- Live Voice Mode Pill -->
         <div id="voiceModeBadge" class="hidden sm:flex items-center gap-2 bg-brandDark/90 border border-emerald-500/40 px-3 py-1.5 rounded-full text-xs text-emerald-300 font-medium shadow-inner">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>Voice mode active</span>
+          <span id="voiceModeText">Voice mode active</span>
         </div>
 
         <!-- Language Selector -->
@@ -128,22 +128,18 @@
           <select id="languageSelect" onchange="onLanguageDropdownChange()" class="bg-transparent text-sm font-medium text-slate-200 focus:outline-none cursor-pointer">
             <option value="en-IN" class="bg-brandDark text-white">English</option>
             <option value="hi-IN" class="bg-brandDark text-white">हिन्दी (Hindi)</option>
-            <option value="pa-IN" class="bg-brandDark text-white">ਪੰਜਾਬੀ (Punjabi)</option>
-            <option value="mr-IN" class="bg-brandDark text-white">मराठी (Marathi)</option>
-            <option value="te-IN" class="bg-brandDark text-white">తెలుగు (Telugu)</option>
-            <option value="ta-IN" class="bg-brandDark text-white">தமிழ் (Tamil)</option>
           </select>
         </div>
 
         <!-- Secondary Chat Drawer Toggle Button -->
         <button id="chatToggleBtn" onclick="toggleChatDrawer()" title="View chatbot" class="bg-brandCard hover:bg-brandHover text-slate-200 border border-slate-700 text-xs px-3 py-2 rounded-xl transition flex items-center gap-1.5 font-semibold shadow-md">
           <i class="fa-solid fa-comments text-brandNeon"></i>
-          <span class="hidden md:inline">Chatbot</span>
+          <span id="chatToggleText" class="hidden md:inline">Chatbot</span>
         </button>
 
         <!-- Stop Speaking Button -->
         <button id="stopSpeechBtn" onclick="stopSpeaking()" title="Stop speaking" class="hidden bg-rose-950/80 hover:bg-rose-900 text-rose-300 border border-rose-500/50 text-xs px-3 py-2 rounded-xl transition items-center gap-1 font-semibold">
-          <i class="fa-solid fa-volume-xmark"></i> <span class="hidden sm:inline">Stop</span>
+          <i class="fa-solid fa-volume-xmark"></i> <span id="stopSpeechText" class="hidden sm:inline">Stop</span>
         </button>
 
       </div>
@@ -200,29 +196,13 @@
           </div>
         </div>
 
-        <!-- 6 Direct Touch Language Cards -->
-        <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 w-full md:w-auto shrink-0">
-          <button onclick="selectLanguageAndPrompt('hi-IN')" class="lang-pill bg-brandDark/90 border-2 border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+        <!-- Hindi and English direct-touch language cards -->
+        <div class="grid grid-cols-2 gap-2 w-full md:w-auto shrink-0">
+          <button onclick="selectLanguageAndPrompt('hi-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-5 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
             <span class="text-sm">हिन्दी</span>
             <span class="text-[10px] text-slate-400 font-normal">Hindi</span>
           </button>
-          <button onclick="selectLanguageAndPrompt('pa-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
-            <span class="text-sm">ਪੰਜਾਬੀ</span>
-            <span class="text-[10px] text-slate-400 font-normal">Punjabi</span>
-          </button>
-          <button onclick="selectLanguageAndPrompt('mr-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
-            <span class="text-sm">मराठी</span>
-            <span class="text-[10px] text-slate-400 font-normal">Marathi</span>
-          </button>
-          <button onclick="selectLanguageAndPrompt('te-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
-            <span class="text-sm">తెలుగు</span>
-            <span class="text-[10px] text-slate-400 font-normal">Telugu</span>
-          </button>
-          <button onclick="selectLanguageAndPrompt('ta-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
-            <span class="text-sm">தமிழ்</span>
-            <span class="text-[10px] text-slate-400 font-normal">Tamil</span>
-          </button>
-          <button onclick="selectLanguageAndPrompt('en-IN')" class="lang-pill bg-brandDark/90 border border-slate-700 hover:border-brandNeon text-white text-xs py-2 px-3 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
+          <button onclick="selectLanguageAndPrompt('en-IN')" class="lang-pill bg-brandDark/90 border-2 border-brandNeon text-white text-xs py-2 px-5 rounded-xl font-bold transition flex flex-col items-center gap-0.5 shadow-md hover:scale-105 active:scale-95">
             <span class="text-sm">English</span>
             <span class="text-[10px] text-slate-400 font-normal">English</span>
           </button>
@@ -284,7 +264,7 @@
             </div>
             <span id="listeningStatusText" class="text-rose-400 font-bold text-sm sm:text-base flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
-              Sahayak is listening... Speak now!
+              <span id="listeningStatusLabel">Sahayak is listening... Speak now!</span>
             </span>
           </div>
 
@@ -299,7 +279,7 @@
             </div>
             <span id="speakingStatusText" class="text-sky-300 font-bold text-sm sm:text-base flex items-center gap-2">
               <i class="fa-solid fa-volume-high animate-bounce text-brandNeon"></i>
-              Sahayak is speaking...
+              <span id="speakingStatusLabel">Sahayak is speaking...</span>
             </span>
           </div>
 
@@ -319,12 +299,12 @@
                   <span id="answerSchemeName">Farmer guidance and support</span>
                   <span id="answerCategoryBadge" class="bg-brandBlue/30 text-brandNeon text-[10px] px-2 py-0.5 rounded-full border border-brandNeon/40 uppercase font-mono">Guidance</span>
                 </h4>
-                <p class="text-xs text-slate-400">Voice response and official guidance</p>
+                <p id="answerMetaDescription" class="text-xs text-slate-400">Voice response and official guidance</p>
               </div>
             </div>
             <div class="flex items-center gap-2">
               <button id="replayVoiceBtn" onclick="replayCurrentAnswer()" class="bg-brandBlue/30 hover:bg-brandBlue/50 text-brandNeon border border-brandNeon/40 text-xs px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5">
-                <i class="fa-solid fa-rotate-right"></i> Listen again
+                <i class="fa-solid fa-rotate-right"></i> <span id="replayVoiceText">Listen again</span>
               </button>
             </div>
           </div>
@@ -509,7 +489,28 @@
         speakingText: "सहायक उत्तर पढ़कर सुना रहा है... (सुनिए)",
         inputPlaceholder: "यहाँ सवाल लिखें (उदा. पीएम किसान, मुआवजा, केसीसी)...",
         introChatGreeting: "प्रणाम किसान साथी! 🙏",
-        introChatBody: "मैंने आपकी भाषा हिन्दी चुन ली है। बताइए, मैं आपकी क्या सहायता करूँ?"
+        introChatBody: "मैंने आपकी भाषा हिन्दी चुन ली है। बताइए, मैं आपकी क्या सहायता करूँ?",
+        ui: {
+          brandTitle: "सहायक",
+          headerSubtitle: "भारतीय किसानों के लिए कानूनी एवं सरकारी योजना वॉइस सहायक",
+          voiceMode: "वॉइस मोड सक्रिय",
+          chatbot: "चैटबॉट",
+          stop: "रोकें",
+          voiceHeader: "प्राथमिक वॉइस सहायता · बोलकर पूछें और आवाज़ में सुनें",
+          micIdle: "माइक दबाएं",
+          micListening: "सुन रहा हूँ...",
+          listening: "सहायक आपकी आवाज़ सुन रहा है... बोलिए!",
+          speaking: "सहायक उत्तर बोलकर सुना रहा है...",
+          loading: "सहायक उत्तर खोज रहा है...",
+          serverError: "त्रुटि: सर्वर से संपर्क नहीं हो पाया। पुनः प्रयास करें।",
+          noHindiVoice: "इस डिवाइस पर हिन्दी आवाज़ उपलब्ध नहीं है। सिस्टम में हिन्दी आवाज़ जोड़ें।",
+          guidance: "किसान मार्गदर्शन एवं सहायता",
+          scheme: "सरकारी योजना",
+          legal: "कानूनी अधिकार",
+          guidanceBadge: "सलाह",
+          answerMeta: "आवाज़ में उत्तर एवं सरकारी नियम विवरण",
+          replay: "दोबारा सुनें"
+        }
       },
       "pa-IN": {
         code: "pa-IN",
@@ -579,9 +580,51 @@
         speakingText: "Sahayak is speaking...",
         inputPlaceholder: "Type your query here (e.g., PM Kisan, Crop Insurance, KCC)...",
         introChatGreeting: "Hello Farmer Friend! 🙏",
-        introChatBody: "Language set to English. How can I assist you with farmer schemes and legal rights today?"
+        introChatBody: "Language set to English. How can I assist you with farmer schemes and legal rights today?",
+        ui: {
+          brandTitle: "Sahayak",
+          headerSubtitle: "Legal and government-scheme voice assistant for Indian farmers",
+          voiceMode: "Voice mode active",
+          chatbot: "Chatbot",
+          stop: "Stop",
+          voiceHeader: "Voice assistance · Ask by speaking and listen to the answer",
+          micIdle: "Tap mic (Speak)",
+          micListening: "Listening...",
+          listening: "Sahayak is listening... Speak now!",
+          speaking: "Sahayak is speaking...",
+          loading: "Sahayak is finding an answer...",
+          serverError: "Error: Could not reach the server. Please try again.",
+          noHindiVoice: "",
+          guidance: "Farmer guidance and support",
+          scheme: "Government scheme",
+          legal: "Legal right",
+          guidanceBadge: "Guidance",
+          answerMeta: "Voice response and official guidance",
+          replay: "Listen again"
+        }
       }
     };
+
+    function getLanguageConfig() {
+      return LANGUAGE_DATA[currentLanguage] || LANGUAGE_DATA['en-IN'];
+    }
+
+    function applyLanguageUI() {
+      const config = getLanguageConfig();
+      const ui = config.ui;
+      document.documentElement.lang = currentLanguage === 'hi-IN' ? 'hi' : 'en';
+      document.getElementById('headerBrandTitle').textContent = ui.brandTitle;
+      document.getElementById('headerSubtitle').textContent = ui.headerSubtitle;
+      document.getElementById('voiceModeText').textContent = ui.voiceMode;
+      document.getElementById('chatToggleText').textContent = ui.chatbot;
+      document.getElementById('stopSpeechText').textContent = ui.stop;
+      document.getElementById('voiceHeaderTag').textContent = ui.voiceHeader;
+      document.getElementById('micLabel').textContent = ui.micIdle;
+      document.getElementById('listeningStatusLabel').textContent = ui.listening;
+      document.getElementById('speakingStatusLabel').textContent = ui.speaking;
+      document.getElementById('answerMetaDescription').textContent = ui.answerMeta;
+      document.getElementById('replayVoiceText').textContent = ui.replay;
+    }
 
     // Initialize On Load
     window.addEventListener('DOMContentLoaded', () => {
@@ -590,6 +633,8 @@
 
     // Start Voice Onboarding
     function startVoiceOnboarding() {
+      currentLanguage = 'en-IN';
+      applyLanguageUI();
       currentStage = 'ask_language';
       updateStepperUI(1);
       document.getElementById('languageOnboardingCard').classList.remove('hidden');
@@ -643,6 +688,7 @@
       stopSpeaking();
       currentLanguage = langCode;
       document.getElementById('languageSelect').value = langCode;
+      applyLanguageUI();
       currentStage = 'ask_help';
       updateStepperUI(2);
 
@@ -711,11 +757,11 @@
         
         const liveTranscript = document.getElementById('liveTranscript');
         liveTranscript.classList.remove('hidden');
-        liveTranscript.textContent = currentLanguage === 'en-IN' ? 'Listening...' : 'सुन रहा हूँ... बोलिए...';
+        liveTranscript.textContent = getLanguageConfig().ui.micListening;
         
         const btn = document.getElementById('voiceMicBtn');
         btn.classList.add('glow-sphere-listening');
-        document.getElementById('micLabel').textContent = currentLanguage === 'en-IN' ? 'Listening...' : 'सुन रहा हूँ...';
+        document.getElementById('micLabel').textContent = getLanguageConfig().ui.micListening;
       };
 
       recog.onresult = (event) => {
@@ -756,7 +802,7 @@
       }
       const btn = document.getElementById('voiceMicBtn');
       btn.classList.remove('glow-sphere-listening');
-      document.getElementById('micLabel').textContent = currentLanguage === 'en-IN' ? 'Tap mic (Speak)' : 'माइक दबाएं (Speak)';
+      document.getElementById('micLabel').textContent = getLanguageConfig().ui.micIdle;
     }
 
     function startListening() {
@@ -797,18 +843,6 @@
         if (lower.includes('hindi') || lower.includes('हिन्दी') || lower.includes('हिंदी')) {
           selectLanguageAndPrompt('hi-IN');
           return;
-        } else if (lower.includes('punjabi') || lower.includes('ਪੰਜਾਬੀ')) {
-          selectLanguageAndPrompt('pa-IN');
-          return;
-        } else if (lower.includes('marathi') || lower.includes('मराठी')) {
-          selectLanguageAndPrompt('mr-IN');
-          return;
-        } else if (lower.includes('telugu') || lower.includes('తెలుగు')) {
-          selectLanguageAndPrompt('te-IN');
-          return;
-        } else if (lower.includes('tamil') || lower.includes('தமிழ்')) {
-          selectLanguageAndPrompt('ta-IN');
-          return;
         } else if (lower.includes('english')) {
           selectLanguageAndPrompt('en-IN');
           return;
@@ -827,7 +861,7 @@
       updateStepperUI(3);
 
       addUserChatMessage(cleanText);
-      document.getElementById('idleStatusText').textContent = currentLanguage === 'en-IN' ? 'Sahayak is finding an answer...' : 'सहायक उत्तर खोज रहा है...';
+      document.getElementById('idleStatusText').textContent = getLanguageConfig().ui.loading;
 
       try {
         const response = await fetch('/api/chat', {
@@ -852,7 +886,7 @@
 
       } catch (err) {
         console.error('API Error:', err);
-        document.getElementById('idleStatusText').textContent = currentLanguage === 'en-IN' ? 'Error: Could not reach the server. Please try again.' : 'त्रुटि: सर्वर से संपर्क नहीं हो पाया। पुनः प्रयास करें।';
+        document.getElementById('idleStatusText').textContent = getLanguageConfig().ui.serverError;
       }
     }
 
@@ -866,7 +900,8 @@
       if (data.scheme) {
         const s = data.scheme;
         document.getElementById('answerSchemeName').textContent = s.title;
-        document.getElementById('answerCategoryBadge').textContent = s.category === 'scheme' ? 'Government scheme' : 'Legal right';
+        const ui = getLanguageConfig().ui;
+        document.getElementById('answerCategoryBadge').textContent = s.category === 'scheme' ? ui.scheme : ui.legal;
         document.getElementById('answerEligibility').textContent = s.eligibility;
         document.getElementById('answerDocs').textContent = s.documents;
         document.getElementById('answerProcess').innerHTML = `
@@ -875,8 +910,9 @@
         `;
         document.getElementById('schemeDetailsGrid').classList.remove('hidden');
       } else {
-        document.getElementById('answerSchemeName').textContent = 'Farmer guidance and support';
-        document.getElementById('answerCategoryBadge').textContent = 'Guidance';
+        const ui = getLanguageConfig().ui;
+        document.getElementById('answerSchemeName').textContent = ui.guidance;
+        document.getElementById('answerCategoryBadge').textContent = ui.guidanceBadge;
         document.getElementById('schemeDetailsGrid').classList.add('hidden');
       }
 
@@ -895,7 +931,15 @@
 
       const voices = synth.getVoices();
       const targetLang = utterance.lang.split('-')[0];
-      const matchVoice = voices.find(v => v.lang.startsWith(targetLang));
+      const matchVoice = voices.find(v => v.lang.toLowerCase() === utterance.lang.toLowerCase())
+        || voices.find(v => v.lang.toLowerCase().startsWith(targetLang.toLowerCase()));
+      if (utterance.lang === 'hi-IN' && !matchVoice) {
+        document.getElementById('idleStatusText').textContent = getLanguageConfig().ui.noHindiVoice;
+        if (typeof onCompleteCallback === 'function') {
+          onCompleteCallback();
+        }
+        return;
+      }
       if (matchVoice) {
         utterance.voice = matchVoice;
       }
