@@ -6,12 +6,22 @@ from fastapi import FastAPI, Request, Query
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 try:
-    from knowledge_base import COOPERATIVE_PROGRAMMES, SCHEMES_AND_LAWS, EMERGENCY_HELPLINES
+    from knowledge_base import (
+        COOPERATION_ABBREVIATIONS,
+        COOPERATIVE_PROGRAMMES,
+        SCHEMES_AND_LAWS,
+        EMERGENCY_HELPLINES,
+    )
 except ImportError:
-    from .knowledge_base import COOPERATIVE_PROGRAMMES, SCHEMES_AND_LAWS, EMERGENCY_HELPLINES
+    from .knowledge_base import (
+        COOPERATION_ABBREVIATIONS,
+        COOPERATIVE_PROGRAMMES,
+        SCHEMES_AND_LAWS,
+        EMERGENCY_HELPLINES,
+    )
 
 app = FastAPI(
     title="Neuro_X Sahayak - Legal & Scheme AI Voice Assistant for Farmers",
@@ -39,6 +49,7 @@ class QueryRequest(BaseModel):
     query: str
     language: str = "en-IN"
     session_id: Optional[str] = "default"
+    alternatives: List[str] = Field(default_factory=list, max_length=5)
 
 LANG_MAP = {
     "hi": "hi",
@@ -252,63 +263,13 @@ SCHEME_ABBREVIATIONS = {
     ]
 }
 
-COOPERATION_ABBREVIATIONS = [
-    {"abbreviation": "ARDB", "en": "Agriculture and Rural Development Bank", "hi": "कृषि और ग्रामीण विकास बैंक"},
-    {"abbreviation": "BBSSL", "en": "Bharatiya Beej Sahakari Samiti Limited", "hi": "भारतीय बीज सहकारी समिति लिमिटेड"},
-    {"abbreviation": "CEF", "en": "Cooperative Education Fund", "hi": "सहकारी शिक्षा कोष"},
-    {"abbreviation": "CRCS", "en": "Central Registrar of Cooperative Societies", "hi": "केंद्रीय सहकारी समिति रजिस्ट्रार"},
-    {"abbreviation": "DCCB", "en": "District Central Cooperative Bank", "hi": "जिला केंद्रीय सहकारी बैंक"},
-    {"abbreviation": "DEH", "en": "Districts as Export Hubs", "hi": "निर्यात केंद्र के रूप में जिले"},
-    {"abbreviation": "EBP", "en": "Ethanol Blending Programme", "hi": "एथेनॉल मिश्रण कार्यक्रम"},
-    {"abbreviation": "ERP", "en": "Enterprise Resource Planning", "hi": "उद्यम संसाधन योजना"},
-    {"abbreviation": "FPO", "en": "Farmer Producer Organization", "hi": "किसान उत्पादक संगठन"},
-    {"abbreviation": "FISHCOPFED", "en": "National Federation of Fishermen’s Cooperatives Limited", "hi": "राष्ट्रीय मत्स्यजीवी सहकारी समितियाँ महासंघ लिमिटेड"},
-    {"abbreviation": "FFPO", "en": "Fish Farmer Producer Organization", "hi": "मत्स्य किसान उत्पादक संगठन"},
-    {"abbreviation": "GDP", "en": "Gross Domestic Product", "hi": "सकल घरेलू उत्पाद"},
-    {"abbreviation": "GeM", "en": "Government e-Marketplace", "hi": "सरकारी ई-मार्केटप्लेस"},
-    {"abbreviation": "GI", "en": "Geographical Indication", "hi": "भौगोलिक संकेत"},
-    {"abbreviation": "GoI", "en": "Government of India", "hi": "भारत सरकार"},
-    {"abbreviation": "HEI", "en": "Higher Education Institution", "hi": "उच्च शिक्षा संस्थान"},
-    {"abbreviation": "IFFCO", "en": "Indian Farmers Fertilizer Cooperative Limited", "hi": "इफको (इंडियन फार्मर्स फर्टिलाइज़र कोऑपरेटिव लिमिटेड)"},
-    {"abbreviation": "IoT", "en": "Internet of Things", "hi": "इंटरनेट ऑफ थिंग्स"},
-    {"abbreviation": "IPR", "en": "Intellectual Property Rights", "hi": "बौद्धिक संपदा अधिकार"},
-    {"abbreviation": "KPI", "en": "Key Performance Indicators", "hi": "प्रमुख प्रदर्शन संकेतक"},
-    {"abbreviation": "KRIBHCO", "en": "Krishak Bharati Cooperative Limited", "hi": "कृभको (कृषक भारती कोऑपरेटिव लिमिटेड)"},
-    {"abbreviation": "MoC", "en": "Ministry of Cooperation", "hi": "सहकारिता मंत्रालय"},
-    {"abbreviation": "MSCS", "en": "Multi-State Cooperative Societies", "hi": "बहुराज्य सहकारी समितियाँ"},
-    {"abbreviation": "NABARD", "en": "National Bank for Agriculture and Rural Development", "hi": "राष्ट्रीय कृषि और ग्रामीण विकास बैंक"},
-    {"abbreviation": "NAFCUB", "en": "National Federation of Urban Cooperative Banks and Credit Societies Limited", "hi": "राष्ट्रीय शहरी सहकारी बैंक और ऋण समितियाँ महासंघ लिमिटेड"},
-    {"abbreviation": "NAFED", "en": "National Agricultural Cooperative Marketing Federation of India Limited", "hi": "भारतीय राष्ट्रीय कृषि सहकारी विपणन संघ लिमिटेड"},
-    {"abbreviation": "NAFSCOB", "en": "National Federation of State Cooperative Banks Limited", "hi": "राष्ट्रीय राज्य सहकारी बैंक महासंघ लिमिटेड"},
-    {"abbreviation": "NCCT", "en": "National Council for Cooperative Training", "hi": "राष्ट्रीय सहकारी प्रशिक्षण परिषद"},
-    {"abbreviation": "NCD", "en": "National Cooperative Database", "hi": "राष्ट्रीय सहकारी डेटाबेस"},
-    {"abbreviation": "NCDC", "en": "National Cooperative Development Corporation", "hi": "राष्ट्रीय सहकारी विकास निगम"},
-    {"abbreviation": "NCDFI", "en": "National Cooperative Dairy Federation of India", "hi": "भारतीय राष्ट्रीय सहकारी डेयरी महासंघ"},
-    {"abbreviation": "NCEL", "en": "National Cooperative Exports Limited", "hi": "राष्ट्रीय सहकारी निर्यात लिमिटेड"},
-    {"abbreviation": "NCOL", "en": "National Cooperative Organics Limited", "hi": "राष्ट्रीय सहकारी ऑर्गेनिक्स लिमिटेड"},
-    {"abbreviation": "NCP", "en": "National Cooperation Policy", "hi": "राष्ट्रीय सहकारिता नीति"},
-    {"abbreviation": "NCUI", "en": "National Cooperative Union of India", "hi": "भारतीय राष्ट्रीय सहकारी संघ"},
-    {"abbreviation": "NDDB", "en": "National Dairy Development Board", "hi": "राष्ट्रीय डेयरी विकास बोर्ड"},
-    {"abbreviation": "NFDB", "en": "National Fisheries Development Board", "hi": "राष्ट्रीय मत्स्य विकास बोर्ड"},
-    {"abbreviation": "NUCFDC", "en": "National Urban Cooperative Finance & Development Corporation", "hi": "राष्ट्रीय शहरी सहकारी वित्त एवं विकास निगम"},
-    {"abbreviation": "ODOP", "en": "One District One Product", "hi": "एक जिला एक उत्पाद"},
-    {"abbreviation": "ONDC", "en": "Open Network for Digital Commerce", "hi": "डिजिटल वाणिज्य के लिए खुला नेटवर्क"},
-    {"abbreviation": "PACS", "en": "Primary Agricultural Credit Societies", "hi": "प्राथमिक कृषि ऋण समितियाँ"},
-    {"abbreviation": "PMU", "en": "Project Management Unit", "hi": "परियोजना प्रबंधन इकाई"},
-    {"abbreviation": "RBI", "en": "Reserve Bank of India", "hi": "भारतीय रिज़र्व बैंक"},
-    {"abbreviation": "RCS", "en": "Registrar of Cooperative Societies", "hi": "सहकारी समितियों के रजिस्ट्रार"},
-    {"abbreviation": "SC/ST", "en": "Scheduled Castes and Scheduled Tribes", "hi": "अनुसूचित जातियाँ और अनुसूचित जनजातियाँ"},
-    {"abbreviation": "SEI", "en": "Social Enterprise Incubators", "hi": "सामाजिक उद्यम इनक्यूबेटर"},
-    {"abbreviation": "SRO", "en": "Self-Regulatory Organization", "hi": "स्व-नियामक संगठन"},
-    {"abbreviation": "StCB", "en": "State Cooperative Bank", "hi": "राज्य सहकारी बैंक"},
-    {"abbreviation": "UCB", "en": "Urban Cooperative Bank", "hi": "शहरी सहकारी बैंक"},
-    {"abbreviation": "VAMNICOM", "en": "Vaikunth Mehta National Institute of Cooperative Management", "hi": "वैकुंठ मेहता राष्ट्रीय सहकारी प्रबंधन संस्थान"},
-]
-
-
 def _normalize_query(text: str) -> str:
     """Normalize punctuation and spacing while preserving Devanagari characters."""
-    return re.sub(r"\s+", " ", re.sub(r"[^\w₹]+", " ", text.lower())).strip()
+    return re.sub(
+        r"\s+",
+        " ",
+        re.sub(r"[^\w₹\u0900-\u097f]+", " ", text.lower()),
+    ).strip()
 
 
 def _contains_phrase(text: str, phrase: str) -> bool:
@@ -317,7 +278,7 @@ def _contains_phrase(text: str, phrase: str) -> bool:
 
 
 def _is_greeting_query(norm_query: str) -> bool:
-    """Recognize short greetings, optionally addressed to the assistant."""
+    """Recognize greeting-only turns, including repeated greetings and names."""
     greetings = (
         "hello", "hi", "hey", "good morning", "good afternoon", "good evening",
         "namaste", "namaskar", "नमस्ते", "नमस्कार", "सुप्रभात", "शुभ संध्या",
@@ -325,25 +286,24 @@ def _is_greeting_query(norm_query: str) -> bool:
     assistant_names = (
         "sahayak", "neuro x", "neuro_x", "neuro x sahayak", "neuro_x sahayak", "सहायक",
     )
-    greeting_queries = set()
-    for greeting in greetings:
-        greeting_queries.add(_normalize_query(greeting))
-        greeting_queries.add(_normalize_query(f"{greeting} there"))
-        for assistant in assistant_names:
-            greeting_queries.add(_normalize_query(f"{greeting} {assistant}"))
-            greeting_queries.add(_normalize_query(f"{assistant} {greeting}"))
-    return norm_query in greeting_queries
+    query = f" {norm_query} "
+    for assistant in sorted(assistant_names, key=len, reverse=True):
+        normalized_name = _normalize_query(assistant)
+        query = re.sub(
+            rf"(?<!\w){re.escape(normalized_name)}(?!\w)", " ", query
+        )
+    tokens = query.split()
+    greeting_words = {
+        word for greeting in greetings for word in _normalize_query(greeting).split()
+    }
+    return bool(tokens) and all(
+        token in greeting_words or token == "there" for token in tokens
+    ) and any(token in greeting_words for token in tokens)
 
 
 def _find_cooperation_abbreviation(query: str) -> Optional[Dict[str, str]]:
     norm_query = _normalize_query(query)
-    lookup_intents = (
-        "what is", "what does", "meaning of", "stands for", "full form",
-        "define", "abbreviation", "tell me about", "know about", "information about",
-        "details about", "explain", "किसका पूरा नाम", "का अर्थ", "का मतलब",
-        "का पूर्ण रूप", "पूरा नाम", "के बारे में", "जानकारी", "बताइए",
-    )
-    has_lookup_intent = any(_contains_phrase(norm_query, intent) for intent in lookup_intents)
+    has_lookup_intent = _has_cooperation_abbreviation_intent(norm_query)
     for entry in COOPERATION_ABBREVIATIONS:
         abbreviation = _normalize_query(entry["abbreviation"])
         definition = _normalize_query(entry["en"])
@@ -354,6 +314,45 @@ def _find_cooperation_abbreviation(query: str) -> Optional[Dict[str, str]]:
         if definition and _contains_phrase(norm_query, definition) and has_lookup_intent:
             return entry
     return None
+
+
+def _has_cooperation_abbreviation_intent(query: str) -> bool:
+    lookup_intents = (
+        "what is", "what does", "meaning of", "stands for", "full form",
+        "define", "abbreviation", "tell me about", "know about", "information about",
+        "details about", "explain", "function", "role of", "purpose of",
+        "what is the role", "किसका पूरा नाम", "का अर्थ", "का मतलब",
+        "का पूर्ण रूप", "पूरा नाम", "के बारे में", "जानकारी", "बताइए",
+        "कार्य", "भूमिका", "उद्देश्य", "क्या काम", "किस काम", "काम क्या",
+        "कार्य क्या", "की भूमिका", "के कार्य",
+    )
+    norm_query = _normalize_query(query)
+    return any(_contains_phrase(norm_query, intent) for intent in lookup_intents)
+
+
+def _cooperation_abbreviation_result(
+    abbreviation: Dict[str, str], lang_key: str
+) -> Dict[str, Any]:
+    definition = abbreviation["hi" if lang_key == "hi" else "en"]
+    details = abbreviation["details_hi" if lang_key == "hi" else "details_en"]
+    if lang_key == "hi":
+        spoken_response = (
+            f"{abbreviation['abbreviation']} का पूरा नाम {definition} है। {details}"
+        )
+    else:
+        spoken_response = (
+            f"{abbreviation['abbreviation']} stands for {definition}. {details}"
+        )
+    return {
+        "found": True,
+        "spoken_response": spoken_response,
+        "scheme": None,
+        "abbreviations": [{
+            "abbreviation": abbreviation["abbreviation"],
+            "definition": definition,
+            "details": details,
+        }],
+    }
 
 
 def _find_cooperative_programme(query: str, lang_key: str) -> Optional[Dict[str, Any]]:
@@ -460,26 +459,18 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
             "scheme": None
         }
 
+    if _has_cooperation_abbreviation_intent(norm_query):
+        abbreviation = _find_cooperation_abbreviation(query_text)
+        if abbreviation:
+            return _cooperation_abbreviation_result(abbreviation, lang_key)
+
     cooperative_result = _find_cooperative_programme(query_text, lang_key)
     if cooperative_result:
         return cooperative_result
 
     abbreviation = _find_cooperation_abbreviation(query_text)
     if abbreviation:
-        definition = abbreviation["hi" if lang_key == "hi" else "en"]
-        if lang_key == "hi":
-            spoken_response = f"{abbreviation['abbreviation']} का अर्थ है: {definition}।"
-        else:
-            spoken_response = f"{abbreviation['abbreviation']} stands for {definition}."
-        return {
-            "found": True,
-            "spoken_response": spoken_response,
-            "scheme": None,
-            "abbreviations": [{
-                "abbreviation": abbreviation["abbreviation"],
-                "definition": definition,
-            }],
-        }
+        return _cooperation_abbreviation_result(abbreviation, lang_key)
 
     if _is_cooperative_query(query_text):
         return _cooperative_overview(lang_key)
@@ -548,6 +539,27 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
         "abbreviations": []
     }
 
+
+def search_transcript_candidates(
+    query: str, alternatives: List[str], lang_code: str = "en-IN"
+) -> Dict[str, Any]:
+    """Prefer the first recognized alternative that matches supported guidance."""
+    candidates = [query, *alternatives]
+    seen = set()
+    first_result = None
+    for candidate in candidates:
+        candidate = candidate.strip()
+        if not candidate or candidate.casefold() in seen:
+            continue
+        seen.add(candidate.casefold())
+        result = search_knowledge_base(candidate, lang_code)
+        if first_result is None:
+            first_result = result
+        if result["found"]:
+            return result
+    return first_result or search_knowledge_base(query, lang_code)
+
+
 @app.get("/health")
 async def health_check():
     """Cloud health check endpoint for monitoring."""
@@ -555,7 +567,7 @@ async def health_check():
 
 @app.post("/api/chat")
 async def chat_endpoint(req: QueryRequest):
-    result = search_knowledge_base(req.query, req.language)
+    result = search_transcript_candidates(req.query, req.alternatives, req.language)
     return JSONResponse(result)
 
 @app.get("/api/schemes")

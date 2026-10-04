@@ -492,6 +492,7 @@
     let currentLanguage = 'en-IN';
     let recognition = null;
     let isListening = false;
+    let lastFinalTranscript = '';
     let synth = window.speechSynthesis;
     let currentUtterance = null;
     let speechRequestId = 0;
@@ -886,10 +887,12 @@
       const recog = new SpeechRecognition();
       recog.continuous = false;
       recog.interimResults = true;
+      recog.maxAlternatives = 5;
       recog.lang = currentLanguage;
 
       recog.onstart = () => {
         isListening = true;
+        lastFinalTranscript = '';
         document.getElementById('micRing1').classList.remove('hidden');
         document.getElementById('micRing2').classList.remove('hidden');
         document.getElementById('idleState').classList.add('hidden');
@@ -907,17 +910,26 @@
 
       recog.onresult = (event) => {
         let interimTranscript = '';
-        let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
+        let finalAlternatives = [''];
+        for (let i = 0; i < event.results.length; ++i) {
+          const result = event.results[i];
+          if (result.isFinal) {
+            const transcripts = Array.from(result, alternative => alternative.transcript.trim())
+              .filter(Boolean);
+            if (transcripts.length) {
+              finalAlternatives = finalAlternatives.flatMap(prefix =>
+                transcripts.map(transcript => `${prefix} ${transcript}`.trim())
+              ).slice(0, 5);
+            }
           } else {
-            interimTranscript += event.results[i][0].transcript;
+            interimTranscript += result[0].transcript;
           }
         }
+        const finalTranscript = finalAlternatives[0].trim();
         document.getElementById('liveTranscript').textContent = finalTranscript || interimTranscript;
-        if (finalTranscript) {
-          handleIncomingVoiceSpeech(finalTranscript);
+        if (finalTranscript && finalTranscript !== lastFinalTranscript) {
+          lastFinalTranscript = finalTranscript;
+          handleIncomingVoiceSpeech(finalTranscript, finalAlternatives.slice(1));
         }
       };
 
@@ -976,7 +988,7 @@
     }
 
     // Handles Speech based on Current Stage
-    function handleIncomingVoiceSpeech(spokenText) {
+    function handleIncomingVoiceSpeech(spokenText, alternatives = []) {
       const lower = spokenText.toLowerCase();
 
       // Stage 1: If user is naming their language
@@ -991,11 +1003,11 @@
       }
 
       // Stage 2 or 3: Process farmer's question
-      executeFarmerQuery(spokenText);
+      executeFarmerQuery(spokenText, alternatives);
     }
 
     // Process Query (Called by Voice Mic or Touch Button)
-    async function executeFarmerQuery(queryText) {
+    async function executeFarmerQuery(queryText, alternatives = []) {
       if (!queryText || !queryText.trim()) return;
       const cleanText = queryText.trim();
       const requestId = ++farmerQueryRequestId;
@@ -1014,7 +1026,8 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               query: cleanText,
-              language: requestLanguage
+              language: requestLanguage,
+              alternatives
             })
           });
 
@@ -1081,7 +1094,7 @@
       if (abbreviations.length) {
         abbreviations.forEach(entry => {
           const item = document.createElement('li');
-          item.textContent = `${entry.abbreviation} — ${entry.definition}`;
+          item.textContent = `${entry.abbreviation} — ${entry.definition}${entry.details ? `: ${entry.details}` : ''}`;
           abbreviationsList.appendChild(item);
         });
         abbreviationsCard.classList.remove('hidden');

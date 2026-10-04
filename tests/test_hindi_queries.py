@@ -11,6 +11,7 @@ from app import (
     search_knowledge_base,
     search_transcript_candidates,
 )
+from knowledge_base import COOPERATION_ABBREVIATIONS as KNOWLEDGE_BASE_ABBREVIATIONS
 
 
 class HindiQueryTests(unittest.TestCase):
@@ -192,12 +193,27 @@ class HindiQueryTests(unittest.TestCase):
             ("Hello, Sahayak!", "en-IN", "Namaste!"),
             ("Good morning Neuro_X Sahayak", "en-IN", "Namaste!"),
             ("namaskar", "en-IN", "Namaste!"),
+            ("hello hi", "en-IN", "Namaste!"),
+            ("hi hello Sahayak", "en-IN", "Namaste!"),
+            ("hello hi सहायक", "hi-IN", "नमस्कार!"),
             ("सुप्रभात सहायक", "hi-IN", "नमस्कार!"),
         ):
             with self.subTest(query=query):
                 result = search_knowledge_base(query, language)
                 self.assertFalse(result["found"])
                 self.assertIn(welcome, result["spoken_response"])
+
+    def test_greeting_words_do_not_hide_a_question(self):
+        result = search_knowledge_base("hello hi, what does NCP mean?", "en-IN")
+
+        self.assertTrue(result["found"])
+        self.assertEqual(result["abbreviations"][0]["abbreviation"], "NCP")
+
+    def test_hindi_query_words_are_not_misclassified_as_greetings(self):
+        for query in ("केसीसी", "सौर पंप", "किसान", "पैक्स"):
+            with self.subTest(query=query):
+                result = search_knowledge_base(query, "hi-IN")
+                self.assertNotIn("नमस्कार! मैं Neuro_X Sahayak", result["spoken_response"])
 
     def test_greeting_prefix_does_not_hide_a_real_question(self):
         result = search_knowledge_base(
@@ -214,7 +230,11 @@ class HindiQueryTests(unittest.TestCase):
         self.assertIsNone(result["scheme"])
         self.assertEqual(
             result["abbreviations"],
-            [{"abbreviation": "NCP", "definition": "National Cooperation Policy"}],
+            [{
+                "abbreviation": "NCP",
+                "definition": "National Cooperation Policy",
+                "details": KNOWLEDGE_BASE_ABBREVIATIONS[33]["details_en"],
+            }],
         )
 
     def test_every_hindi_alias_resolves_to_its_intended_scheme(self):
@@ -285,9 +305,33 @@ class HindiQueryTests(unittest.TestCase):
             [{
                 "abbreviation": "NCDC",
                 "definition": "National Cooperative Development Corporation",
+                "details": next(
+                    entry["details_en"]
+                    for entry in KNOWLEDGE_BASE_ABBREVIATIONS
+                    if entry["abbreviation"] == "NCDC"
+                ),
             }],
         )
         self.assertIn("राष्ट्रीय सहकारी विकास निगम", hindi["spoken_response"])
+        self.assertIn(
+            "project-based financial assistance",
+            english["spoken_response"],
+        )
+        self.assertEqual(
+            hindi["abbreviations"][0]["details"],
+            next(
+                entry["details_hi"]
+                for entry in KNOWLEDGE_BASE_ABBREVIATIONS
+                if entry["abbreviation"] == "NCDC"
+            ),
+        )
+
+    def test_abbreviation_function_questions_return_more_than_full_forms(self):
+        english = search_knowledge_base("What is the role of NCP?", "en-IN")
+        hindi = search_knowledge_base("NCDC का क्या कार्य है?", "hi-IN")
+
+        self.assertIn("strategic direction", english["spoken_response"])
+        self.assertIn("परियोजना-आधारित वित्तीय सहायता", hindi["spoken_response"])
 
     def test_asking_about_abbreviation_full_name_returns_its_definition(self):
         result = search_knowledge_base(
@@ -298,7 +342,15 @@ class HindiQueryTests(unittest.TestCase):
         self.assertIn("StCB stands for State Cooperative Bank.", result["spoken_response"])
         self.assertEqual(
             result["abbreviations"],
-            [{"abbreviation": "StCB", "definition": "State Cooperative Bank"}],
+            [{
+                "abbreviation": "StCB",
+                "definition": "State Cooperative Bank",
+                "details": next(
+                    entry["details_en"]
+                    for entry in KNOWLEDGE_BASE_ABBREVIATIONS
+                    if entry["abbreviation"] == "StCB"
+                ),
+            }],
         )
 
     def test_full_name_lookup_uses_selected_response_language(self):
@@ -306,7 +358,7 @@ class HindiQueryTests(unittest.TestCase):
             "I want to know about the State Cooperative Bank", "hi-IN"
         )
 
-        self.assertIn("StCB का अर्थ है", result["spoken_response"])
+        self.assertIn("StCB का पूरा नाम", result["spoken_response"])
         self.assertEqual(result["abbreviations"][0]["definition"], "राज्य सहकारी बैंक")
 
     def test_cooperation_abbreviation_lookup_does_not_match_unrelated_query(self):
@@ -320,15 +372,63 @@ class HindiQueryTests(unittest.TestCase):
         payload = json.loads(feed.body)
 
         self.assertEqual(payload["abbreviations"], COOPERATION_ABBREVIATIONS)
-        self.assertEqual(len(payload["abbreviations"]), 50)
+        self.assertEqual(payload["abbreviations"], KNOWLEDGE_BASE_ABBREVIATIONS)
+        self.assertEqual(
+            [entry["abbreviation"] for entry in payload["abbreviations"]],
+            [
+                "ARDB", "BBSSL", "CEF", "CRCS", "DCCB", "DEH", "EBP", "ERP",
+                "FPO", "FISHCOPFED", "FFPO", "GDP", "GeM", "GI", "GoI", "HEI",
+                "IFFCO", "IoT", "IPR", "KPI", "KRIBHCO", "MoC", "MSCS", "NABARD",
+                "NAFCUB", "NAFED", "NAFSCOB", "NCCT", "NCD", "NCDC", "NCDFI",
+                "NCEL", "NCOL", "NCP", "NCUI", "NDDB", "NFDB", "NUCFDC", "ODOP",
+                "ONDC", "PACS", "PMU", "RBI", "RCS", "SC/ST", "SEI", "SRO",
+                "StCB", "UCB", "VAMNICOM",
+            ],
+        )
         self.assertEqual(
             payload["abbreviations"][0],
             {
                 "abbreviation": "ARDB",
                 "en": "Agriculture and Rural Development Bank",
                 "hi": "कृषि और ग्रामीण विकास बैंक",
+                "details_en": KNOWLEDGE_BASE_ABBREVIATIONS[0]["details_en"],
+                "details_hi": KNOWLEDGE_BASE_ABBREVIATIONS[0]["details_hi"],
             },
         )
+
+    def test_every_cooperation_abbreviation_can_be_queried_in_english_and_hindi(self):
+        for entry in COOPERATION_ABBREVIATIONS:
+            abbreviation = entry["abbreviation"]
+            with self.subTest(abbreviation=abbreviation, language="en"):
+                english = search_knowledge_base(
+                    f"What does {abbreviation} stand for?", "en-IN"
+                )
+                self.assertEqual(english["scheme"], None)
+                self.assertEqual(
+                    english["abbreviations"],
+                    [{
+                        "abbreviation": abbreviation,
+                        "definition": entry["en"],
+                        "details": entry["details_en"],
+                    }],
+                )
+                self.assertIn(entry["en"], english["spoken_response"])
+                self.assertIn(entry["details_en"], english["spoken_response"])
+                self.assertEqual(english["abbreviations"][0]["details"], entry["details_en"])
+
+            with self.subTest(abbreviation=abbreviation, language="hi"):
+                hindi = search_knowledge_base(f"{abbreviation} का पूरा नाम", "hi-IN")
+                self.assertEqual(hindi["scheme"], None)
+                self.assertEqual(
+                    hindi["abbreviations"],
+                    [{
+                        "abbreviation": abbreviation,
+                        "definition": entry["hi"],
+                        "details": entry["details_hi"],
+                    }],
+                )
+                self.assertIn(entry["hi"], hindi["spoken_response"])
+                self.assertIn(entry["details_hi"], hindi["spoken_response"])
 
     def test_cooperative_programme_questions_return_details_in_english_and_hindi(self):
         queries = (
