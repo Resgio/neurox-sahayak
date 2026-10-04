@@ -332,6 +332,10 @@
               <span id="answerProcess" class="text-slate-200"></span>
             </div>
           </div>
+          <div id="schemeAbbreviations" class="hidden mt-3 rounded-xl border border-slate-800 bg-brandDark/80 p-3 text-xs">
+            <h5 id="abbreviationsLabel" class="mb-2 font-semibold text-slate-300">Abbreviations:</h5>
+            <ul id="abbreviationsList" class="space-y-1 text-slate-200"></ul>
+          </div>
         </div>
 
       </div>
@@ -518,6 +522,7 @@
           eligibilityLabel: "पात्रता:",
           documentsLabel: "ज़रूरी दस्तावेज़:",
           applicationLabel: "आवेदन और संपर्क:",
+          abbreviationsLabel: "संक्षिप्त रूप:",
           replay: "दोबारा सुनें"
         }
       },
@@ -614,6 +619,7 @@
           eligibilityLabel: "Eligibility:",
           documentsLabel: "Documents required:",
           applicationLabel: "Application and contact:",
+          abbreviationsLabel: "Abbreviations:",
           replay: "Listen again"
         }
       }
@@ -641,6 +647,7 @@
       document.getElementById('eligibilityLabel').textContent = ui.eligibilityLabel;
       document.getElementById('documentsLabel').textContent = ui.documentsLabel;
       document.getElementById('applicationLabel').textContent = ui.applicationLabel;
+      document.getElementById('abbreviationsLabel').textContent = ui.abbreviationsLabel;
       document.getElementById('replayVoiceText').textContent = ui.replay;
     }
 
@@ -928,11 +935,25 @@
           <span class="text-brandNeon font-mono text-[11px] block mt-1">${escapeHtml(s.official_portal)}</span>
         `;
         document.getElementById('schemeDetailsGrid').classList.remove('hidden');
+        const abbreviationsCard = document.getElementById('schemeAbbreviations');
+        const abbreviationsList = document.getElementById('abbreviationsList');
+        abbreviationsList.replaceChildren();
+        if (s.abbreviations && s.abbreviations.length) {
+          s.abbreviations.forEach(entry => {
+            const item = document.createElement('li');
+            item.textContent = `${entry.abbreviation} — ${entry.definition}`;
+            abbreviationsList.appendChild(item);
+          });
+          abbreviationsCard.classList.remove('hidden');
+        } else {
+          abbreviationsCard.classList.add('hidden');
+        }
       } else {
         const ui = getLanguageConfig().ui;
         document.getElementById('answerSchemeName').textContent = ui.guidance;
         document.getElementById('answerCategoryBadge').textContent = ui.guidanceBadge;
         document.getElementById('schemeDetailsGrid').classList.add('hidden');
+        document.getElementById('schemeAbbreviations').classList.add('hidden');
       }
 
       card.scrollIntoView({ behavior: 'smooth', block: 'start' });

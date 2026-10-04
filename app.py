@@ -203,6 +203,42 @@ HINDI_SCHEME_DETAILS = {
     }
 }
 
+SCHEME_ABBREVIATIONS = {
+    "kcc": [
+        {
+            "abbreviation": "RBI",
+            "en": "Reserve Bank of India",
+            "hi": "भारतीय रिज़र्व बैंक"
+        },
+        {
+            "abbreviation": "NABARD",
+            "en": "National Bank for Agriculture and Rural Development",
+            "hi": "राष्ट्रीय कृषि और ग्रामीण विकास बैंक"
+        }
+    ],
+    "pm_kusum": [
+        {
+            "abbreviation": "FPO",
+            "en": "Farmer Producer Organization",
+            "hi": "किसान उत्पादक संगठन"
+        }
+    ],
+    "msp_law": [
+        {
+            "abbreviation": "NAFED",
+            "en": "National Agricultural Cooperative Marketing Federation of India Limited",
+            "hi": "भारतीय राष्ट्रीय कृषि सहकारी विपणन संघ लिमिटेड"
+        }
+    ],
+    "nalsa_farmer_legal_aid": [
+        {
+            "abbreviation": "SC/ST",
+            "en": "Scheduled Castes and Scheduled Tribes",
+            "hi": "अनुसूचित जातियाँ और अनुसूचित जनजातियाँ"
+        }
+    ]
+}
+
 
 def _normalize_query(text: str) -> str:
     """Normalize punctuation and spacing while preserving Devanagari characters."""
@@ -269,7 +305,14 @@ def search_knowledge_base(query_text: str, lang_code: str = "en") -> Dict[str, A
                 "eligibility": localized_details.get("eligibility", best_match["eligibility"]),
                 "documents": localized_details.get("documents", best_match["documents"]),
                 "application_process": localized_details.get("application_process", best_match["application_process"]),
-                "official_portal": localized_details.get("official_portal", best_match["official_portal"])
+                "official_portal": localized_details.get("official_portal", best_match["official_portal"]),
+                "abbreviations": [
+                    {
+                        "abbreviation": entry["abbreviation"],
+                        "definition": entry[lang_key]
+                    }
+                    for entry in SCHEME_ABBREVIATIONS.get(best_match["id"], [])
+                ]
             }
         }
     

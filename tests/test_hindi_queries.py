@@ -95,6 +95,40 @@ class HindiQueryTests(unittest.TestCase):
         self.assertEqual(result["scheme"]["title"], "Kisan Credit Card (KCC) - Low Interest Agriculture Loan")
         self.assertIn("Individual farmers", result["scheme"]["eligibility"])
 
+    def test_scheme_abbreviations_are_returned_in_hindi(self):
+        result = search_knowledge_base("किसान क्रेडिट कार्ड", "hi-IN")
+
+        self.assertEqual(
+            result["scheme"]["abbreviations"],
+            [
+                {"abbreviation": "RBI", "definition": "भारतीय रिज़र्व बैंक"},
+                {
+                    "abbreviation": "NABARD",
+                    "definition": "राष्ट्रीय कृषि और ग्रामीण विकास बैंक",
+                },
+            ],
+        )
+
+    def test_scheme_abbreviations_are_returned_in_english(self):
+        result = search_knowledge_base("Kisan Credit Card", "en-IN")
+
+        self.assertEqual(
+            result["scheme"]["abbreviations"],
+            [
+                {"abbreviation": "RBI", "definition": "Reserve Bank of India"},
+                {
+                    "abbreviation": "NABARD",
+                    "definition": "National Bank for Agriculture and Rural Development",
+                },
+            ],
+        )
+
+    def test_unrelated_scheme_has_no_irrelevant_abbreviations(self):
+        result = search_knowledge_base("मिट्टी की जांच", "hi-IN")
+
+        self.assertEqual(result["scheme"]["id"], "soil_health_card")
+        self.assertEqual(result["scheme"]["abbreviations"], [])
+
 
 if __name__ == "__main__":
     unittest.main()
