@@ -480,16 +480,16 @@
       "hi-IN": {
         code: "hi-IN",
         name: "हिन्दी",
-        langGreetingVoice: "नमस्ते किसान साथी! आप किस भाषा में बात करना चाहते हैं? अपनी भाषा चुनें या बोलें।",
-        helpPromptVoice: "बहुत अच्छा! मैं आपकी किस प्रकार सहायता करूँ? आप पीएम किसान योजना, फसल बीमा, केसीसी लोन, जमीन विवाद, या मुफ्त कानूनी वकील के बारे में पूछ सकते हैं।",
+        langGreetingVoice: "नमस्ते! Neuro_X Sahayak में आपका स्वागत है। कृपया हिन्दी या अंग्रेज़ी में से अपनी पसंद की भाषा चुनें।",
+        helpPromptVoice: "नमस्ते। मैं Neuro_X Sahayak हूँ और आपकी सहायता के लिए उपस्थित हूँ। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकता हूँ? आप पीएम किसान योजना, फसल बीमा, केसीसी ऋण, जमीन के अधिकार, या निःशुल्क कानूनी सहायता के बारे में पूछ सकते हैं।",
         heroTitle: "मैं आपकी क्या सहायता करूँ?",
         heroSub: "माइक दबाकर अपनी भाषा में खेत, योजना, मुआवजा या कानूनी अधिकारों का सवाल पूछें।",
         idleText: "माइक बटन दबाकर सवाल बोलें, या नीचे से कोई विषय चुनें",
         listeningText: "सहायक आपकी आवाज सुन रहा है... बोलिए!",
         speakingText: "सहायक उत्तर पढ़कर सुना रहा है... (सुनिए)",
         inputPlaceholder: "यहाँ सवाल लिखें (उदा. पीएम किसान, मुआवजा, केसीसी)...",
-        introChatGreeting: "प्रणाम किसान साथी! 🙏",
-        introChatBody: "मैंने आपकी भाषा हिन्दी चुन ली है। बताइए, मैं आपकी क्या सहायता करूँ?",
+        introChatGreeting: "नमस्ते! Neuro_X Sahayak में आपका स्वागत है। 🙏",
+        introChatBody: "आपने हिन्दी चुनी है। कृपया बताइए, आज मैं आपकी किस विषय में सहायता कर सकता हूँ?",
         ui: {
           brandTitle: "सहायक",
           headerSubtitle: "भारतीय किसानों के लिए कानूनी एवं सरकारी योजना वॉइस सहायक",
@@ -571,16 +571,16 @@
       "en-IN": {
         code: "en-IN",
         name: "English",
-        langGreetingVoice: "Hello farmer friend! Which language are you comfortable with? Hindi, Punjabi, Marathi, Telugu, Tamil, or English?",
-        helpPromptVoice: "Great! How can I help you today? You can ask about PM-Kisan, Crop Insurance (PMFBY), KCC Loans, Land Rights, or Free Legal Aid.",
+        langGreetingVoice: "Welcome to Neuro_X Sahayak. Please choose your preferred language: Hindi or English.",
+        helpPromptVoice: "Welcome. I am Neuro_X Sahayak and I will be glad to assist you. Please tell me how I may help you today. You may ask about PM-KISAN, Crop Insurance, KCC loans, land rights, or free legal aid.",
         heroTitle: "How may I help you today?",
         heroSub: "Tap the microphone and ask questions about schemes, loans, compensation, or legal laws.",
         idleText: "Tap the microphone to speak, or click any topic below",
         listeningText: "Sahayak is listening... Speak now!",
         speakingText: "Sahayak is speaking...",
         inputPlaceholder: "Type your query here (e.g., PM Kisan, Crop Insurance, KCC)...",
-        introChatGreeting: "Hello Farmer Friend! 🙏",
-        introChatBody: "Language set to English. How can I assist you with farmer schemes and legal rights today?",
+        introChatGreeting: "Welcome to Neuro_X Sahayak. 🙏",
+        introChatBody: "English is selected. Please tell me how I may assist you with schemes, farming support, or legal rights today.",
         ui: {
           brandTitle: "Sahayak",
           headerSubtitle: "Legal and government-scheme voice assistant for Indian farmers",
@@ -642,8 +642,8 @@
       
       const config = LANGUAGE_DATA['en-IN'];
       document.getElementById('languageSelect').value = 'en-IN';
-      document.getElementById('heroPrompt').textContent = '"Hello! Which language would you like to use?"';
-      document.getElementById('heroSubPrompt').textContent = 'Select a language or say its name using the microphone.';
+      document.getElementById('heroPrompt').textContent = '"Welcome to Neuro_X Sahayak"';
+      document.getElementById('heroSubPrompt').textContent = 'Please choose Hindi or English, or say the language name using the microphone.';
       
       speakVoicePrompt(config.langGreetingVoice, 'en-IN', () => {
         setTimeout(() => {
@@ -654,8 +654,8 @@
       });
 
       addBotChatMessage(`
-        <strong>Welcome to Neuro_X Sahayak! 🙏</strong><br>
-        Which language are you comfortable using?<br>
+        <strong>Welcome to Neuro_X Sahayak. 🙏</strong><br>
+        Please choose Hindi or English.<br>
         <span class="text-sky-300">👉 Select a language on the main screen or say its name.</span>
       `);
     }
